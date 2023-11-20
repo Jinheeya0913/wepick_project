@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wepick/common/provider/go_router_provider.dart';
-import 'package:wepick/common/view/splash_screen.dart';
-import 'package:wepick/user/view/login_screen.dart';
 
 void main() {
   runApp(
