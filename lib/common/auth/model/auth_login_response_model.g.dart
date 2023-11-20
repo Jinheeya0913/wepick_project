@@ -8,11 +8,17 @@ part of 'auth_login_response_model.dart';
 
 AuthLoginResponse _$AuthLoginResponseFromJson(Map<String, dynamic> json) =>
     AuthLoginResponse(
+      apiResult: ApiResult.fromJson(json['apiResult'] as Map<String, dynamic>),
       tokenModel:
           TokenModel.fromJson(json['tokenModel'] as Map<String, dynamic>),
+      userModel: json['userModel'] == null
+          ? null
+          : UserModel.fromJson(json['userModel'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$AuthLoginResponseToJson(AuthLoginResponse instance) =>
     <String, dynamic>{
+      'apiResult': instance.apiResult,
       'tokenModel': instance.tokenModel,
+      'userModel': instance.userModel,
     };

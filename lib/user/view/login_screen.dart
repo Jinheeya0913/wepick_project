@@ -3,8 +3,11 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:wepick/common/auth/repository/auth_repository.dart';
 import 'package:wepick/common/const/data.dart';
 import 'package:wepick/common/dio/dio.dart';
+import 'package:wepick/user/model/user_model.dart';
+import 'package:wepick/user/provider/user_provider.dart';
 
 import '../../common/auth/model/auth_login_request_model.dart';
 import '../../common/const/colors.dart';
@@ -28,7 +31,9 @@ class _LoginScreeState extends ConsumerState<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(dioProvider);
+    // final state = ref.watch(authRepositoryProvider);
+    final state = ref.watch(userProvider.notifier);
+
     // final authState = ref.watch(auth)
     // final state = ref.watch(userProvider);
     return DefaultLayout(
@@ -70,16 +75,21 @@ class _LoginScreeState extends ConsumerState<LoginScreen> {
                   // 우하단에 그림자가 생겨 입체적으로 보이는 버튼
                   // Todo : 로그인 구현해볼 것
                   onPressed: (() async {
-                    print('[LoginScreen] 로그인 >> 수행 시작');
-                    final dio = state;
                     final loginModel = AuthLoginRequestModel.createEncPwModel(
                         userId: userId, userPw: userPw);
-                    final adres = 'http://$ip/auth/login';
 
-                    final resp = await dio.post(
-                      'http://$ip/auth/login',
-                      data: jsonEncode(loginModel.toJson(loginModel)),
-                    );
+                    final resp =
+                        await state.login(userId: userId, userPw: userPw);
+
+                    if (resp is UserModel) {
+                      print('[LoginScreen] >> ${resp.userId}');
+                    } else {
+                      print('[LoginScreen] >> ${resp.toString()}');
+
+                      if (resp is UserModelError) {
+                        print('[LoginScreen] >> ${resp.message}');
+                      }
+                    }
                   }),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: PRIMARY_COLOR,
@@ -101,7 +111,16 @@ class _LoginScreeState extends ConsumerState<LoginScreen> {
                   child: const Text(
                     '회원가입',
                   ),
-                )
+                ),
+                ElevatedButton(
+                  onPressed: () async {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: PRIMARY_COLOR,
+                  ),
+                  child: const Text(
+                    '유저 정보 테스트',
+                  ),
+                ),
               ],
             ),
           ),

@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:wepick/common/auth/repository/auth_repository.dart';
-import 'package:wepick/common/secure_storage/secure_storage.dart';
+import 'package:wepick/common/provider/secure_storage.dart';
 import 'package:wepick/user/model/user_model.dart';
 import 'package:wepick/user/repository/user_repository.dart';
 
@@ -30,6 +30,7 @@ class UserStateNotifier extends StateNotifier<UserModelBase?> {
     required this.userRepository,
     required this.storage,
   }) : super(UserModelLoading()) {
+    // logout();
     getMe();
   }
 
@@ -43,6 +44,7 @@ class UserStateNotifier extends StateNotifier<UserModelBase?> {
       state = null;
       return;
     }
+    print('[userMeProvider] >> getMe >> 토큰 있음');
 
     final resp = await userRepository.getMe();
 
@@ -59,12 +61,17 @@ class UserStateNotifier extends StateNotifier<UserModelBase?> {
 
       final resp = await authRepository.login(userId: userId, userPw: userPw);
 
-      await storage.write(
-          key: ACCESS_TOKEN_KEY, value: resp.tokenModel.accessToken);
-      await storage.write(
-          key: REFRESH_TOKEN_KEY, value: resp.tokenModel.refreshToken);
+      if (resp != null && resp.tokenModel != null) {
+        final accessToken = resp.tokenModel.accessToken;
+        final refreshToken = resp.tokenModel.refreshToken;
 
+        await storage.write(key: ACCESS_TOKEN_KEY, value: accessToken);
+        await storage.write(key: REFRESH_TOKEN_KEY, value: refreshToken);
+      }
+
+      print('[userProvider] >> getMe 수행 ');
       final userResp = await userRepository.getMe();
+      print('[userProvider] >> getMe 결과 : ${userResp.toString()}');
 
       state = userResp;
       return userResp;
@@ -72,5 +79,18 @@ class UserStateNotifier extends StateNotifier<UserModelBase?> {
       state = UserModelError(message: '로그인에 실패했습니다');
       return Future.value(state);
     }
+  }
+
+  Future<void> logout() async {
+    print('[userMeProvider] >> 로그아웃 ');
+    state = null;
+
+    // 한 번에 여러 개 await
+    await Future.wait(
+      [
+        storage.delete(key: REFRESH_TOKEN_KEY),
+        storage.delete(key: ACCESS_TOKEN_KEY),
+      ],
+    );
   }
 }

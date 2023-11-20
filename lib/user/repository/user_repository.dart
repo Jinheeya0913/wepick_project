@@ -15,12 +15,15 @@ final userRepositoryProvider = Provider<UserRepository>((ref) {
 
 @RestApi()
 abstract class UserRepository {
-  factory UserRepository(Dio dio, {String baseUrl}) = _UserRepository;
+  factory UserRepository(
+    Dio dio, {
+    String baseUrl,
+  }) = _UserRepository;
 
   @POST('/login')
   Future<void> login();
 
-  @GET('/me')
-  @Headers({'accessToken': 'true'})
+  @POST('/me')
+  @Headers({'authorization': 'true'})
   Future<UserModel> getMe();
 }

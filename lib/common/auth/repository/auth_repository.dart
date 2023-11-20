@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wepick/common/auth/model/auth_login_response_model.dart';
+import 'package:wepick/common/auth/model/token_model.dart';
 import 'package:wepick/common/dio/dio.dart';
+import 'package:wepick/common/model/api_result_model.dart';
 
 import '../../const/data.dart';
 import '../model/auth_login_request_model.dart';
@@ -27,10 +29,11 @@ class AuthRepository {
     required this.dio,
   });
 
-  Future<AuthLoginResponse> login({
+  Future<AuthLoginResponse?> login({
     required String userId,
     required String userPw,
   }) async {
+    print('[authRepository] >>  로그인 수행 ');
     final loginModel = AuthLoginRequestModel.createEncPwModel(
       userId: userId,
       userPw: userPw,
@@ -38,12 +41,24 @@ class AuthRepository {
 
     final resp = await dio.post(
       '$baseUrl/login',
-      data: jsonEncode(loginModel),
+      data: jsonEncode(loginModel.toJson(loginModel)),
     );
 
-    print('[authRepository] >>  ' + resp!.headers.map.toString());
-    print('[authRepository] >>  ' + resp!.data.toString());
+    if (resp.data != null) {
+      final apiResult = ApiResult.fromData(resp.data);
+      final accessToken = resp.headers['accessToken'].toString();
+      final refreshToken = resp.headers['refreshToken'].toString();
 
-    return AuthLoginResponse.fromJson(resp!.headers.map);
+      final tokenModel =
+          TokenModel(accessToken: accessToken, refreshToken: refreshToken);
+
+      final responseModel =
+          AuthLoginResponse(tokenModel: tokenModel, apiResult: apiResult);
+
+      // AuthLoginResponse.print('[authRepository] >>  로그인 수행 종료 ');
+      return responseModel;
+    } else {
+      return null;
+    }
   }
 }

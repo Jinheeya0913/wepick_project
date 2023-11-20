@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:wepick/common/secure_storage/secure_storage.dart';
+import 'package:wepick/common/provider/secure_storage.dart';
 
 import '../const/data.dart';
 
@@ -27,28 +27,22 @@ class CustomInterceptor extends Interceptor {
   void onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
     print('[REQ] [${options.method}] ${options.uri}]');
-    print('[REQ] >> ACCESS_TOKEN_KEY : [${options.headers[ACCESS_TOKEN_KEY]}]');
+    // print('[REQ] >> ACCESS_TOKEN_KEY : [${options.headers['authorization']}]');
 
-    /*if (options.headers[ACCESS_TOKEN_KEY] == 'true') {
-      options.headers.remove(ACCESS_TOKEN_KEY);
+    if (options.headers['authorization'] == 'true') {
       print('[REQ] >> accessToken >> 실제 토큰으로 대체 ');
-      //
+      options.headers.remove('authorization');
       final accessToken = await storage.read(key: ACCESS_TOKEN_KEY);
-      // print('[REQ] >> accessToken  : Baerer $accessToken');
+      final refreshToken = await storage.read(key: REFRESH_TOKEN_KEY);
+
+      // print('[REQ] >> accessToken  : $accessToken');
+      // print('[REQ] >> accessToken  : $refreshToken');
+
       options.headers.addAll({
-        ACCESS_TOKEN_KEY: 'Bearer $accessToken',
+        ACCESS_TOKEN_KEY: '$accessToken',
+        REFRESH_TOKEN_KEY: '$refreshToken',
       });
-    }*/
-    //
-    // if (options.headers['refreshToken'] == 'true') {
-    //   print('[REQ] >> refreshToken >> 실제 토큰으로 대체 ');
-    //   options.headers.remove('refreshToken');
-    //   final token = await storage.read(key: REFRESH_TOKEN_KEY);
-    //
-    //   options.headers.addAll({
-    //     'authorization': 'Bearer $token',
-    //   });
-    // }
+    }
 
     return super.onRequest(options, handler);
   }
