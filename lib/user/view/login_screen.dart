@@ -3,11 +3,13 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:wepick/common/auth/repository/auth_repository.dart';
 import 'package:wepick/common/const/data.dart';
 import 'package:wepick/common/dio/dio.dart';
 import 'package:wepick/user/model/user_model.dart';
 import 'package:wepick/user/provider/user_provider.dart';
+import 'package:wepick/user/view/join_screen.dart';
 
 import '../../common/auth/model/auth_login_request_model.dart';
 import '../../common/const/colors.dart';
@@ -100,6 +102,10 @@ class _LoginScreeState extends ConsumerState<LoginScreen> {
                 ),
                 ElevatedButton(
                   onPressed: () async {
+                    context.goNamed(
+                      JoinScreen.routeName,
+                    );
+
                     // Tdoo 회원가입을 생성해주시오
                     /*Navigator.of(context).push(MaterialPageRoute(
                       builder: (_) => const JoinScreen(),

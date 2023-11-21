@@ -7,6 +7,7 @@ import 'package:wepick/common/view/root_tab.dart';
 import 'package:wepick/common/view/splash_screen.dart';
 import 'package:wepick/user/model/user_model.dart';
 import 'package:wepick/user/provider/user_provider.dart';
+import 'package:wepick/user/view/join_screen.dart';
 import 'package:wepick/user/view/login_screen.dart';
 
 final authProvider = ChangeNotifierProvider<AuthProvider>(
@@ -47,7 +48,12 @@ class AuthProvider extends ChangeNotifier {
           path: '/login',
           name: LoginScreen.routeName,
           builder: (_, __) => LoginScreen(),
-        )
+        ),
+        GoRoute(
+          path: '/join',
+          name: JoinScreen.routeName,
+          builder: (_, __) => JoinScreen(),
+        ),
       ];
 
   /** Splash Screen
@@ -59,9 +65,17 @@ class AuthProvider extends ChangeNotifier {
   String? redirectLogic(GoRouterState state) {
     final UserModelBase? user = ref.read(userProvider);
     final logginIn = state.location == '/login';
+    final location = state.location;
 
     if (user == null) {
       print('[authProvider] >> user Null 로그인 페이지로 이동 ');
+      print('[authProvider] >> state.location : ${location}');
+
+      if (location == '/join') {
+        // Todo 회원가입 로직 추가
+        return '/join';
+      }
+
       return logginIn ? null : '/login';
     }
 

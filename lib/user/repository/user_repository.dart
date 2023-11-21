@@ -26,4 +26,7 @@ abstract class UserRepository {
   @POST('/me')
   @Headers({'authorization': 'true'})
   Future<UserModel> getMe();
+
+  @POST('/join')
+  Future<void> join();
 }

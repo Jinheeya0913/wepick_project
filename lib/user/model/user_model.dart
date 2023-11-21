@@ -24,6 +24,7 @@ class UserModel extends UserModelBase {
   final String userAddress;
   final String userPhoneNum;
   final String userEmail;
+  final String? userImgUrl;
 
   UserModel({
     required this.userId,
@@ -31,6 +32,7 @@ class UserModel extends UserModelBase {
     required this.userAddress,
     required this.userPhoneNum,
     required this.userEmail,
+    this.userImgUrl,
     this.userPw,
   });
 

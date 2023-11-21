@@ -28,7 +28,7 @@ class DefaultLayout extends ConsumerWidget {
       bottomNavigationBar: bottomNavigationBar,
       drawer: state is! UserModel
           ? null
-          : renderDrawer(state.userNm, state.userAddress),
+          : renderDrawer(state.userNm, state.userEmail),
     );
   }
 
@@ -66,6 +66,11 @@ class DefaultLayout extends ConsumerWidget {
       child: ListView(
         children: [
           UserAccountsDrawerHeader(
+            currentAccountPicture: const CircleAvatar(
+              backgroundImage: AssetImage(
+                'assets/img/user/my_profile.jpeg',
+              ),
+            ),
             accountName: Text(accountName),
             accountEmail: Text(accountEmail),
           ),
