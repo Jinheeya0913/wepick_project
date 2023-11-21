@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:wepick/user/model/user_model.dart';
+import 'package:wepick/user/provider/user_provider.dart';
 
-class DefaultLayout extends StatefulWidget {
+class DefaultLayout extends ConsumerWidget {
   final Widget child;
   final String? title;
   final Color? backgroundColor;
@@ -16,28 +19,22 @@ class DefaultLayout extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<DefaultLayout> createState() => _DefaultLayoutState();
-}
-
-class _DefaultLayoutState extends State<DefaultLayout> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final UserModelBase? state = ref.read(userProvider);
     return Scaffold(
-      backgroundColor: widget.backgroundColor,
+      backgroundColor: backgroundColor,
       appBar: renderAppBar(),
-      body: widget.child,
-      bottomNavigationBar: widget.bottomNavigationBar,
+      body: child,
+      bottomNavigationBar: bottomNavigationBar,
+      drawer: state is! UserModel
+          ? null
+          : renderDrawer(state.userNm, state.userAddress),
     );
   }
 
   // null을 반환하기 위한 퀘션마크
   AppBar? renderAppBar() {
-    if (widget.title != null) {
+    if (title != null) {
       return AppBar(
         backgroundColor: Colors.white,
         centerTitle: true,
@@ -51,7 +48,7 @@ class _DefaultLayoutState extends State<DefaultLayout> {
           ),
         ],
         title: Text(
-          widget.title!,
+          title!,
           style: const TextStyle(
             fontSize: 16.0,
             fontWeight: FontWeight.w500,
@@ -62,5 +59,18 @@ class _DefaultLayoutState extends State<DefaultLayout> {
     } else {
       return null;
     }
+  }
+
+  Drawer? renderDrawer(String accountName, String accountEmail) {
+    return Drawer(
+      child: ListView(
+        children: [
+          UserAccountsDrawerHeader(
+            accountName: Text(accountName),
+            accountEmail: Text(accountEmail),
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:wepick/user/provider/user_provider.dart';
 import '../const/colors.dart';
 import '../layout/default_layout.dart';
 
-class RootTab extends StatefulWidget {
+class RootTab extends ConsumerStatefulWidget {
   static String get routeName => 'home';
 
   const RootTab({
@@ -13,12 +14,13 @@ class RootTab extends StatefulWidget {
         );
 
   @override
-  State<RootTab> createState() => _RootTabState();
+  ConsumerState<RootTab> createState() => _RootTabState();
 }
 
-class _RootTabState extends State<RootTab> with SingleTickerProviderStateMixin {
-  // int index = 0;
-  int index = 1;
+class _RootTabState extends ConsumerState<RootTab>
+    with SingleTickerProviderStateMixin {
+  int index = 0;
+  // int index = 1;
   // late --> initState 과정에서 값이 주입
   late TabController tabController;
 
@@ -36,6 +38,7 @@ class _RootTabState extends State<RootTab> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    print('[root_tab] >> 이동 ');
     return DefaultLayout(
       title: '위픽',
       bottomNavigationBar: BottomNavigationBar(
