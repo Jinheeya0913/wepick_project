@@ -102,14 +102,9 @@ class _LoginScreeState extends ConsumerState<LoginScreen> {
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    context.goNamed(
+                    context.pushNamed(
                       JoinScreen.routeName,
                     );
-
-                    // Tdoo 회원가입을 생성해주시오
-                    /*Navigator.of(context).push(MaterialPageRoute(
-                      builder: (_) => const JoinScreen(),
-                    ));*/
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: BODY_TEXT_COLOR,

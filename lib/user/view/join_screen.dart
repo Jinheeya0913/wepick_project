@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wepick/common/const/error.dart';
+import 'package:wepick/common/layout/component/custom_error_pop.dart';
+import 'package:wepick/common/utils/validationUtil.dart';
 
 import '../../common/layout/component/custom_text_form_field.dart';
 import '../../common/layout/default_layout.dart';
@@ -20,6 +22,7 @@ class JoinScreen extends StatelessWidget {
     String userPhoneNum = '';
 
     return DefaultLayout(
+      title: '회원가입',
       child: SingleChildScrollView(
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         // manual : done을 눌렀을 때 키보드 비활성
@@ -35,10 +38,6 @@ class JoinScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const _Title(),
-                const SizedBox(
-                  height: 16.0,
-                ),
                 CustomTextFormField(
                   hintText: '이름을 입력해주세요',
                   onChanged: (String value) {
@@ -103,13 +102,20 @@ class JoinScreen extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    final valid = checkValid(userNm, userId, userPw,
+                    String? valid = checkValid(userNm, userId, userPw,
                         userPwConfirm, userAddress, userEmail, userPhoneNum);
 
                     // Todo 회원가입 버튼 동작 작성하기
                     if (valid != null) {
                       // 검증 실패
-                      print(valid);
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return CustomErrorPop(
+                              title: '회원가입 실패',
+                              errorMsg: valid,
+                            );
+                          });
                     } else {
                       // 정상
                     }
@@ -142,36 +148,41 @@ class JoinScreen extends StatelessWidget {
       return JOIN_INPUT_PASSWORD_1;
     } else if (userPwConfirm == '') {
       return JOIN_INPUT_PASSWORD_2;
-    } else if (userAddress == '') {
-      return JOIN_INPUT_ADDR;
+    } else if (userPw != userPwConfirm) {
+      return JOIN_INPUT_PASSWORD_NEQ;
     } else if (userEmail == '') {
       return JOIN_INPUT_EMAIL;
+    } else if (userAddress == '') {
+      return JOIN_INPUT_ADDR;
     } else if (userPhoneNum == '') {
       return JOIN_INPUT_PHONE;
     }
 
-    // 비밀번호 1차 2차 확인
     // 비밀번호 정규식 확인
+    print(userPw);
+    String? validPw = ValidUtil.validPasswordFormat(userPw);
+
+    if (validPw != null) {
+      return validPw;
+    }
+
+    // 전화번호 형식 확인
+    String? validPhone = ValidUtil.validPasswordFormat(userPhoneNum);
+
+    if (validPhone != null) {
+      return validPhone;
+    }
+
     // 이메일 정규식 확인
-    // 전화번호 정규식 확인
-    //
+
+    String? validEmail = ValidUtil.validEmailFormat(userEmail);
+
+    if (validEmail != null) {
+      return validEmail;
+    }
+
+    print(validPw);
 
     return null;
-  }
-}
-
-class _Title extends StatelessWidget {
-  const _Title();
-
-  @override
-  Widget build(BuildContext context) {
-    return const Text(
-      '회원가입',
-      style: TextStyle(
-        fontSize: 34,
-        fontWeight: FontWeight.w500,
-        color: Colors.black,
-      ),
-    );
   }
 }

@@ -48,11 +48,13 @@ class AuthProvider extends ChangeNotifier {
           path: '/login',
           name: LoginScreen.routeName,
           builder: (_, __) => LoginScreen(),
-        ),
-        GoRoute(
-          path: '/join',
-          name: JoinScreen.routeName,
-          builder: (_, __) => JoinScreen(),
+          routes: [
+            GoRoute(
+              path: 'join',
+              name: JoinScreen.routeName,
+              builder: (_, __) => JoinScreen(),
+            ),
+          ],
         ),
       ];
 
@@ -67,15 +69,15 @@ class AuthProvider extends ChangeNotifier {
     final logginIn = state.location == '/login';
     final location = state.location;
 
-    if (user == null) {
-      print('[authProvider] >> user Null 로그인 페이지로 이동 ');
-      print('[authProvider] >> state.location : ${location}');
+    print('[authProvider] >> state.location : ${location}');
 
-      if (location == '/join') {
+    if (user == null) {
+      if (location == '/login/join') {
         // Todo 회원가입 로직 추가
-        return '/join';
+        return '/login/join';
       }
 
+      print('[authProvider] >> user Null 로그인 페이지로 이동 ');
       return logginIn ? null : '/login';
     }
 
@@ -88,6 +90,11 @@ class AuthProvider extends ChangeNotifier {
 
     // UserModelError
     if (user is UserModelError) {
+      if (location == '/login/join') {
+        // Todo 회원가입 로직 추가
+        return '/login/join';
+      }
+
       print('[authProvider] >> 오류 페이지로 이동');
       return !logginIn ? '/login' : null;
     }
