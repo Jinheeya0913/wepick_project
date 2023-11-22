@@ -10,6 +10,6 @@ final routerProvider = Provider<GoRouter>((ref) {
     routes: provider.routes,
     initialLocation: '/splash',
     refreshListenable: provider,
-    debugLogDiagnostics: true,
+    debugLogDiagnostics: false,
   );
 });

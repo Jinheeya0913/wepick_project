@@ -11,15 +11,19 @@ class CustomTextFormField extends StatelessWidget {
   final bool autoFocus;
   final ValueChanged<String>? onChanged;
   final int? maxLength;
+  final double? hintSize;
+  final double? contentPadding;
 
   const CustomTextFormField({
     @required this.onChanged,
-    this.maxLength,
     this.hintText,
     this.errorText,
     this.obscureText = false,
     this.autoFocus = false,
     this.validator,
+    this.maxLength,
+    this.hintSize,
+    this.contentPadding,
     super.key,
   });
 
@@ -27,19 +31,24 @@ class CustomTextFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     // 테두리 입력
     const baseBorder = OutlineInputBorder(
-        borderSide: BorderSide(color: INPUT_BORDER_COLOR, width: 1.0));
+      borderSide: BorderSide(color: INPUT_BORDER_COLOR, width: 1.0),
+    );
 
     return TextFormField(
+      maxLength: maxLength == null ? null : maxLength,
       cursorColor: PRIMARY_COLOR,
       obscureText: obscureText,
       autofocus: autoFocus,
       onChanged: onChanged,
       decoration: InputDecoration(
-        contentPadding: const EdgeInsets.all(20),
+        counter: Offstage(),
+        contentPadding: contentPadding != null
+            ? EdgeInsets.all(contentPadding!)
+            : const EdgeInsets.all(20),
         hintText: hintText,
-        hintStyle: const TextStyle(
+        hintStyle: TextStyle(
           color: BODY_TEXT_COLOR,
-          fontSize: 14.0,
+          fontSize: hintSize ?? 14.0,
         ),
         errorText: errorText,
         fillColor: INPUT_BG_COLOR,

@@ -7,9 +7,11 @@ import 'package:go_router/go_router.dart';
 import 'package:wepick/common/auth/repository/auth_repository.dart';
 import 'package:wepick/common/const/data.dart';
 import 'package:wepick/common/dio/dio.dart';
+import 'package:wepick/common/view/root_tab.dart';
+import 'package:wepick/common/view/test/test_tab.dart';
 import 'package:wepick/user/model/user_model.dart';
 import 'package:wepick/user/provider/user_provider.dart';
-import 'package:wepick/user/view/join_screen.dart';
+import 'package:wepick/user/view/join_screen_1.dart';
 
 import '../../common/auth/model/auth_login_request_model.dart';
 import '../../common/const/colors.dart';
@@ -114,12 +116,14 @@ class _LoginScreeState extends ConsumerState<LoginScreen> {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () async {},
+                  onPressed: () async {
+                    context.pushNamed(TestTab.routeName);
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: PRIMARY_COLOR,
                   ),
                   child: const Text(
-                    '유저 정보 테스트',
+                    '테스트 페이지',
                   ),
                 ),
               ],

@@ -3,14 +3,20 @@ import 'package:go_router/go_router.dart';
 import 'package:wepick/common/const/error.dart';
 import 'package:wepick/common/layout/component/custom_error_pop.dart';
 import 'package:wepick/common/utils/validationUtil.dart';
+import 'package:wepick/user/view/join_screen_2.dart';
 
 import '../../common/layout/component/custom_text_form_field.dart';
 import '../../common/layout/default_layout.dart';
 
-class JoinScreen extends StatelessWidget {
+class JoinScreen extends StatefulWidget {
   static String get routeName => "join";
   const JoinScreen({Key? key}) : super(key: key);
 
+  @override
+  State<JoinScreen> createState() => _JoinScreenState();
+}
+
+class _JoinScreenState extends State<JoinScreen> {
   @override
   Widget build(BuildContext context) {
     String userNm = '';
@@ -20,9 +26,12 @@ class JoinScreen extends StatelessWidget {
     String userAddress = '';
     String userEmail = '';
     String userPhoneNum = '';
+    String userPhone1 = '';
+    String userPhone2 = '';
+    String userPhone3 = '';
 
     return DefaultLayout(
-      title: '회원가입',
+      title: '회원가입 1/2',
       child: SingleChildScrollView(
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         // manual : done을 눌렀을 때 키보드 비활성
@@ -30,6 +39,8 @@ class JoinScreen extends StatelessWidget {
         child: SafeArea(
           top: true,
           bottom: true,
+          left: true,
+          right: true,
           child: Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 16.0,
@@ -37,6 +48,7 @@ class JoinScreen extends StatelessWidget {
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
+              // mainAxisAlignment: MainAxisAlignment.s,
               children: [
                 CustomTextFormField(
                   hintText: '이름을 입력해주세요',
@@ -94,33 +106,76 @@ class JoinScreen extends StatelessWidget {
                 const SizedBox(
                   height: 16.0,
                 ),
-                CustomTextFormField(
-                  hintText: '전화번호를 입력해주세요',
-                  onChanged: (String value) {
-                    userPhoneNum = value;
-                  },
+                Row(
+                  children: [
+                    Expanded(
+                      child: CustomTextFormField(
+                        maxLength: 3,
+                        hintText: '앞자리',
+                        onChanged: (String value) {
+                          userPhone1 = value;
+                        },
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 16.0,
+                    ),
+                    Text('-'),
+                    const SizedBox(
+                      width: 16.0,
+                    ),
+                    Expanded(
+                      child: CustomTextFormField(
+                        maxLength: 4,
+                        hintText: '가운데',
+                        onChanged: (String value) {
+                          userPhone2 = value;
+                        },
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 16.0,
+                    ),
+                    Text('-'),
+                    const SizedBox(
+                      width: 16.0,
+                    ),
+                    Expanded(
+                      child: CustomTextFormField(
+                        maxLength: 4,
+                        hintText: '뒷자리',
+                        onChanged: (String value) {
+                          userPhone3 = value;
+                        },
+                      ),
+                    ),
+                  ],
                 ),
                 ElevatedButton(
                   onPressed: () async {
+                    userPhoneNum = userPhone1 + userPhone2 + userPhone3;
+
                     String? valid = checkValid(userNm, userId, userPw,
                         userPwConfirm, userAddress, userEmail, userPhoneNum);
 
                     // Todo 회원가입 버튼 동작 작성하기
-                    if (valid != null) {
-                      // 검증 실패
-                      showDialog(
-                          context: context,
-                          builder: (context) {
-                            return CustomErrorPop(
-                              title: '회원가입 실패',
-                              errorMsg: valid,
-                            );
-                          });
+                    if (false) {
+                      if (valid != null)
+                        // 검증 실패
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return CustomErrorPop(
+                                title: '회원가입 실패',
+                                errorMsg: valid,
+                              );
+                            });
                     } else {
                       // 정상
+                      context.pushNamed(JoinScreen2.routeName);
                     }
                   },
-                  child: const Text('회원가입'),
+                  child: const Text('회원가입 2/2'),
                 )
               ],
             ),
@@ -163,13 +218,15 @@ class JoinScreen extends StatelessWidget {
     String? validPw = ValidUtil.validPasswordFormat(userPw);
 
     if (validPw != null) {
+      print('valid >> 비밀번호 ${validPw}');
       return validPw;
     }
 
     // 전화번호 형식 확인
-    String? validPhone = ValidUtil.validPasswordFormat(userPhoneNum);
+    String? validPhone = ValidUtil.validPhoneNumberFormat(userPhoneNum);
 
     if (validPhone != null) {
+      print('valid >> 전화번호 : ${validPhone}');
       return validPhone;
     }
 
@@ -178,10 +235,9 @@ class JoinScreen extends StatelessWidget {
     String? validEmail = ValidUtil.validEmailFormat(userEmail);
 
     if (validEmail != null) {
+      print('valid >> 전화번호 : ${validEmail}');
       return validEmail;
     }
-
-    print(validPw);
 
     return null;
   }
