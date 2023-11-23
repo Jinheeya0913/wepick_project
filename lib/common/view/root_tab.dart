@@ -34,11 +34,11 @@ class _RootTabState extends ConsumerState<RootTab>
   @override
   void dispose() {
     tabController.removeListener(tabListener);
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    print('[root_tab] >> 이동 ');
     return DefaultLayout(
       title: '위픽',
       bottomNavigationBar: BottomNavigationBar(
@@ -72,9 +72,9 @@ class _RootTabState extends ConsumerState<RootTab>
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.menu_book_outlined,
+              Icons.people,
             ),
-            label: '메뉴',
+            label: '파트너',
           ),
         ],
       ),

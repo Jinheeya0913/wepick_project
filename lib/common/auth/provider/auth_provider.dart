@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wepick/common/view/root_tab.dart';
 import 'package:wepick/common/view/splash_screen.dart';
+import 'package:wepick/common/view/test/test_custom_drawer.dart';
 import 'package:wepick/common/view/test/test_default_input_filed.dart';
 import 'package:wepick/common/view/test/test_tab.dart';
 import 'package:wepick/user/model/user_model.dart';
@@ -12,6 +13,8 @@ import 'package:wepick/user/provider/user_provider.dart';
 import 'package:wepick/user/view/join_screen_1.dart';
 import 'package:wepick/user/view/join_screen_2.dart';
 import 'package:wepick/user/view/login_screen.dart';
+import 'package:wepick/user/view/userInfo_modify_screen.dart';
+import 'package:wepick/user/view/userInfo_screen.dart';
 
 final authProvider = ChangeNotifierProvider<AuthProvider>(
   (ref) {
@@ -65,16 +68,32 @@ class AuthProvider extends ChangeNotifier {
           ],
         ),
         GoRoute(
-            path: '/test',
-            name: TestTab.routeName,
-            builder: (_, __) => TestTab(),
-            routes: [
-              GoRoute(
-                path: 'input',
-                name: TestInputField.routeName,
-                builder: (_, __) => TestInputField(),
-              ),
-            ]),
+          path: '/me',
+          name: UserInfoScreen.routeName,
+          builder: (_, __) => UserInfoScreen(),
+        ),
+        GoRoute(
+          path: '/test',
+          name: TestTab.routeName,
+          builder: (_, __) => TestTab(),
+          routes: [
+            GoRoute(
+              path: 'input',
+              name: TestInputField.routeName,
+              builder: (_, __) => TestInputField(),
+            ),
+            GoRoute(
+              path: 'testhome',
+              name: TestDrawerTab.routeName,
+              builder: (_, __) => TestDrawerTab(),
+            ),
+            GoRoute(
+              path: 'modify',
+              name: UserInfoModiScreen.routeName,
+              builder: (_, __) => UserInfoModiScreen(),
+            ),
+          ],
+        ),
       ];
 
   /** Splash Screen

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:wepick/common/layout/component/custom_drawer.dart';
 import 'package:wepick/user/model/user_model.dart';
 import 'package:wepick/user/provider/user_provider.dart';
 
@@ -20,14 +21,13 @@ class DefaultLayout extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final UserModelBase? state = ref.read(userProvider);
+
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: renderAppBar(),
       body: child,
       bottomNavigationBar: bottomNavigationBar,
-      drawer: state is! UserModel
-          ? null
-          : renderDrawer(state.userNm, state.userEmail),
+      drawer: state is! UserModel ? null : CustomDrawer(),
     );
   }
 
@@ -58,23 +58,5 @@ class DefaultLayout extends ConsumerWidget {
     } else {
       return null;
     }
-  }
-
-  Drawer? renderDrawer(String accountName, String accountEmail) {
-    return Drawer(
-      child: ListView(
-        children: [
-          UserAccountsDrawerHeader(
-            currentAccountPicture: const CircleAvatar(
-              backgroundImage: AssetImage(
-                'assets/img/user/my_profile.jpeg',
-              ),
-            ),
-            accountName: Text(accountName),
-            accountEmail: Text(accountEmail),
-          ),
-        ],
-      ),
-    );
   }
 }
