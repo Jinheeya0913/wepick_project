@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../common/utils/Base64Util.dart';
+
 part 'user_model.g.dart';
 
 abstract class UserModelBase {}
@@ -20,8 +22,7 @@ class UserModelLoading extends UserModelBase {}
 class UserModel extends UserModelBase {
   final String userId;
   final String userNm;
-  String? userPw;
-  final String userAddress;
+  final String? userPw;
   final String userPhoneNum;
   final String userEmail;
   final String? userImgUrl;
@@ -29,7 +30,6 @@ class UserModel extends UserModelBase {
   UserModel({
     required this.userId,
     required this.userNm,
-    required this.userAddress,
     required this.userPhoneNum,
     required this.userEmail,
     this.userImgUrl,
@@ -38,4 +38,27 @@ class UserModel extends UserModelBase {
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>
       _$UserModelFromJson(json);
+
+  Map<String, dynamic> userModelToJson(UserModel user) =>
+      _$UserModelToJson(user);
+
+  factory UserModel.createEncPwModel({
+    required String userId,
+    required String userNm,
+    required String userPw,
+    required String userPhoneNum,
+    required String userEmail,
+    String? userImgUrl,
+  }) {
+    String encodedPw = Base64Util.base64Encoder(userPw);
+
+    return UserModel(
+      userId: userId,
+      userPw: encodedPw,
+      userNm: userNm,
+      userPhoneNum: userPhoneNum,
+      userEmail: userEmail,
+      userImgUrl: userImgUrl,
+    );
+  }
 }

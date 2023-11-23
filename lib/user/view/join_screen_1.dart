@@ -1,24 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:wepick/common/const/api_message.dart';
 import 'package:wepick/common/const/error.dart';
 import 'package:wepick/common/layout/component/custom_error_pop.dart';
 import 'package:wepick/common/utils/validationUtil.dart';
+import 'package:wepick/user/model/user_model.dart';
+import 'package:wepick/user/provider/user_provider.dart';
 import 'package:wepick/user/view/join_screen_2.dart';
 
 import '../../common/layout/component/custom_text_form_field.dart';
 import '../../common/layout/default_layout.dart';
 
-class JoinScreen extends StatefulWidget {
+class JoinScreen extends ConsumerStatefulWidget {
   static String get routeName => "join";
   const JoinScreen({Key? key}) : super(key: key);
 
   @override
-  State<JoinScreen> createState() => _JoinScreenState();
+  ConsumerState<JoinScreen> createState() => _JoinScreenState();
 }
 
-class _JoinScreenState extends State<JoinScreen> {
+class _JoinScreenState extends ConsumerState<JoinScreen> {
   @override
   Widget build(BuildContext context) {
+    final state = ref.read(userProvider.notifier);
+
     String userNm = '';
     String userId = '';
     String userPw = '';
@@ -26,173 +32,230 @@ class _JoinScreenState extends State<JoinScreen> {
     String userAddress = '';
     String userEmail = '';
     String userPhoneNum = '';
-    String userPhone1 = '';
-    String userPhone2 = '';
-    String userPhone3 = '';
 
     return DefaultLayout(
       title: '회원가입 1/2',
-      child: SingleChildScrollView(
-        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-        // manual : done을 눌렀을 때 키보드 비활성
-        // onDrag : 드래그 하면
-        child: SafeArea(
-          top: true,
-          bottom: true,
-          left: true,
-          right: true,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16.0,
-              vertical: 16.0,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: 16.0,
+          horizontal: 16.0,
+        ),
+        child: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                keyboardDismissBehavior:
+                    ScrollViewKeyboardDismissBehavior.onDrag,
+                // manual : done을 눌렀을 때 키보드 비활성
+                // onDrag : 드래그 하면
+                child: SafeArea(
+                  top: true,
+                  bottom: true,
+                  left: true,
+                  right: true,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      CustomTextFormField(
+                        circleBorder: true,
+                        contentPadding: 10,
+                        hintText: '이름을 입력해주세요',
+                        onChanged: (String value) {
+                          userNm = value;
+                        },
+                      ),
+                      const SizedBox(
+                        height: 16.0,
+                      ),
+                      CustomTextFormField(
+                        circleBorder: true,
+                        contentPadding: 10,
+                        hintText: 'ID를 입력해주세요',
+                        onChanged: (String value) {
+                          userId = value;
+                        },
+                      ),
+                      const SizedBox(
+                        height: 16.0,
+                      ),
+                      CustomTextFormField(
+                        circleBorder: true,
+                        contentPadding: 10,
+                        hintText: '비밀번호을 입력해주세요',
+                        obscureText: true,
+                        onChanged: (String value) {
+                          userPw = value;
+                        },
+                      ),
+                      const SizedBox(
+                        height: 16.0,
+                      ),
+                      CustomTextFormField(
+                        circleBorder: true,
+                        contentPadding: 10,
+                        hintText: '비밀번호을 재입력해주세요',
+                        obscureText: true,
+                        onChanged: (String value) {
+                          userPwConfirm = value;
+                        },
+                      ),
+                      const SizedBox(
+                        height: 16.0,
+                      ),
+                      CustomTextFormField(
+                        circleBorder: true,
+                        contentPadding: 10,
+                        hintText: '이메일을 입력해주세요',
+                        onChanged: (String value) {
+                          userEmail = value;
+                        },
+                      ),
+                      const SizedBox(
+                        height: 16.0,
+                      ),
+                      Row(
+                        // 전화번호 입력
+                        children: [
+                          Expanded(
+                            child: CustomTextFormField(
+                              digitOnly: true,
+                              circleBorder: true,
+                              contentPadding: 10,
+                              maxLength: 11,
+                              hintText: '전화번호 (\'-\' 없이 입력)',
+                              onChanged: (String value) {
+                                userPhoneNum = value;
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                            width: 8.0,
+                          ),
+                          ElevatedButton(
+                            onPressed: () {},
+                            child: Text('인증번호'),
+                          )
+                        ],
+                      ),
+                      Row(
+                        // 인증번호 입력
+                        children: [
+                          Expanded(
+                            child: CustomTextFormField(
+                              digitOnly: true,
+                              circleBorder: true,
+                              contentPadding: 10,
+                              maxLength: 4,
+                              hintText: '인증번호',
+                              onChanged: (String value) {
+                                userPhoneNum = value;
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                            width: 8.0,
+                          ),
+                          ElevatedButton(
+                            onPressed: () {},
+                            child: Text('인증확인'),
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 16.0,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              // mainAxisAlignment: MainAxisAlignment.s,
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CustomTextFormField(
-                  hintText: '이름을 입력해주세요',
-                  onChanged: (String value) {
-                    userNm = value;
-                  },
-                ),
-                const SizedBox(
-                  height: 16.0,
-                ),
-                CustomTextFormField(
-                  hintText: 'ID를 입력해주세요',
-                  onChanged: (String value) {
-                    userId = value;
-                  },
-                ),
-                const SizedBox(
-                  height: 16.0,
-                ),
-                CustomTextFormField(
-                  hintText: '비밀번호을 입력해주세요',
-                  obscureText: true,
-                  onChanged: (String value) {
-                    userPw = value;
-                  },
-                ),
-                const SizedBox(
-                  height: 16.0,
-                ),
-                CustomTextFormField(
-                  hintText: '비밀번호을 재입력해주세요',
-                  obscureText: true,
-                  onChanged: (String value) {
-                    userPwConfirm = value;
-                  },
-                ),
-                const SizedBox(
-                  height: 16.0,
-                ),
-                CustomTextFormField(
-                  hintText: '이메일을 입력해주세요',
-                  onChanged: (String value) {
-                    userEmail = value;
-                  },
-                ),
-                const SizedBox(
-                  height: 16.0,
-                ),
-                CustomTextFormField(
-                  hintText: '주소를 입력해주세요',
-                  onChanged: (String value) {
-                    userAddress = value;
-                  },
-                ),
-                const SizedBox(
-                  height: 16.0,
-                ),
                 Row(
                   children: [
-                    Expanded(
-                      child: CustomTextFormField(
-                        maxLength: 3,
-                        hintText: '앞자리',
-                        onChanged: (String value) {
-                          userPhone1 = value;
-                        },
-                      ),
+                    Text('개인정보 이용동의'),
+                    SizedBox(
+                      width: 20,
                     ),
-                    const SizedBox(
-                      width: 16.0,
-                    ),
-                    Text('-'),
-                    const SizedBox(
-                      width: 16.0,
-                    ),
-                    Expanded(
-                      child: CustomTextFormField(
-                        maxLength: 4,
-                        hintText: '가운데',
-                        onChanged: (String value) {
-                          userPhone2 = value;
-                        },
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 16.0,
-                    ),
-                    Text('-'),
-                    const SizedBox(
-                      width: 16.0,
-                    ),
-                    Expanded(
-                      child: CustomTextFormField(
-                        maxLength: 4,
-                        hintText: '뒷자리',
-                        onChanged: (String value) {
-                          userPhone3 = value;
-                        },
+                    Text(
+                      '자세히보기',
+                      style: TextStyle(
+                        color: Colors.blue,
                       ),
                     ),
                   ],
                 ),
-                ElevatedButton(
-                  onPressed: () async {
-                    userPhoneNum = userPhone1 + userPhone2 + userPhone3;
-
-                    String? valid = checkValid(userNm, userId, userPw,
-                        userPwConfirm, userAddress, userEmail, userPhoneNum);
-
-                    // Todo 회원가입 버튼 동작 작성하기
-                    if (false) {
-                      if (valid != null)
-                        // 검증 실패
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              return CustomErrorPop(
-                                title: '회원가입 실패',
-                                errorMsg: valid,
-                              );
-                            });
-                    } else {
-                      // 정상
-                      context.pushNamed(JoinScreen2.routeName);
-                    }
-                  },
-                  child: const Text('회원가입 2/2'),
+                ColoredBox(
+                  color: Colors.pinkAccent,
+                  child: Row(
+                    children: [
+                      Text('체크'),
+                      Text('ㅁ'),
+                    ],
+                  ),
                 )
               ],
             ),
-          ),
+            Container(
+              width: double.infinity,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Color(0xFF22A45D),
+                ),
+                onPressed: () async {
+                  String? valid = checkValid(userNm, userId, userPw,
+                      userPwConfirm, userEmail, userPhoneNum);
+
+                  // Todo 회원가입 버튼 동작 작성하기
+                  if (valid != null) {
+                    // 검증 실패
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return CustomErrorPop(
+                          title: '회원가입 실패',
+                          errorMsg: valid,
+                        );
+                      },
+                    );
+                  } else {
+                    final user = UserModel.createEncPwModel(
+                      userId: userId,
+                      userNm: userNm,
+                      userPw: userPw,
+                      userPhoneNum: userPhoneNum,
+                      userEmail: userEmail,
+                    );
+
+                    final result = await state.join(user: user);
+
+                    if (result.resultCode != SUCCESS_CODE) {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return CustomErrorPop(
+                            title: '회원가입 실패',
+                            errorMsg: valid,
+                          );
+                        },
+                      );
+                    }
+
+                    // 정상 임시
+                  }
+                },
+                child: const Text('회원가입 2/2'),
+              ),
+            )
+          ],
         ),
       ),
     );
   }
 
-  String? checkValid(
-      String userNm,
-      String userId,
-      String userPw,
-      String userPwConfirm,
-      String userAddress,
-      String userEmail,
-      String userPhoneNum) {
+  String? checkValid(String userNm, String userId, String userPw,
+      String userPwConfirm, String userEmail, String userPhoneNum) {
     // 입력값 확인
 
     if (userNm == '') {
@@ -207,14 +270,11 @@ class _JoinScreenState extends State<JoinScreen> {
       return JOIN_INPUT_PASSWORD_NEQ;
     } else if (userEmail == '') {
       return JOIN_INPUT_EMAIL;
-    } else if (userAddress == '') {
-      return JOIN_INPUT_ADDR;
     } else if (userPhoneNum == '') {
       return JOIN_INPUT_PHONE;
     }
 
     // 비밀번호 정규식 확인
-    print(userPw);
     String? validPw = ValidUtil.validPasswordFormat(userPw);
 
     if (validPw != null) {
@@ -240,5 +300,17 @@ class _JoinScreenState extends State<JoinScreen> {
     }
 
     return null;
+  }
+
+  void joinFailed(String? valid) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return CustomErrorPop(
+          title: '회원가입 실패',
+          errorMsg: valid,
+        );
+      },
+    );
   }
 }

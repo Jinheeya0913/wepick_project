@@ -2,6 +2,7 @@ import 'package:dio/dio.dart' hide Headers;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:wepick/common/dio/dio.dart';
+import 'package:wepick/common/model/api_result_model.dart';
 
 import '../../common/const/data.dart';
 import '../model/user_model.dart';
@@ -28,5 +29,8 @@ abstract class UserRepository {
   Future<UserModel> getMe();
 
   @POST('/join')
-  Future<void> join();
+  @Headers({'content-type': 'application/json'})
+  Future<ApiResult> join({
+    @Body() required Map<String, dynamic> user,
+  });
 }

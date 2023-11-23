@@ -20,4 +20,7 @@ class AuthLoginResponse {
 
   factory AuthLoginResponse.fromJson(Map<String, dynamic> json) =>
       _$AuthLoginResponseFromJson(json);
+
+  Map<String, dynamic> toJson(AuthLoginResponse model) =>
+      _$AuthLoginResponseToJson(model);
 }

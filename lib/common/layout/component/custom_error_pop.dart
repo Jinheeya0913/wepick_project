@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 class CustomErrorPop extends StatefulWidget {
   final String title;
-  final String errorMsg;
+  final String? errorMsg;
 
   const CustomErrorPop({
     required this.title,
-    required this.errorMsg,
+    this.errorMsg,
     Key? key,
   }) : super(key: key);
 
@@ -33,7 +33,7 @@ class _CustomErrorPopState extends State<CustomErrorPop> {
       ),
       content: Column(
         children: [
-          Text(widget.errorMsg),
+          if (widget.errorMsg != null) Text(widget.errorMsg!),
         ],
       ),
       actions: [

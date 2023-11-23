@@ -13,7 +13,9 @@ class ValidUtil {
 
   // 전화번호 검증
   static String? validPhoneNumberFormat(String value) {
-    if (!RegExp(r'^010-?([0-9]{4})-?([0-9]{4})$').hasMatch(value)) {
+    RegExp regExp = RegExp(r'^010[0-9]{8}$');
+
+    if (!regExp.hasMatch(value)) {
       print('검증 실패');
       return '올바른 전화번호 형식이 아닙니다';
     }
@@ -26,7 +28,6 @@ class ValidUtil {
         .hasMatch(value)) {
       return '숫자 1개, 특수문자 1개, 대문자 1개가 포함된 8자리 이상의 비밀번호를 입력하세요';
     }
-
     return null;
   }
 

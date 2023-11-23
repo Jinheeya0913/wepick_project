@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:wepick/common/auth/repository/auth_repository.dart';
+import 'package:wepick/common/model/api_result_model.dart';
 import 'package:wepick/common/provider/secure_storage.dart';
 import 'package:wepick/user/model/user_model.dart';
 import 'package:wepick/user/repository/user_repository.dart';
@@ -31,7 +34,7 @@ class UserStateNotifier extends StateNotifier<UserModelBase?> {
     required this.storage,
   }) : super(UserModelLoading()) {
     // Todo : 토큰 만료 오류일 경우 에러 해결 하기
-    // logout();
+    logout();
     getMe();
   }
 
@@ -93,5 +96,13 @@ class UserStateNotifier extends StateNotifier<UserModelBase?> {
         storage.delete(key: ACCESS_TOKEN_KEY),
       ],
     );
+  }
+
+  Future<ApiResult> join({
+    required UserModel user,
+  }) async {
+    final requestModel = user.userModelToJson(user);
+
+    return await userRepository.join(user: requestModel);
   }
 }

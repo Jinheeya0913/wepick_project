@@ -43,6 +43,8 @@ class CustomInterceptor extends Interceptor {
         REFRESH_TOKEN_KEY: '$refreshToken',
       });
     }
+    // options.headers.addAll({'content-type': 'application/json'});
+    // print('[REQ] [${options.headers['content-type']}]');
 
     return super.onRequest(options, handler);
   }
@@ -66,7 +68,7 @@ class CustomInterceptor extends Interceptor {
     // 새로운 토큰을 요청한다
     print(
         '[ERROR 발생] [${err.requestOptions.method}] ${err.requestOptions.uri}]');
-    // print('[ERROR] > message : ' + err.stackTrace.toString());
+    print('[ERROR] > message : ' + err.stackTrace.toString());
     //
     // final refreshToken = await storage.read(key: REFRESH_TOKEN_KEY);
     //
