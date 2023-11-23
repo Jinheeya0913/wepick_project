@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wepick/common/auth/model/auth_login_response_model.dart';
 import 'package:wepick/common/auth/model/token_model.dart';
+import 'package:wepick/common/const/api_message.dart';
 import 'package:wepick/common/dio/dio.dart';
 import 'package:wepick/common/model/api_result_model.dart';
 
@@ -46,6 +47,12 @@ class AuthRepository {
 
     if (resp.data != null) {
       final apiResult = ApiResult.fromData(resp.data);
+
+      if (apiResult.resultCode != SUCCESS_CODE) {
+        print('[authRepo] >> 실패하였습니다.');
+        return null;
+      }
+
       final accessToken = resp.headers['accessToken'].toString();
       final refreshToken = resp.headers['refreshToken'].toString();
 

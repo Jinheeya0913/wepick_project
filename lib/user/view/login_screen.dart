@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:wepick/common/auth/repository/auth_repository.dart';
 import 'package:wepick/common/const/data.dart';
 import 'package:wepick/common/dio/dio.dart';
+import 'package:wepick/common/layout/component/custom_error_pop.dart';
 import 'package:wepick/common/view/root_tab.dart';
 import 'package:wepick/common/view/test/test_tab.dart';
 import 'package:wepick/user/model/user_model.dart';
@@ -88,10 +89,16 @@ class _LoginScreeState extends ConsumerState<LoginScreen> {
                     if (resp is UserModel) {
                       print('[LoginScreen] >> ${resp.userId}');
                     } else {
-                      print('[LoginScreen] >> ${resp.toString()}');
-
                       if (resp is UserModelError) {
-                        print('[LoginScreen] >> ${resp.message}');
+                        showDialog(
+                          context: context,
+                          builder: (_) => CustomErrorPop(
+                            title: '로그인 실패',
+                            errorMsg: '로그인에 실패하였습니다. 아이디와 비밀번호를 다시 입력 바랍니다.',
+                          ),
+                        );
+                        print(
+                            '[LoginScreen] UserModelError >> ${resp.message}');
                       }
                     }
                   }),
