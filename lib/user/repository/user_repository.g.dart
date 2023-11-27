@@ -106,7 +106,7 @@ class _UserRepository implements UserRepository {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{
       r'authorization': 'true',
-      r'content-type': 'multipart/form-data',
+      r'Content-Type': 'multipart/form-data',
     };
     _headers.removeWhere((k, v) => v == null);
     final _data = image;

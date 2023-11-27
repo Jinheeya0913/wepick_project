@@ -72,7 +72,8 @@ class _ImagePopupState extends ConsumerState<ImagePopup> {
                       .read(userProvider.notifier)
                       .setProfileImage(_image!);
 
-                  if (result.resultData != null) {
+                  if (result != null) if (result.resultData != null) {
+                    // Todo : 오류가 아닌데도 오류라고 출력되고 있는 현상 출력
                     print('오류');
                   }
                 } else {

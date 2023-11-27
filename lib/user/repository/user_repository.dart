@@ -46,7 +46,7 @@ abstract class UserRepository {
   @POST('/me/setProfileImg')
   @Headers({
     'authorization': 'true',
-    'content-type': 'multipart/form-data',
+    'Content-Type': 'multipart/form-data',
   })
   Future<ApiResult> setProfileImage({
     @Body() required FormData image,

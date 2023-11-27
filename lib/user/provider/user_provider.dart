@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:wepick/common/auth/repository/auth_repository.dart';
 import 'package:wepick/common/model/api_result_model.dart';
@@ -127,13 +128,25 @@ class UserStateNotifier extends StateNotifier<UserModelBase?> {
     return await userRepository.join(user: requestModel);
   }
 
-  Future<ApiResult> setProfileImage(XFile file) async {
+  Future<ApiResult?> setProfileImage(XFile file) async {
     var formData = FormData.fromMap({
-      'image': file,
+      'image': await MultipartFile.fromFile(
+        file.path,
+        filename: 'image.jpg',
+        contentType: MediaType('image', 'jpeg'),
+      ),
     });
-    ApiResult apiResult = await userRepository.setProfileImage(image: formData);
 
-    print('[userProvider] >> setProfileImage 결과 : ${apiResult.resultMsg}');
+    ApiResult? apiResult;
+
+    try {
+      apiResult = await userRepository.setProfileImage(image: formData);
+
+      print('[userProvider] >> setProfileImage 결과 성공 : ${apiResult.resultMsg}');
+    } catch (e) {
+      print('[userProvider] >> setProfileImage 결과 실팽 : ${e}');
+    }
+
     return apiResult;
   }
 }
