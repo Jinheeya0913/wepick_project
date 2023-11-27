@@ -45,7 +45,7 @@ class TestTab extends ConsumerWidget {
 
               final resp = await userState.join(user: user);
 
-              if (resp.resultCode != SUCCESS_CODE) {
+              if (resp.status != SUCCESS_CODE) {
                 print(resp.resultMsg);
               }
 

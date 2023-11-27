@@ -48,7 +48,7 @@ class AuthRepository {
     if (resp.data != null) {
       final apiResult = ApiResult.fromData(resp.data);
 
-      if (apiResult.resultCode != SUCCESS_CODE) {
+      if (apiResult.status != SUCCESS_CODE) {
         print('[authRepo] >> 실패하였습니다.');
         return null;
       }

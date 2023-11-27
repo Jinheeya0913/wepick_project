@@ -4,15 +4,20 @@ part 'api_result_model.g.dart';
 
 @JsonSerializable()
 class ApiResult {
+  final String? status;
   final String result;
-  final String resultCode;
   final String resultMsg;
+  final String? resultCode;
+
+  final String? divisionCode;
   final Object? resultData;
 
   ApiResult({
     required this.result,
-    required this.resultCode,
+    this.status,
+    this.resultCode,
     required this.resultMsg,
+    this.divisionCode,
     this.resultData,
   });
 
@@ -22,7 +27,7 @@ class ApiResult {
   factory ApiResult.fromData(Map<String, dynamic> json) {
     return ApiResult(
       result: json['result'],
-      resultCode: json['resultCode'],
+      status: json['resultCode'],
       resultMsg: json['resultMsg'],
       resultData: json['resultData'],
     );

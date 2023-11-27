@@ -1,6 +1,7 @@
 # 중요 파일
 data.dart
 assets/
+memo.txt
 
 # Miscellaneous
 *.class

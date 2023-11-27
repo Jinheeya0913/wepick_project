@@ -230,7 +230,7 @@ class _JoinScreenState extends ConsumerState<JoinScreen> {
 
                     final result = await state.join(user: user);
 
-                    if (result.resultCode != SUCCESS_CODE) {
+                    if (result.status != SUCCESS_CODE) {
                       showDialog(
                         context: context,
                         builder: (context) {

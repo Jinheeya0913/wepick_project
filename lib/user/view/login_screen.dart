@@ -77,8 +77,6 @@ class _LoginScreeState extends ConsumerState<LoginScreen> {
                   height: 16.0,
                 ),
                 ElevatedButton(
-                  // 우하단에 그림자가 생겨 입체적으로 보이는 버튼
-                  // Todo : 로그인 구현해볼 것
                   onPressed: (() async {
                     final loginModel = AuthLoginRequestModel.createEncPwModel(
                         userId: userId, userPw: userPw);

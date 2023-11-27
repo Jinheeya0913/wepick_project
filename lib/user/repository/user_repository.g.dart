@@ -43,14 +43,14 @@ class _UserRepository implements UserRepository {
   }
 
   @override
-  Future<UserModel> getMe() async {
+  Future<ApiResult> getMe() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'authorization': 'true'};
     _headers.removeWhere((k, v) => v == null);
     final Map<String, dynamic>? _data = null;
     final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<UserModel>(Options(
+        .fetch<Map<String, dynamic>>(_setStreamType<ApiResult>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -66,7 +66,7 @@ class _UserRepository implements UserRepository {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = UserModel.fromJson(_result.data!);
+    final value = ApiResult.fromJson(_result.data!);
     return value;
   }
 
@@ -88,6 +88,38 @@ class _UserRepository implements UserRepository {
             .compose(
               _dio.options,
               '/join',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = ApiResult.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<ApiResult> setProfileImage({required FormData image}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{
+      r'authorization': 'true',
+      r'content-type': 'multipart/form-data',
+    };
+    _headers.removeWhere((k, v) => v == null);
+    final _data = image;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<ApiResult>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+      contentType: 'multipart/form-data',
+    )
+            .compose(
+              _dio.options,
+              '/me/setProfileImg',
               queryParameters: queryParameters,
               data: _data,
             )

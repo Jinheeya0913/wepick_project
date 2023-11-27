@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:wepick/common/auth/repository/auth_repository.dart';
 import 'package:wepick/common/model/api_result_model.dart';
 import 'package:wepick/common/provider/secure_storage.dart';
@@ -34,7 +36,7 @@ class UserStateNotifier extends StateNotifier<UserModelBase?> {
     required this.storage,
   }) : super(UserModelLoading()) {
     // Todo : 토큰 만료 오류일 경우 에러 해결 하기
-    logout();
+    // logout();
     getMe();
   }
 
@@ -48,11 +50,27 @@ class UserStateNotifier extends StateNotifier<UserModelBase?> {
       state = null;
       return;
     }
+
     print('[userMeProvider] >> getMe >> 토큰 있음');
 
     final resp = await userRepository.getMe();
 
-    state = resp;
+    if (resp.resultCode == "101") {
+      // 응답이 정상일 때
+
+      print('[userMeProvider] >> resp >> ${resp.resultCode}');
+      final resultData = Map<String, dynamic>.from(resp.resultData as Map);
+      final userData = UserModel.fromJson(resultData);
+      state = userData;
+    } else {
+      // 응답이 정상이 아닐 때
+      print('[userMeProvider] >> resp >> ${resp.resultCode}');
+      print('[userMeProvider] >> resp >> ${resp.status}');
+
+      // 임시적으로 로그아웃 로직.
+      // Todo : Refresh Token으로 accessToken 재발급 하여 getMe 수행하는 로직추가
+      // logout();
+    }
   }
 
   Future<UserModelBase> login({
@@ -66,19 +84,22 @@ class UserStateNotifier extends StateNotifier<UserModelBase?> {
       final resp = await authRepository.login(userId: userId, userPw: userPw);
 
       if (resp != null && resp.tokenModel != null) {
-        final accessToken = resp.tokenModel.accessToken;
-        final refreshToken = resp.tokenModel.refreshToken;
+        final accessToken = resp.tokenModel!.accessToken;
+        final refreshToken = resp.tokenModel!.refreshToken;
 
         await storage.write(key: ACCESS_TOKEN_KEY, value: accessToken);
         await storage.write(key: REFRESH_TOKEN_KEY, value: refreshToken);
       }
 
       print('[userProvider] >> getMe 수행 ');
-      final userResp = await userRepository.getMe();
-      print('[userProvider] >> getMe 결과 : ${userResp.toString()}');
+      final meResp = await userRepository.getMe();
+      print('[userProvider] >> getMe 결과 : ${meResp.toString()}');
 
-      state = userResp;
-      return userResp;
+      final userData = Map<String, dynamic>.from(meResp.resultData as Map);
+      final user = UserModel.fromJson(userData);
+
+      state = user;
+      return user;
     } catch (e) {
       state = UserModelError(message: '로그인에 실패했습니다');
       return Future.value(state);
@@ -104,5 +125,15 @@ class UserStateNotifier extends StateNotifier<UserModelBase?> {
     final requestModel = user.userModelToJson(user);
 
     return await userRepository.join(user: requestModel);
+  }
+
+  Future<ApiResult> setProfileImage(XFile file) async {
+    var formData = FormData.fromMap({
+      'image': file,
+    });
+    ApiResult apiResult = await userRepository.setProfileImage(image: formData);
+
+    print('[userProvider] >> setProfileImage 결과 : ${apiResult.resultMsg}');
+    return apiResult;
   }
 }

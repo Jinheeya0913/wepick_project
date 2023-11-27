@@ -4,18 +4,20 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:wepick/user/provider/user_provider.dart';
 
-class ImagePopup extends StatefulWidget {
+class ImagePopup extends ConsumerStatefulWidget {
   const ImagePopup({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<ImagePopup> createState() => _ImagePopupState();
+  ConsumerState<ImagePopup> createState() => _ImagePopupState();
 }
 
-class _ImagePopupState extends State<ImagePopup> {
+class _ImagePopupState extends ConsumerState<ImagePopup> {
   XFile? _image;
   final ImagePicker _picker = ImagePicker();
 
@@ -64,7 +66,19 @@ class _ImagePopupState extends State<ImagePopup> {
               child: Text('갤러리에서 사진 선택'),
             ),
             ElevatedButton(
-              onPressed: () async {},
+              onPressed: () async {
+                if (_image != null) {
+                  final result = await ref
+                      .read(userProvider.notifier)
+                      .setProfileImage(_image!);
+
+                  if (result.resultData != null) {
+                    print('오류');
+                  }
+                } else {
+                  print('사진 선택 안 됨');
+                }
+              },
               child: Text('사진 업로드'),
             ),
           ],

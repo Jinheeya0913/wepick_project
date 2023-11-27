@@ -9,7 +9,7 @@ part 'auth_login_response_model.g.dart';
 @JsonSerializable()
 class AuthLoginResponse {
   final ApiResult apiResult;
-  final TokenModel tokenModel;
+  final TokenModel? tokenModel;
   final UserModel? userModel;
 
   AuthLoginResponse({
