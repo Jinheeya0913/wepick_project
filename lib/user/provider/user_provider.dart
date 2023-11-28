@@ -58,20 +58,57 @@ class UserStateNotifier extends StateNotifier<UserModelBase?> {
 
     if (resp.resultCode == "101") {
       // 응답이 정상일 때
-
       print('[userMeProvider] >> resp >> ${resp.resultCode}');
       final resultData = Map<String, dynamic>.from(resp.resultData as Map);
       final userData = UserModel.fromJson(resultData);
       state = userData;
+    } else if (resp.resultCode == "200") {
+      // 응답이 정상이 아닐 때 :: 200 토큰 만료
+      print('[userMeProvider] >> resp >> result : ${resp.result}');
+      print('[userMeProvider] >> resp >> status : ${resp.status}');
+
+      final divisionCode = resp.result.split(':')[1];
+      print('[userMeProvider] >> resp >> divisionCode : $divisionCode');
+
+      if (divisionCode == 'T001') {
+        // 토큰 재발급
+        print('[userMeProvider] >> 토큰 재발급 ');
+        final validResp = await authRepository.validToken(
+            accessToken: accessToken, refreshToken: refreshToken);
+
+        if (validResp != null) {
+          final tokenResult = validResp.tokenModel;
+          if (tokenResult != null) {
+            storage.write(
+                key: ACCESS_TOKEN_KEY, value: tokenResult.accessToken);
+            storage.write(
+                key: ACCESS_TOKEN_KEY, value: tokenResult.refreshToken);
+          }
+
+          final apiResult = validResp.apiResult;
+          final apiDataMap =
+              Map<String, dynamic>.from(apiResult.resultData as Map);
+          final userData = UserModel.fromJson(apiDataMap);
+          state = userData;
+        } else {
+          state = UserModelError(message: '토큰 재발급 오류 ');
+        }
+      } else {
+        print('[userMeProvider] >> 로그인 창으로 ');
+        // 재로그인
+        state = UserModelError(message: '토큰 에러');
+      }
     } else {
-      // 응답이 정상이 아닐 때
+      // 비정상 응답 >> 로그아웃
+      print('[userMeProvider] >> resp >> ${resp.result}');
       print('[userMeProvider] >> resp >> ${resp.resultCode}');
       print('[userMeProvider] >> resp >> ${resp.status}');
-
-      // 임시적으로 로그아웃 로직.
-      // Todo : Refresh Token으로 accessToken 재발급 하여 getMe 수행하는 로직추가
-      // logout();
     }
+
+    // 임시적으로 로그아웃 로직.
+    // Todo : Refresh Token으로 accessToken 재발급 하여 getMe 수행하는 로직추가
+
+    // logout();
   }
 
   Future<UserModelBase> login({
@@ -141,7 +178,6 @@ class UserStateNotifier extends StateNotifier<UserModelBase?> {
 
     try {
       apiResult = await userRepository.setProfileImage(image: formData);
-
       print('[userProvider] >> setProfileImage 결과 성공 : ${apiResult.resultMsg}');
     } catch (e) {
       print('[userProvider] >> setProfileImage 결과 실팽 : ${e}');

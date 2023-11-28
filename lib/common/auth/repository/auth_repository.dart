@@ -4,9 +4,11 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wepick/common/auth/model/auth_login_response_model.dart';
 import 'package:wepick/common/auth/model/token_model.dart';
+import 'package:wepick/common/auth/provider/auth_provider.dart';
 import 'package:wepick/common/const/api_message.dart';
 import 'package:wepick/common/dio/dio.dart';
 import 'package:wepick/common/model/api_result_model.dart';
+import 'package:wepick/common/provider/secure_storage.dart';
 
 import '../../const/data.dart';
 import '../model/auth_login_request_model.dart';
@@ -67,5 +69,40 @@ class AuthRepository {
     } else {
       return null;
     }
+  }
+
+  Future<AuthLoginResponse?> validToken({
+    required String accessToken,
+    required String refreshToken,
+  }) async {
+    final resp = await dio.post(
+      '$baseUrl/validToken',
+      options: Options(
+        headers: {
+          ACCESS_TOKEN_KEY: accessToken,
+          REFRESH_TOKEN_KEY: refreshToken,
+        },
+      ),
+    );
+
+    final respAccess = resp.headers[ACCESS_TOKEN_KEY].toString();
+    final respRefresh = resp.headers[REFRESH_TOKEN_KEY].toString();
+
+    final tokenModel =
+        TokenModel(accessToken: respAccess, refreshToken: respRefresh);
+
+    print('[authRepo] >> respAccess : $respAccess');
+    print('[authRepo] >> respRefresh : $respRefresh');
+
+    final apiResult = ApiResult.fromData(resp.data);
+
+    print('[authRepo] >> apiResult : ${apiResult.resultCode}');
+    print('[authRepo] >> apiResult : ${apiResult.resultMsg}');
+
+    final authResponse = AuthLoginResponse(
+      apiResult: apiResult,
+      tokenModel: tokenModel,
+    );
+    return authResponse;
   }
 }

@@ -213,9 +213,9 @@ class _JoinScreenState extends ConsumerState<JoinScreen> {
                     showDialog(
                       context: context,
                       builder: (context) {
-                        return CustomErrorPop(
+                        return CustomSimpleAlertPop(
                           title: '회원가입 실패',
-                          errorMsg: valid,
+                          content: valid,
                         );
                       },
                     );
@@ -234,9 +234,9 @@ class _JoinScreenState extends ConsumerState<JoinScreen> {
                       showDialog(
                         context: context,
                         builder: (context) {
-                          return CustomErrorPop(
+                          return CustomSimpleAlertPop(
                             title: '회원가입 실패',
-                            errorMsg: valid,
+                            content: valid,
                           );
                         },
                       );
@@ -306,9 +306,9 @@ class _JoinScreenState extends ConsumerState<JoinScreen> {
     showDialog(
       context: context,
       builder: (context) {
-        return CustomErrorPop(
+        return CustomSimpleAlertPop(
           title: '회원가입 실패',
-          errorMsg: valid,
+          content: valid,
         );
       },
     );

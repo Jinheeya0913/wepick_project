@@ -90,9 +90,9 @@ class _LoginScreeState extends ConsumerState<LoginScreen> {
                       if (resp is UserModelError) {
                         showDialog(
                           context: context,
-                          builder: (_) => CustomErrorPop(
+                          builder: (_) => CustomSimpleAlertPop(
                             title: '로그인 실패',
-                            errorMsg: '로그인에 실패하였습니다. 아이디와 비밀번호를 다시 입력 바랍니다.',
+                            content: '로그인에 실패하였습니다. 아이디와 비밀번호를 다시 입력 바랍니다.',
                           ),
                         );
                         print(
