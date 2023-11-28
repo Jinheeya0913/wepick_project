@@ -6,7 +6,7 @@ import 'package:wepick/common/provider/secure_storage.dart';
 import '../const/data.dart';
 
 // Todo Interceptor 미완성
-final fileProvider = Provider<Dio>((ref) {
+final fileDioProvider = Provider<Dio>((ref) {
   final dio = Dio();
   final storage = ref.watch(secureStorageProvider);
 

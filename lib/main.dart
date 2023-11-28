@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wepick/common/provider/go_router_provider.dart';
 
 void main() {
+  // flutter run --no-enable-impeller
+  //  flutter pub run build_runner watch
   runApp(
     ProviderScope(child: MyApp()),
   );

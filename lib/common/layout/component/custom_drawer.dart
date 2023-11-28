@@ -38,7 +38,8 @@ class _CustomDrawerState extends ConsumerState<CustomDrawer> {
           UserAccountsDrawerHeader(
             currentAccountPicture: CircleAvatar(
               backgroundImage: AssetImage(
-                accountImgUrl ?? 'assets/img/user/my_profile.jpeg',
+                // accountImgUrl ??
+                'assets/img/user/my_profile.jpeg',
               ),
             ),
 

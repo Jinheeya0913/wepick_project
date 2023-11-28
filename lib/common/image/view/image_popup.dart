@@ -6,8 +6,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:wepick/common/dio/file_dio.dart';
 import 'package:wepick/common/layout/component/custom_error_pop.dart';
 import 'package:wepick/user/provider/user_provider.dart';
+
+import '../../file/provider/file_provider.dart';
 
 class ImagePopup extends ConsumerStatefulWidget {
   const ImagePopup({
@@ -70,7 +73,7 @@ class _ImagePopupState extends ConsumerState<ImagePopup> {
               onPressed: () async {
                 if (_image != null) {
                   final result = await ref
-                      .read(userProvider.notifier)
+                      .read(fileProvider.notifier)
                       .setProfileImage(_image!);
                   // ignore: curly_braces_in_flow_control_structures
                   if (result != null) if (result.resultData != null) {
