@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 
-class CustomErrorPop extends StatefulWidget {
+class CustomSimpleAlertPop extends StatefulWidget {
   final String title;
-  final String? errorMsg;
+  final String? content;
 
-  const CustomErrorPop({
+  const CustomSimpleAlertPop({
     required this.title,
-    this.errorMsg,
+    this.content,
     Key? key,
   }) : super(key: key);
 
   @override
-  State<CustomErrorPop> createState() => _CustomErrorPopState();
+  State<CustomSimpleAlertPop> createState() => _CustomSimpleAlertPopState();
 }
 
-class _CustomErrorPopState extends State<CustomErrorPop> {
+class _CustomSimpleAlertPopState extends State<CustomSimpleAlertPop> {
   @override
   void setState(VoidCallback fn) {
     super.setState(fn);
@@ -33,7 +33,7 @@ class _CustomErrorPopState extends State<CustomErrorPop> {
       ),
       content: Column(
         children: [
-          if (widget.errorMsg != null) Text(widget.errorMsg!),
+          if (widget.content != null) Text(widget.content!),
         ],
       ),
       actions: [
