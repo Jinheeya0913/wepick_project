@@ -43,9 +43,10 @@ class FileStateNotifier extends StateNotifier<FileModelBase?> {
 
     try {
       apiResult = await fileRepository.setProfileImage(image: formData);
-      print('[userProvider] >> setProfileImage 결과 성공 : ${apiResult.resultMsg}');
+      print('[fileProvider] >> setProfileImage 결과 성공 : ${apiResult.resultMsg}');
     } catch (e) {
-      print('[userProvider] >> setProfileImage 결과 실팽 : ${e}');
+      // Todo 예외상황 작성할 것
+      print('[fileProvider] >> setProfileImage 결과 실팽 : ${e}');
     }
 
     return apiResult;

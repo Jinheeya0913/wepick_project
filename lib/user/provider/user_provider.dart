@@ -36,8 +36,7 @@ class UserStateNotifier extends StateNotifier<UserModelBase?> {
     required this.userRepository,
     required this.storage,
   }) : super(UserModelLoading()) {
-    // Todo : 토큰 만료 오류일 경우 에러 해결 하기
-    // logout();
+    // Todo : 토큰 만료 오류일 경우 에러 해결 하기 (완료)
     getMe();
   }
 
@@ -94,21 +93,18 @@ class UserStateNotifier extends StateNotifier<UserModelBase?> {
           state = UserModelError(message: '토큰 재발급 오류 ');
         }
       } else {
-        print('[userMeProvider] >> 로그인 창으로 ');
+        print('[userMeProvider] >> RefreshToken 만료 >> 로그인 창으로 ');
         // 재로그인
-        state = UserModelError(message: '토큰 에러');
+        logout();
       }
     } else {
+      // Todo AlertDialog와 함께 로그인 페이지로 이동
       // 비정상 응답 >> 로그아웃
       print('[userMeProvider] >> resp >> ${resp.result}');
       print('[userMeProvider] >> resp >> ${resp.resultCode}');
       print('[userMeProvider] >> resp >> ${resp.status}');
+      logout();
     }
-
-    // 임시적으로 로그아웃 로직.
-    // Todo : Refresh Token으로 accessToken 재발급 하여 getMe 수행하는 로직추가
-
-    // logout();
   }
 
   Future<UserModelBase> login({

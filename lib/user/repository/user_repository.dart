@@ -30,7 +30,6 @@ abstract class UserRepository {
   @POST('/login')
   Future<void> login();
 
-  // Todo 토큰 만룔됐을 때 오류 해결할 것
   @POST('/me')
   @Headers({'authorization': 'true'})
   Future<ApiResult> getMe();

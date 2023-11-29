@@ -3,10 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:wepick/common/provider/secure_storage.dart';
 
-import '../auth/provider/auth_provider.dart';
 import '../const/data.dart';
 
-// Todo Interceptor 미완성
 final dioProvider = Provider<Dio>((ref) {
   final dio = Dio();
   final storage = ref.watch(secureStorageProvider);
