@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wepick/common/image/view/image_popup.dart';
+import 'package:wepick/common/layout/component/custom_circleAvatar.dart';
 import 'package:wepick/common/layout/default_layout.dart';
 
 import '../model/user_model.dart';
@@ -60,12 +61,19 @@ class _UserInfoScreenState extends ConsumerState<UserInfoScreen> {
                               );
                               print('탭!');
                             },
-                            child: CircleAvatar(
+                            child: CustomCircleAvatar(
                               radius: 80.0,
-                              backgroundImage: AssetImage(
-                                'assets/img/user/my_profile.jpeg',
-                              ),
+                              defaultAssetUrl:
+                                  'assets/img/user/my_profile.jpeg',
+                              networkImgUrl: state.userImgUrl,
                             ),
+
+                            // CircleAvatar(
+                            //   radius: 80.0,
+                            //   backgroundImage: AssetImage(
+                            //     'assets/img/user/my_profile.jpeg',
+                            //   ),
+                            // ),
                           ),
                         ),
                       ),
