@@ -13,7 +13,10 @@ import 'package:wepick/user/provider/user_provider.dart';
 import '../../file/provider/file_provider.dart';
 
 class ImagePopup extends ConsumerStatefulWidget {
+  final Function? onImageUploadComplete;
+
   const ImagePopup({
+    this.onImageUploadComplete,
     Key? key,
   }) : super(key: key);
 
@@ -78,6 +81,11 @@ class _ImagePopupState extends ConsumerState<ImagePopup> {
                   // ignore: curly_braces_in_flow_control_structures
                   if (result != null) if (result.resultData != null) {
                     Navigator.of(context).pop();
+
+                    if (widget.onImageUploadComplete != null) {
+                      widget.onImageUploadComplete!.call();
+                    }
+
                     // ignore: use_build_context_synchronously
                     showDialog(
                       context: context,

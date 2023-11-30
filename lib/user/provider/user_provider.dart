@@ -38,6 +38,7 @@ class UserStateNotifier extends StateNotifier<UserModelBase?> {
   }) : super(UserModelLoading()) {
     // Todo : 토큰 만료 오류일 경우 에러 해결 하기 (완료)
     getMe();
+    // logout();
   }
 
   Future<void> getMe() async {
