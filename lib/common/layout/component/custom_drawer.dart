@@ -70,14 +70,6 @@ class _CustomDrawerState extends ConsumerState<CustomDrawer> {
             },
           ),
           ListTile(
-            leading: Icon(Icons.account_box_outlined),
-            title: Text('내 정보!'),
-            onTap: () {
-              context.goNamed('me');
-            },
-            trailing: Icon(Icons.edit_outlined),
-          ),
-          ListTile(
             leading: Icon(Icons.settings_outlined),
             title: Text('설정'),
             onTap: () {},
