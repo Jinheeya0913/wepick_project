@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wepick/common/const/api_message.dart';
-import 'package:wepick/common/image/view/image_popup.dart';
+import 'package:wepick/user/view/popup/image_popup.dart';
 import 'package:wepick/common/layout/default_layout.dart';
 import 'package:wepick/common/view/test/test_custom_drawer.dart';
 import 'package:wepick/common/view/test/test_default_input_filed.dart';

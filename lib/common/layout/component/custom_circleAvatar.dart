@@ -26,8 +26,13 @@ class CustomCircleAvatar extends StatelessWidget {
       );
     } else {
       return CircleAvatar(
-        backgroundImage: AssetImage(
-          defaultAssetUrl!,
+        radius: radius ?? radius,
+        backgroundColor: Color(0xffE6E6E6),
+        backgroundImage:
+            defaultAssetUrl != null ? AssetImage(defaultAssetUrl!) : null,
+        child: Icon(
+          Icons.person,
+          color: Color(0xffCCCCCC),
         ),
       );
     }

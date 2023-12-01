@@ -2,9 +2,9 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'partner_model.g.dart';
 
-abstract class PartnerModelBase {}
+abstract class PartnerInfoModelBase {}
 
-class PartnerInfoModelError extends PartnerModelBase {
+class PartnerInfoModelError extends PartnerInfoModelBase {
   final String message;
 
   PartnerInfoModelError({
@@ -12,10 +12,10 @@ class PartnerInfoModelError extends PartnerModelBase {
   });
 }
 
-class PartnerInfoEmptyModel extends PartnerModelBase {}
+class PartnerInfoEmptyModel extends PartnerInfoModelBase {}
 
 @JsonSerializable()
-class PartnerInfoModel extends PartnerModelBase {
+class PartnerInfoModel extends PartnerInfoModelBase {
   final String partnerCd;
   final String partnerId;
   final String partnerNm;

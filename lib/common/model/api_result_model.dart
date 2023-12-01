@@ -32,4 +32,12 @@ class ApiResult {
       resultData: json['resultData'],
     );
   }
+
+  bool isSuccess() {
+    if (resultCode == '101') {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

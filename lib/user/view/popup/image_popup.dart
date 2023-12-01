@@ -10,7 +10,7 @@ import 'package:wepick/common/dio/file_dio.dart';
 import 'package:wepick/common/layout/component/custom_error_pop.dart';
 import 'package:wepick/user/provider/user_provider.dart';
 
-import '../../file/provider/file_provider.dart';
+import '../../../common/file/provider/file_provider.dart';
 
 class ImagePopup extends ConsumerStatefulWidget {
   final Function? onImageUploadComplete;

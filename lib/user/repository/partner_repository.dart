@@ -20,4 +20,8 @@ abstract class PartnerRepository {
   @POST("/getMyPartner")
   @Headers({'authorization': 'true'})
   Future<ApiResult> getPartner();
+
+  @POST("/getMyPartnerRegCode")
+  @Headers({'authorization': 'true'})
+  Future<ApiResult> getMyPartnerCode();
 }

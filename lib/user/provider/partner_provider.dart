@@ -8,7 +8,7 @@ import 'package:wepick/user/repository/partner_repository.dart';
 import '../model/partner_model.dart';
 
 final partnerProvider =
-    StateNotifierProvider<PartnerStateNotifier, PartnerModelBase?>((ref) {
+    StateNotifierProvider<PartnerStateNotifier, PartnerInfoModelBase?>((ref) {
   final partnerRepository = ref.watch(partnerRepositoryProvider);
   final storage = ref.watch(secureStorageProvider);
 
@@ -16,7 +16,7 @@ final partnerProvider =
       partnerRepository: partnerRepository, storage: storage);
 });
 
-class PartnerStateNotifier extends StateNotifier<PartnerModelBase?> {
+class PartnerStateNotifier extends StateNotifier<PartnerInfoModelBase?> {
   final PartnerRepository partnerRepository;
   final FlutterSecureStorage storage;
 
@@ -49,5 +49,13 @@ class PartnerStateNotifier extends StateNotifier<PartnerModelBase?> {
           '[partnerProvider] >> getPartner >> resp.resultMsg :: ${resp.resultMsg}');
       state = PartnerInfoModelError(message: resp.resultMsg);
     }
+  }
+
+  // Todo 내 코드 생성하기
+  Future<void> getMyPartnerCode() async {
+    print('[partnerProvider] >> getMyPartnerCode :: start');
+    final resp = await partnerRepository.getMyPartnerCode();
+
+    if (resp.isSuccess()) {}
   }
 }
