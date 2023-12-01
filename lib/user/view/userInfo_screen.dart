@@ -7,6 +7,8 @@ import 'package:wepick/common/image/view/image_popup.dart';
 import 'package:wepick/common/layout/component/custom_circleAvatar.dart';
 import 'package:wepick/common/layout/default_layout.dart';
 import 'package:wepick/user/component/user_info_card.dart';
+import 'package:wepick/user/model/partner_model.dart';
+import 'package:wepick/user/provider/partner_provider.dart';
 
 import '../model/user_model.dart';
 import '../provider/user_provider.dart';
@@ -23,6 +25,11 @@ class _UserInfoScreenState extends ConsumerState<UserInfoScreen> {
   @override
   Widget build(BuildContext context) {
     final state = ref.read(userProvider);
+    final partner = ref.read(partnerProvider);
+
+    if (partner is PartnerInfoEmptyModel) {
+      print('[userInfoSc] >> 파트너 없음');
+    }
 
     if (state is UserModelLoading || state is UserModelError) {
       return Container(
@@ -45,10 +52,12 @@ class _UserInfoScreenState extends ConsumerState<UserInfoScreen> {
                 SizedBox(
                   width: 16.0,
                 ),
-                UserInfoCard(
-                  userModel: state,
-                  userDivision: false,
-                ),
+                partner is PartnerInfoEmptyModel
+                    ? Text('파트너 정보 없음')
+                    : UserInfoCard(
+                        userModel: state,
+                        userDivision: false,
+                      ),
               ],
             ),
           ),
