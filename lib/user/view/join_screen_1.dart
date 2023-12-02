@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wepick/common/const/api_message.dart';
 import 'package:wepick/common/const/error.dart';
-import 'package:wepick/common/layout/component/custom_error_pop.dart';
+import 'package:wepick/common/layout/component/custom_alert_pop.dart';
 import 'package:wepick/common/utils/validationUtil.dart';
 import 'package:wepick/user/model/user_model.dart';
 import 'package:wepick/user/provider/user_provider.dart';

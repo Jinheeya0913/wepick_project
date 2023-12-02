@@ -7,7 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:wepick/common/auth/repository/auth_repository.dart';
 import 'package:wepick/common/const/data.dart';
 import 'package:wepick/common/dio/dio.dart';
-import 'package:wepick/common/layout/component/custom_error_pop.dart';
+import 'package:wepick/common/layout/component/custom_alert_pop.dart';
 import 'package:wepick/common/view/root_tab.dart';
 import 'package:wepick/common/view/test/test_tab.dart';
 import 'package:wepick/user/model/user_model.dart';
