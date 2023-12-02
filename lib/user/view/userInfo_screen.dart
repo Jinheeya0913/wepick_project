@@ -45,10 +45,20 @@ class _UserInfoScreenState extends ConsumerState<UserInfoScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               // Todo : User & Partner Info
               children: [
-                UserInfoCard(userModel: state),
-                if (partner is PartnerInfoModel)
-                  Center(child: Icon(Icons.favorite, color: Colors.grey)),
-                PartnerInfoCard(partnerModel: partner!),
+                Flexible(
+                  flex: 4,
+                  child: UserInfoCard(userModel: state),
+                ),
+                // if (partner is PartnerInfoModel)
+                Flexible(
+                  flex: 2,
+                  child: ColoredBox(
+                    color: Colors.green,
+                    child: Icon(Icons.favorite, color: Colors.grey),
+                  ),
+                ),
+                Flexible(
+                    flex: 4, child: PartnerInfoCard(partnerModel: partner!)),
               ],
             ),
           ),

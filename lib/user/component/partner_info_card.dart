@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wepick/user/model/partner_model.dart';
 import 'package:wepick/user/view/popup/partner_code_popup.dart';
+import 'package:wepick/user/view/popup/partner_search_popup.dart';
 
 class PartnerInfoCard extends StatelessWidget {
   final PartnerInfoModelBase partnerModel;
@@ -14,28 +15,48 @@ class PartnerInfoCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.4,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(children: [
-            Text('요청 확인'),
-            TextButton(onPressed: () {}, child: Text('0건')),
-          ]),
-          Column(children: [
-            Text('요청하기'),
-            TextButton(onPressed: () {}, child: Text('완  료 : 0건\r\n처리중 : 0건')),
-          ]),
-          ElevatedButton(
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (_) {
-                    return PartnerCodePopup();
-                  },
-                );
-              },
-              child: Text('코드 생성'))
-        ],
+      child: ColoredBox(
+        color: Colors.grey,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ColoredBox(
+                  color: Colors.blueAccent,
+                  child: Container(
+                      child: TextButton(onPressed: () {}, child: Text('0건')))),
+              ColoredBox(
+                color: Colors.blueAccent,
+                child: Container(
+                    child: ElevatedButton(
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (_) {
+                                return PartnerSearchPopup();
+                              });
+                        },
+                        child: Text('요청하기'))),
+              ),
+              ColoredBox(
+                color: Colors.blueAccent,
+                child: Container(
+                  child: ElevatedButton(
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (_) {
+                            return PartnerCodePopup();
+                          },
+                        );
+                      },
+                      child: Text('코드 생성')),
+                ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
