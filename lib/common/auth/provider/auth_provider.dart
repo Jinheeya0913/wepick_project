@@ -7,6 +7,7 @@ import 'package:wepick/common/view/root_tab.dart';
 import 'package:wepick/common/view/splash_screen.dart';
 import 'package:wepick/common/view/test/test_custom_drawer.dart';
 import 'package:wepick/common/view/test/test_default_input_filed.dart';
+import 'package:wepick/common/view/test/test_kakao.dart';
 import 'package:wepick/common/view/test/test_tab.dart';
 import 'package:wepick/user/model/user_model.dart';
 import 'package:wepick/user/provider/user_provider.dart';
@@ -73,6 +74,7 @@ class AuthProvider extends ChangeNotifier {
           builder: (_, __) => UserInfoScreen(),
         ),
         GoRoute(
+          // 테스트용 Router
           path: '/test',
           name: TestTab.routeName,
           builder: (_, __) => TestTab(),
@@ -91,6 +93,11 @@ class AuthProvider extends ChangeNotifier {
               path: 'modify',
               name: UserInfoModiScreen.routeName,
               builder: (_, __) => UserInfoModiScreen(),
+            ),
+            GoRoute(
+              path: 'kakaoShare',
+              name: KaKaoShareTest.routeName,
+              builder: (_, __) => KaKaoShareTest(),
             ),
           ],
         ),

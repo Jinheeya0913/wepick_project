@@ -1,7 +1,10 @@
 # 중요 파일
 data.dart
-assets/
+main.dart
 memo.txt
+
+assets/
+lib/common/view/test/
 
 # Miscellaneous
 *.class
