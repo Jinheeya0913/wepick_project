@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:wepick/common/provider/go_router_provider.dart';
 
 void main() {
   // flutter run --no-enable-impeller
   //  flutter pub run build_runner watch
+  // 웹 환경에서 카카오 로그인을 정상적으로 완료하기 위해서는 아래 메서드 호출 필요
+  WidgetsFlutterBinding.ensureInitialized();
+  // runApp 호출 전 Flutter Sdk 초기화
+
+  KakaoSdk.init(
+    nativeAppKey: '9f24a29b858f9d349526d0239f9221ee',
+    javaScriptAppKey: '6c61202fac17ac2bfa6ae6f9d87d0ebc',
+  );
+
   runApp(
     ProviderScope(child: MyApp()),
   );
