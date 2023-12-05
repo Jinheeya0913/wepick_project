@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wepick/common/layout/component/custom_text_form_field.dart';
+
+import 'component/text/custom_text_form_field.dart';
 
 class DefaultInputField extends StatelessWidget {
   final String subtitle;

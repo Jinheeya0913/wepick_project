@@ -32,6 +32,7 @@ class _CustomSimpleAlertPopState extends State<CustomSimpleAlertPop> {
         widget.title,
       ),
       content: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           if (widget.content != null) Text(widget.content!),
         ],

@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:wepick/common/const/api_message.dart';
 import 'package:wepick/common/const/error.dart';
 import 'package:wepick/common/layout/component/custom_alert_pop.dart';
 import 'package:wepick/common/utils/validationUtil.dart';
 import 'package:wepick/user/model/user_model.dart';
 import 'package:wepick/user/provider/user_provider.dart';
-import 'package:wepick/user/view/join_screen_2.dart';
 
-import '../../common/layout/component/custom_text_form_field.dart';
+import '../../common/layout/component/text/custom_text_form_field.dart';
 import '../../common/layout/default_layout.dart';
 
 class JoinScreen extends ConsumerStatefulWidget {
