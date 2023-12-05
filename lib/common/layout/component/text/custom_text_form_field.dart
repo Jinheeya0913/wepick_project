@@ -16,6 +16,8 @@ class CustomTextFormField extends StatelessWidget {
   final int? maxLength;
   final double? hintSize;
   final double? contentPadding;
+  final bool filled;
+  final Color borderColor;
 
   const CustomTextFormField({
     @required this.onChanged,
@@ -29,6 +31,8 @@ class CustomTextFormField extends StatelessWidget {
     this.hintSize,
     this.contentPadding,
     this.circleBorder = false,
+    this.filled = true,
+    this.borderColor = INPUT_BORDER_COLOR,
     super.key,
   });
 
@@ -36,7 +40,10 @@ class CustomTextFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     // 테두리 입력
     final baseBorder = OutlineInputBorder(
-      borderSide: BorderSide(color: INPUT_BORDER_COLOR, width: 1.0),
+      borderSide: BorderSide(
+        color: borderColor,
+        width: 1.0,
+      ),
       borderRadius: circleBorder
           ? BorderRadius.all(Radius.circular(16.0))
           : const BorderRadius.all(Radius.circular(4.0)),
@@ -63,7 +70,7 @@ class CustomTextFormField extends StatelessWidget {
         fillColor: INPUT_BG_COLOR,
 
         // 배경색 있음
-        filled: true,
+        filled: filled,
         border: baseBorder,
         // 선택되지 않은 상태에서의 볼더 설정
         enabledBorder: baseBorder,
