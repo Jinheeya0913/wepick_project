@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wepick/common/layout/component/custom_alert_pop.dart';
+import 'package:wepick/common/layout/component/text/custom_text_con_alll_ln.dart';
 import 'package:wepick/user/provider/partner_provider.dart';
 
 class PartnerCodePopup extends ConsumerStatefulWidget {
@@ -17,10 +18,12 @@ class PartnerCodePopup extends ConsumerStatefulWidget {
 
 class _PartnerCodePopupState extends ConsumerState<PartnerCodePopup> {
   late String code;
+  late String copyMessage;
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      // icon: Icon(Icons.abc),
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -44,7 +47,7 @@ class _PartnerCodePopupState extends ConsumerState<PartnerCodePopup> {
               }
             },
             icon: Icon(Icons.refresh_outlined),
-          )
+          ),
         ],
       ),
       actions: [
@@ -64,14 +67,7 @@ class _PartnerCodePopupState extends ConsumerState<PartnerCodePopup> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.0),
-                    border: Border.all(
-                      width: 1,
-                      color: Colors.grey,
-                    ),
-                  ),
+                child: CustomTextConAllLine(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
@@ -84,9 +80,21 @@ class _PartnerCodePopupState extends ConsumerState<PartnerCodePopup> {
                         ),
                         SizedBox(width: 8.0),
                         Text(code),
+                        SizedBox(width: 8.0),
                       ],
                     ),
                   ),
+                ),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  copyMessage,
+                  style: TextStyle(color: Colors.red),
+                  textAlign: TextAlign.right,
                 ),
               ),
             ],
@@ -100,9 +108,14 @@ class _PartnerCodePopupState extends ConsumerState<PartnerCodePopup> {
   void initState() {
     super.initState();
     code = '코드를 생성해주세요';
+    copyMessage = '';
   }
 
   void copyToClipboard(text) {
     Clipboard.setData(ClipboardData(text: text));
+
+    setState(() {
+      copyMessage = '복사가 완료되었습니다';
+    });
   }
 }
