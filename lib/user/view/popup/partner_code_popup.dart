@@ -111,11 +111,17 @@ class _PartnerCodePopupState extends ConsumerState<PartnerCodePopup> {
     copyMessage = '';
   }
 
-  void copyToClipboard(text) {
-    Clipboard.setData(ClipboardData(text: text));
+  void copyToClipboard(String text) {
+    String copyResult = '';
+    if (text == '코드를 생성해주세요') {
+      copyResult = '코드를 먼저 생성해주십시오.';
+    } else {
+      copyResult = '복사가 완료되었습니다.';
+      Clipboard.setData(ClipboardData(text: text));
+    }
 
     setState(() {
-      copyMessage = '복사가 완료되었습니다';
+      copyMessage = copyResult;
     });
   }
 }

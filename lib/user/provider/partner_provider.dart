@@ -4,9 +4,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:wepick/common/model/api_result_model.dart';
 import 'package:wepick/common/provider/secure_storage.dart';
+import 'package:wepick/user/model/partner_search_model.dart';
+import 'package:wepick/user/model/partner_search_result_model.dart';
 import 'package:wepick/user/repository/partner_repository.dart';
 
 import '../model/partner_model.dart';
+import '../model/user_model.dart';
 
 final partnerProvider =
     StateNotifierProvider<PartnerStateNotifier, PartnerInfoModelBase?>((ref) {
@@ -67,6 +70,26 @@ class PartnerStateNotifier extends StateNotifier<PartnerInfoModelBase?> {
     } else {
       // 실패
       return null;
+    }
+  }
+
+  // Todo 코드로 검색하기
+  Future<PartnerSearchResultBase> searchPartnerWithCode({
+    required String ptTempRegCd,
+  }) async {
+    final model = PartnerSearchModel(ptTempRegCd: ptTempRegCd);
+    final partner = model.toJson(model);
+
+    final result = await partnerRepository.searchPartnerCode(partner: partner);
+
+    if (!result.isSuccess()) {
+      print('[partnerProvider] >> searchPartnerWithCode : failed');
+      return PartnerSearchError(message: '파트너를 찾지 못했습니다');
+    } else {
+      print('[partnerProvider] >> searchPartnerWithCode : success');
+      final resultData = result.resultData as Map<String, dynamic>;
+      final searchPartner = PartnerSearchResultModel.fromJson(resultData);
+      return searchPartner;
     }
   }
 }

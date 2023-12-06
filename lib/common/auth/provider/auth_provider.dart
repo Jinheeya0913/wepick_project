@@ -8,6 +8,7 @@ import 'package:wepick/common/view/splash_screen.dart';
 import 'package:wepick/common/view/test/test_custom_drawer.dart';
 import 'package:wepick/common/view/test/test_default_input_filed.dart';
 import 'package:wepick/common/view/test/test_kakao.dart';
+import 'package:wepick/common/view/test/test_pop_route.dart';
 import 'package:wepick/common/view/test/test_tab.dart';
 import 'package:wepick/user/model/user_model.dart';
 import 'package:wepick/user/provider/user_provider.dart';
@@ -16,6 +17,8 @@ import 'package:wepick/user/view/join_screen_2.dart';
 import 'package:wepick/user/view/login_screen.dart';
 import 'package:wepick/user/view/userInfo_modify_screen.dart';
 import 'package:wepick/user/view/userInfo_screen.dart';
+
+import '../../view/test/test_pop_route2.dart';
 
 final authProvider = ChangeNotifierProvider<AuthProvider>(
   (ref) {
@@ -98,6 +101,16 @@ class AuthProvider extends ChangeNotifier {
               path: 'kakaoShare',
               name: KaKaoShareTest.routeName,
               builder: (_, __) => KaKaoShareTest(),
+            ),
+            GoRoute(
+              path: 'popRoute',
+              name: TestPopRoute.routeName,
+              builder: (_, __) => TestPopRoute(),
+            ),
+            GoRoute(
+              path: 'popRoute2',
+              name: TestPopRoute2.routeName,
+              builder: (_, __) => TestPopRoute2(),
             ),
           ],
         ),
