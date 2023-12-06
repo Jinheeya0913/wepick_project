@@ -84,11 +84,12 @@ class PartnerStateNotifier extends StateNotifier<PartnerInfoModelBase?> {
 
     if (!result.isSuccess()) {
       print('[partnerProvider] >> searchPartnerWithCode : failed');
-      return PartnerSearchError(message: '파트너를 찾지 못했습니다');
+      return PartnerSearchResultError(message: '파트너를 찾지 못했습니다');
     } else {
       print('[partnerProvider] >> searchPartnerWithCode : success');
       final resultData = result.resultData as Map<String, dynamic>;
       final searchPartner = PartnerSearchResultModel.fromJson(resultData);
+      print('[partnerProvider] >> ${searchPartner.partnerInfo?.userNm}');
       return searchPartner;
     }
   }

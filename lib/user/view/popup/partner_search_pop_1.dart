@@ -6,18 +6,20 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wepick/common/layout/component/custom_alert_pop.dart';
 import 'package:wepick/common/layout/component/text/custom_text_con_bottom_ln.dart';
 import 'package:wepick/common/layout/component/text/custom_text_form_field.dart';
+import 'package:wepick/user/model/partner_search_model.dart';
+import 'package:wepick/user/model/partner_search_result_model.dart';
 import 'package:wepick/user/model/user_model.dart';
 import 'package:wepick/user/provider/partner_provider.dart';
-import 'package:wepick/user/view/popup/partner_search_result_popup.dart';
+import 'package:wepick/user/view/popup/partner_search_pop_2.dart';
 
-class PartnerSearchPopup extends ConsumerStatefulWidget {
-  const PartnerSearchPopup({Key? key}) : super(key: key);
+class PartnerSearchPop2 extends ConsumerStatefulWidget {
+  const PartnerSearchPop2({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<PartnerSearchPopup> createState() => _PartnerSearchPopupState();
+  ConsumerState<PartnerSearchPop2> createState() => _PartnerSearchPop2State();
 }
 
-class _PartnerSearchPopupState extends ConsumerState<PartnerSearchPopup> {
+class _PartnerSearchPop2State extends ConsumerState<PartnerSearchPop2> {
   String searchCd = '';
 
   @override
@@ -49,19 +51,21 @@ class _PartnerSearchPopupState extends ConsumerState<PartnerSearchPopup> {
                   child: IconButton(
                       onPressed: () async {
                         print(searchCd);
-                        final result = await state!
-                            .searchPartnerWithCode(ptTempRegCd: searchCd);
-                        if (result is UserModelError) {
+                        final result = await state.searchPartnerWithCode(
+                            ptTempRegCd: searchCd);
+                        if (result is PartnerSearchResultError) {
                           showDialog(
                               context: context,
                               builder: (_) =>
                                   CustomSimpleAlertPop(title: '조회 실패'));
-                        } else if (result is UserModel) {
+                        } else if (result is PartnerSearchResultModel) {
                           Navigator.of(context).pop();
                           showDialog(
                               context: context,
-                              builder: (_) => PartnerSearchResultPopup());
-                        } else {}
+                              builder: (_) => PartnerSearchResult2(
+                                    searchResultModel: result,
+                                  ));
+                        }
                       },
                       icon: Icon(Icons.search))),
             ],
@@ -117,15 +121,21 @@ class _PartnerSearchPopupState extends ConsumerState<PartnerSearchPopup> {
                   child: IconButton(
                       onPressed: () async {
                         print(searchCd);
-                        final result = await state!
-                            .searchPartnerWithCode(ptTempRegCd: searchCd);
-                        if (result is UserModelError) {
+                        final result = await state.searchPartnerWithCode(
+                            ptTempRegCd: searchCd);
+                        print(result);
+                        if (result is PartnerSearchResultError) {
+                          print('[pt_search_pop1]조회 실패!');
                           showDialog(
                               context: context,
                               builder: (_) =>
                                   CustomSimpleAlertPop(title: '조회 실패'));
-                        } else if (result is UserModel) {
-                        } else {}
+                        } else if (result is PartnerSearchResultModel) {
+                          print('[pt_search_pop1] 조회 성공!');
+                          Navigator.of(context).pop();
+                        } else {
+                          print('[pt_search_pop1] 조회 실패 2!');
+                        }
                       },
                       icon: Icon(Icons.search))),
             ],

@@ -6,10 +6,10 @@ part 'partner_search_result_model.g.dart';
 
 abstract class PartnerSearchResultBase {}
 
-class PartnerSearchError extends PartnerSearchResultBase {
+class PartnerSearchResultError extends PartnerSearchResultBase {
   final String message;
 
-  PartnerSearchError({
+  PartnerSearchResultError({
     required this.message,
   });
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wepick/user/model/partner_model.dart';
 import 'package:wepick/user/view/popup/partner_code_popup.dart';
-import 'package:wepick/user/view/popup/partner_search_popup.dart';
+import 'package:wepick/user/view/popup/partner_search_pop_1.dart';
 
 class PartnerInfoCard extends ConsumerStatefulWidget {
   final PartnerInfoModelBase partnerModel;
@@ -40,7 +40,7 @@ class _PartnerInfoCardState extends ConsumerState<PartnerInfoCard> {
                           showDialog(
                               context: context,
                               builder: (_) {
-                                return PartnerSearchPopup();
+                                return PartnerSearchPop2();
                               });
                         },
                         child: Text('요청하기'))),

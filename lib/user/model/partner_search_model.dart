@@ -6,10 +6,10 @@ abstract class PartnerSearchModelBase {}
 
 class PartnerSearchLoading extends PartnerSearchModelBase {}
 
-class PartnerSearchFail extends PartnerSearchModelBase {
+class PartnerSearchError extends PartnerSearchModelBase {
   final String message;
 
-  PartnerSearchFail({
+  PartnerSearchError({
     required this.message,
   });
 }
