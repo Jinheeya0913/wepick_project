@@ -74,6 +74,13 @@ class _CustomDrawerState extends ConsumerState<CustomDrawer> {
             title: Text('설정'),
             onTap: () {},
           ),
+          ListTile(
+            leading: Icon(Icons.logout),
+            title: Text('로그아웃'),
+            onTap: () {
+              ref.read(userProvider.notifier).logout();
+            },
+          ),
         ],
       ),
     );
