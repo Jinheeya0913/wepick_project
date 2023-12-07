@@ -58,12 +58,13 @@ class _PartnerSearchPop2State extends ConsumerState<PartnerSearchPop2> {
                               context: context,
                               builder: (_) =>
                                   CustomSimpleAlertPop(title: '조회 실패'));
-                        } else if (result is PartnerSearchResultModel) {
+                        } else if (result is PartnerSearchInfoModel) {
                           Navigator.of(context).pop();
                           showDialog(
                               context: context,
                               builder: (_) => PartnerSearchResult2(
                                     searchResultModel: result,
+                                    searchCd: searchCd,
                                   ));
                         }
                       },
@@ -130,7 +131,7 @@ class _PartnerSearchPop2State extends ConsumerState<PartnerSearchPop2> {
                               context: context,
                               builder: (_) =>
                                   CustomSimpleAlertPop(title: '조회 실패'));
-                        } else if (result is PartnerSearchResultModel) {
+                        } else if (result is PartnerSearchInfoModel) {
                           print('[pt_search_pop1] 조회 성공!');
                           Navigator.of(context).pop();
                         } else {

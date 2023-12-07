@@ -40,4 +40,9 @@ class ApiResult {
       return false;
     }
   }
+
+  String getDivisionCode() {
+    final divisionCode = result.split(':')[1];
+    return divisionCode;
+  }
 }

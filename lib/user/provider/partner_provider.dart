@@ -55,7 +55,7 @@ class PartnerStateNotifier extends StateNotifier<PartnerInfoModelBase?> {
     }
   }
 
-  // Todo 내 코드 생성하기
+  // 내 코드 생성하기
   Future<String?> getMyPartnerCode() async {
     print('[partnerProvider] >> getMyPartnerCode :: start');
     final resp = await partnerRepository.getMyPartnerCode();
@@ -73,12 +73,12 @@ class PartnerStateNotifier extends StateNotifier<PartnerInfoModelBase?> {
     }
   }
 
-  // Todo 코드로 검색하기
-  Future<PartnerSearchResultBase> searchPartnerWithCode({
+  // 코드로 파트너 검색하기
+  Future<PartnerSearchInfoBase> searchPartnerWithCode({
     required String ptTempRegCd,
   }) async {
     final model = PartnerSearchModel(ptTempRegCd: ptTempRegCd);
-    final partner = model.toJson(model);
+    final partner = model.toJson();
 
     final result = await partnerRepository.searchPartnerCode(partner: partner);
 
@@ -88,9 +88,30 @@ class PartnerStateNotifier extends StateNotifier<PartnerInfoModelBase?> {
     } else {
       print('[partnerProvider] >> searchPartnerWithCode : success');
       final resultData = result.resultData as Map<String, dynamic>;
-      final searchPartner = PartnerSearchResultModel.fromJson(resultData);
+      print('[partnerProvider] >> resultData :  ${resultData}');
+
+      final searchPartner = PartnerSearchInfoModel.fromJson(resultData);
       print('[partnerProvider] >> ${searchPartner.partnerInfo?.userNm}');
       return searchPartner;
     }
+  }
+
+  // 파트너에게 요청 보내기
+  Future<ApiResult> sendPartnerRequest(String ptTempRegCd) async {
+    print('[sendPartnerRequest] >> ptTempRegCd : ${ptTempRegCd}');
+    final model = PartnerSearchModel(ptTempRegCd: ptTempRegCd).toJson();
+    final resp = await partnerRepository.sendPartnerRequest(reqInfo: model);
+
+    // print('[sendPartnerRequest] >> modelToJson : ${modelToJson.toString()}');
+    //
+
+    if (resp.isSuccess()) {
+      print('[sendPartnerRequest] >> Success');
+    } else {
+      print('[sendPartnerRequest] >> Failed : ${resp.resultCode}');
+      final divisionCode = resp.getDivisionCode();
+      print('[sendPartnerRequest] >> DivisionCode  : ${divisionCode}');
+    }
+    return resp;
   }
 }

@@ -31,4 +31,10 @@ abstract class PartnerRepository {
   Future<ApiResult> searchPartnerCode({
     @Body() required Map<String, dynamic> partner,
   });
+
+  @POST("/sendPartnerRequest")
+  @Headers({'authorization': 'true'})
+  Future<ApiResult> sendPartnerRequest({
+    @Body() required Map<String, dynamic> reqInfo,
+  });
 }

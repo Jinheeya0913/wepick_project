@@ -6,18 +6,20 @@ part 'partner_req_que_model.g.dart';
 class PartnerReqQueModel {
   final String ptRequesterId;
   final String ptAcceptorId;
-  final DateTime regDt;
+  final DateTime? regDt;
   final DateTime? updateDt;
   final String ptReqStatus;
 
   PartnerReqQueModel({
     required this.ptRequesterId,
     required this.ptAcceptorId,
-    required this.regDt,
     required this.ptReqStatus,
+    this.regDt,
     this.updateDt,
   });
 
   factory PartnerReqQueModel.fromJson(Map<String, dynamic> json) =>
       _$PartnerReqQueModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PartnerReqQueModelToJson(this);
 }

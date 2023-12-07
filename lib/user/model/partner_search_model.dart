@@ -33,6 +33,5 @@ class PartnerSearchModel extends PartnerSearchModelBase {
   factory PartnerSearchModel.fromJson(Map<String, dynamic> json) =>
       _$PartnerSearchModelFromJson(json);
 
-  Map<String, dynamic> toJson(PartnerSearchModel model) =>
-      _$PartnerSearchModelToJson(model);
+  Map<String, dynamic> toJson() => _$PartnerSearchModelToJson(this);
 }

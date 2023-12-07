@@ -4,9 +4,9 @@ import 'package:wepick/user/model/user_model.dart';
 
 part 'partner_search_result_model.g.dart';
 
-abstract class PartnerSearchResultBase {}
+abstract class PartnerSearchInfoBase {}
 
-class PartnerSearchResultError extends PartnerSearchResultBase {
+class PartnerSearchResultError extends PartnerSearchInfoBase {
   final String message;
 
   PartnerSearchResultError({
@@ -15,18 +15,17 @@ class PartnerSearchResultError extends PartnerSearchResultBase {
 }
 
 @JsonSerializable()
-class PartnerSearchResultModel extends PartnerSearchResultBase {
+class PartnerSearchInfoModel extends PartnerSearchInfoBase {
   final UserModel? partnerInfo;
   final PartnerReqQueModel? reqQueInfo;
 
-  PartnerSearchResultModel({
+  PartnerSearchInfoModel({
     this.partnerInfo,
     this.reqQueInfo,
   });
 
-  factory PartnerSearchResultModel.fromJson(Map<String, dynamic> json) =>
-      _$PartnerSearchResultModelFromJson(json);
+  factory PartnerSearchInfoModel.fromJson(Map<String, dynamic> json) =>
+      _$PartnerSearchInfoModelFromJson(json);
 
-  Map<String, dynamic> toJson(PartnerSearchResultModel model) =>
-      _$PartnerSearchResultModelToJson(model);
+  Map<String, dynamic> toJson() => _$PartnerSearchInfoModelToJson(this);
 }

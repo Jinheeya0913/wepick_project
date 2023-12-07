@@ -6,9 +6,9 @@ part of 'partner_search_result_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-PartnerSearchResultModel _$PartnerSearchResultModelFromJson(
+PartnerSearchInfoModel _$PartnerSearchInfoModelFromJson(
         Map<String, dynamic> json) =>
-    PartnerSearchResultModel(
+    PartnerSearchInfoModel(
       partnerInfo: json['partnerInfo'] == null
           ? null
           : UserModel.fromJson(json['partnerInfo'] as Map<String, dynamic>),
@@ -18,8 +18,8 @@ PartnerSearchResultModel _$PartnerSearchResultModelFromJson(
               json['reqQueInfo'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$PartnerSearchResultModelToJson(
-        PartnerSearchResultModel instance) =>
+Map<String, dynamic> _$PartnerSearchInfoModelToJson(
+        PartnerSearchInfoModel instance) =>
     <String, dynamic>{
       'partnerInfo': instance.partnerInfo,
       'reqQueInfo': instance.reqQueInfo,

@@ -157,7 +157,7 @@ class UserStateNotifier extends StateNotifier<UserModelBase?> {
   Future<ApiResult> join({
     required UserModel user,
   }) async {
-    final requestModel = user.userModelToJson(user);
+    final requestModel = user.userModelToJson();
 
     return await userRepository.join(user: requestModel);
   }
