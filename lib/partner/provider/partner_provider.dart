@@ -4,12 +4,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:wepick/common/model/api_result_model.dart';
 import 'package:wepick/common/provider/secure_storage.dart';
-import 'package:wepick/user/model/partner_search_model.dart';
-import 'package:wepick/user/model/partner_search_result_model.dart';
-import 'package:wepick/user/repository/partner_repository.dart';
+import 'package:wepick/partner/model/partner_search_model.dart';
+import 'package:wepick/partner/model/partner_search_result_model.dart';
+import 'package:wepick/partner/repository/partner_repository.dart';
 
 import '../model/partner_model.dart';
-import '../model/user_model.dart';
+import '../../user/model/user_model.dart';
 
 final partnerProvider =
     StateNotifierProvider<PartnerStateNotifier, PartnerInfoModelBase?>((ref) {
@@ -114,4 +114,6 @@ class PartnerStateNotifier extends StateNotifier<PartnerInfoModelBase?> {
     }
     return resp;
   }
+
+  // Todo 파트너 요청 조회하기
 }

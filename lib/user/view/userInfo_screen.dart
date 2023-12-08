@@ -3,14 +3,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wepick/common/const/colors.dart';
-import 'package:wepick/user/component/partner_info_card.dart';
+import 'package:wepick/partner/component/partner_info_card.dart';
 import 'package:wepick/user/component/user_info_tab.dart';
 import 'package:wepick/user/view/popup/image_popup.dart';
 import 'package:wepick/common/layout/component/custom_circleAvatar.dart';
 import 'package:wepick/common/layout/default_layout.dart';
 import 'package:wepick/user/component/user_info_card.dart';
-import 'package:wepick/user/model/partner_model.dart';
-import 'package:wepick/user/provider/partner_provider.dart';
+import 'package:wepick/partner/model/partner_model.dart';
+import 'package:wepick/partner/provider/partner_provider.dart';
 
 import '../model/user_model.dart';
 import '../provider/user_provider.dart';

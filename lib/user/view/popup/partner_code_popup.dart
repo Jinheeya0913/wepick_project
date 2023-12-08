@@ -7,7 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wepick/common/layout/component/custom_alert_pop.dart';
 import 'package:wepick/common/layout/component/text/custom_text_con_alll_ln.dart';
-import 'package:wepick/user/provider/partner_provider.dart';
+import 'package:wepick/partner/provider/partner_provider.dart';
 
 class PartnerCodePopup extends ConsumerStatefulWidget {
   const PartnerCodePopup({Key? key}) : super(key: key);

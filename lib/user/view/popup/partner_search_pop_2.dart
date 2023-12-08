@@ -4,10 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wepick/common/layout/component/custom_circleAvatar.dart';
 import 'package:wepick/common/layout/component/text/custom_text_con_bottom_ln.dart';
-import 'package:wepick/user/model/partner_req_que_model.dart';
-import 'package:wepick/user/model/partner_search_result_model.dart';
-import 'package:wepick/user/model/user_model.dart';
-import 'package:wepick/user/provider/partner_provider.dart';
+import 'package:wepick/partner/provider/partner_provider.dart';
+
+import '../../../partner/model/partner_search_result_model.dart';
 
 class PartnerSearchResult2 extends ConsumerStatefulWidget {
   static String get routeName => 'partnerSearchResultPop';

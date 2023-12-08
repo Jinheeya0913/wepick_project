@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:wepick/user/model/partner_model.dart';
+import 'package:wepick/partner/model/partner_model.dart';
 import 'package:wepick/user/view/popup/partner_code_popup.dart';
 import 'package:wepick/user/view/popup/partner_search_pop_1.dart';
 
