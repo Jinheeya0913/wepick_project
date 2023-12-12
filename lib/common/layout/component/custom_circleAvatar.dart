@@ -17,7 +17,6 @@ class CustomCircleAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (networkImgUrl != null) {
-      print('[custom_circleAvatar] >> network!!');
       return CircleAvatar(
         radius: radius ?? radius,
         backgroundImage: NetworkImage(
