@@ -37,4 +37,9 @@ abstract class PartnerRepository {
   Future<ApiResult> sendPartnerRequest({
     @Body() required Map<String, dynamic> reqInfo,
   });
+
+  // 파트너 요청 목록 조회
+  @POST("/selectMyPartnerRequestQue")
+  @Headers({'authorization': 'true'})
+  Future<ApiResult> selectPartnerRequestList();
 }

@@ -80,6 +80,7 @@ class CustomInterceptor extends Interceptor {
     final isPathRefresh = err.requestOptions.path == '/auth/token';
 
     if (isStatus401 && !isPathRefresh) {
+      print('[ERROR] > 401 Error');
       final dio = Dio();
 
       try {

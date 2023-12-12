@@ -28,4 +28,12 @@ class PartnerSearchInfoModel extends PartnerSearchInfoBase {
       _$PartnerSearchInfoModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$PartnerSearchInfoModelToJson(this);
+
+  static List<PartnerSearchInfoModel> convertObjectListToModelList(
+      List<dynamic> objectList) {
+    return objectList
+        .map((object) =>
+            PartnerSearchInfoModel.fromJson(object as Map<String, dynamic>))
+        .toList();
+  }
 }

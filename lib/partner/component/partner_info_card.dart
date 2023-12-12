@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wepick/partner/model/partner_model.dart';
+import 'package:wepick/partner/provider/partner_provider.dart';
 import 'package:wepick/user/view/popup/partner_code_popup.dart';
 import 'package:wepick/user/view/popup/partner_search_pop_1.dart';
 
 class PartnerInfoCard extends ConsumerStatefulWidget {
-  final PartnerInfoModelBase partnerModel;
+  final PartnerInfoModelBase? partnerModel;
 
   const PartnerInfoCard({
     required this.partnerModel,
@@ -19,62 +20,69 @@ class PartnerInfoCard extends ConsumerStatefulWidget {
 class _PartnerInfoCardState extends ConsumerState<PartnerInfoCard> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.4,
-      child: ColoredBox(
-        color: Colors.grey,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              ColoredBox(
+    final state = ref.watch(partnerProvider.notifier);
+    final partnerInfo = widget.partnerModel;
+
+    if (partnerInfo != null && partnerInfo is PartnerInfoEmptyModel) {
+      return SizedBox(
+        width: MediaQuery.of(context).size.width * 0.4,
+        child: ColoredBox(
+          color: Colors.grey,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ColoredBox(
                   color: Colors.blueAccent,
                   child: Container(
-                      child: TextButton(onPressed: () {}, child: Text('0건')))),
-              ColoredBox(
-                color: Colors.blueAccent,
-                child: Container(
                     child: ElevatedButton(
-                        onPressed: () {
-                          showDialog(
+                      onPressed: () async {},
+                      child: Text('${partnerInfo.partnerReqCnt} 건'),
+                    ),
+                  ),
+                ),
+                ColoredBox(
+                  color: Colors.blueAccent,
+                  child: Container(
+                      child: ElevatedButton(
+                          onPressed: () {
+                            showDialog(
                               context: context,
                               builder: (_) {
                                 return PartnerSearchPop2();
-                              });
-                        },
-                        child: Text('요청하기'))),
-              ),
-              ColoredBox(
-                color: Colors.blueAccent,
-                child: Container(
-                  child: ElevatedButton(
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (_) {
-                            return PartnerCodePopup();
+                              },
+                            );
                           },
-                        );
-                      },
-                      child: Text('코드 생성')),
+                          child: Text('요청하기'))),
                 ),
-              )
-            ],
+                ColoredBox(
+                  color: Colors.blueAccent,
+                  child: Container(
+                    child: ElevatedButton(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (_) {
+                              return PartnerCodePopup();
+                            },
+                          );
+                        },
+                        child: Text('코드 생성')),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      );
+    } else {
+      return Container(
+        child: Text('hi'),
+      );
+    }
   }
 
-  Widget hasPartnerInfo() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(children: [Text('data')]),
-        Row(children: [Text('data')]),
-        Row(children: [Text('data')]),
-      ],
-    );
-  }
+  @override
+  void initState() {}
 }

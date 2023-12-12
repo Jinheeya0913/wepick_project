@@ -23,6 +23,7 @@ final partnerProvider =
 class PartnerStateNotifier extends StateNotifier<PartnerInfoModelBase?> {
   final PartnerRepository partnerRepository;
   final FlutterSecureStorage storage;
+  late ApiResult? partnerRequestListResult;
 
   PartnerStateNotifier({
     required this.partnerRepository,
@@ -35,17 +36,20 @@ class PartnerStateNotifier extends StateNotifier<PartnerInfoModelBase?> {
     print('[partnerProvider] >> getPartner :: start');
     final resp = await partnerRepository.getPartner();
     final respData = resp.resultData;
-    final respResult = resp.result;
+
     if (resp.resultCode != "401") {
       if (respData == null) {
-        print(respResult);
-        print(resp.resultCode);
-        print('[partnerProvider] >> getPartner :: 파트너 없음');
-        state = PartnerInfoEmptyModel();
+        final listInfo = await selectMyPartnerRequestQue();
+        if (listInfo != null && listInfo.isNotEmpty) {
+          state = PartnerInfoEmptyModel(partnerReqCnt: listInfo.length);
+        } else {
+          state = PartnerInfoEmptyModel();
+        }
       } else {
         final partnerInfoMap =
             Map<String, dynamic>.from(resp.resultData as Map);
         final partnerModel = PartnerInfoModel.fromJson(partnerInfoMap);
+
         state = partnerModel;
       }
     } else {
@@ -116,4 +120,21 @@ class PartnerStateNotifier extends StateNotifier<PartnerInfoModelBase?> {
   }
 
   // Todo 파트너 요청 조회하기
+
+  Future<List<PartnerSearchInfoModel>?> selectMyPartnerRequestQue() async {
+    final ptReqQueResult = await partnerRepository.selectPartnerRequestList();
+
+    List<PartnerSearchInfoModel>? infoList;
+
+    if (ptReqQueResult.isSuccess()) {
+      print('[selectMyPartnerRequestQue] 파트너 요청 정보 조회 성공');
+      final resultData = ptReqQueResult.resultData as List;
+      infoList =
+          PartnerSearchInfoModel.convertObjectListToModelList(resultData);
+    } else {
+      print('[selectMyPartnerRequestQue] 파트너 요청 정보 조회 실패');
+    }
+
+    return infoList;
+  }
 }

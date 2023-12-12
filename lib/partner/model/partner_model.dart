@@ -12,7 +12,13 @@ class PartnerInfoModelError extends PartnerInfoModelBase {
   });
 }
 
-class PartnerInfoEmptyModel extends PartnerInfoModelBase {}
+class PartnerInfoEmptyModel extends PartnerInfoModelBase {
+  final int partnerReqCnt;
+
+  PartnerInfoEmptyModel({
+    this.partnerReqCnt = 0,
+  });
+}
 
 @JsonSerializable()
 class PartnerInfoModel extends PartnerInfoModelBase {

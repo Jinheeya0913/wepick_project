@@ -26,8 +26,8 @@ class UserInfoScreen extends ConsumerStatefulWidget {
 class _UserInfoScreenState extends ConsumerState<UserInfoScreen> {
   @override
   Widget build(BuildContext context) {
-    final state = ref.read(userProvider);
-    final partner = ref.read(partnerProvider);
+    final state = ref.watch(userProvider);
+    final partner = ref.watch(partnerProvider);
 
     if (partner is PartnerInfoEmptyModel) {
       print('[userInfoSc] >> 파트너 없음');
@@ -58,7 +58,11 @@ class _UserInfoScreenState extends ConsumerState<UserInfoScreen> {
                   ),
                 ),
                 Flexible(
-                    flex: 4, child: PartnerInfoCard(partnerModel: partner!)),
+                    flex: 4,
+                    child: PartnerInfoCard(
+                      // 파트너 카드
+                      partnerModel: partner,
+                    )),
               ],
             ),
           ),

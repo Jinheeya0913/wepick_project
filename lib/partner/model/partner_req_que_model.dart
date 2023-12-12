@@ -2,6 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'partner_req_que_model.g.dart';
 
+// 파트너 요청 목록 모델
 @JsonSerializable()
 class PartnerReqQueModel {
   final String ptRequesterId;
