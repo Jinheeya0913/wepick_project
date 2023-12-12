@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:wepick/partner/model/partner_model.dart';
 import 'package:wepick/partner/provider/partner_provider.dart';
-import 'package:wepick/user/view/popup/partner_code_popup.dart';
-import 'package:wepick/user/view/popup/partner_search_pop_1.dart';
+import 'package:wepick/partner/view/popup/partner_code_popup.dart';
+import 'package:wepick/partner/view/partner_request_info_screen.dart';
+import 'package:wepick/partner/view/popup/partner_search_pop_1.dart';
 
 class PartnerInfoCard extends ConsumerStatefulWidget {
   final PartnerInfoModelBase? partnerModel;
@@ -37,8 +39,15 @@ class _PartnerInfoCardState extends ConsumerState<PartnerInfoCard> {
                   color: Colors.blueAccent,
                   child: Container(
                     child: ElevatedButton(
-                      onPressed: () async {},
-                      child: Text('${partnerInfo.partnerReqCnt} 건'),
+                      onPressed: () async {
+                        final requestInfo = partnerInfo.requestInfoList;
+                        if (requestInfo != null && requestInfo.isNotEmpty) {
+                          context.goNamed(PartnerRequestInfoScreen.routeName);
+                        }
+                      },
+                      child: Text(partnerInfo.requestInfoList != null
+                          ? '${partnerInfo.requestInfoList!.length} 건'
+                          : '0 건'),
                     ),
                   ),
                 ),

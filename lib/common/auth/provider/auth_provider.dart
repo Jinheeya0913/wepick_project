@@ -10,6 +10,7 @@ import 'package:wepick/common/view/test/test_default_input_filed.dart';
 import 'package:wepick/common/view/test/test_kakao.dart';
 import 'package:wepick/common/view/test/test_pop_route.dart';
 import 'package:wepick/common/view/test/test_tab.dart';
+import 'package:wepick/partner/view/partner_request_info_screen.dart';
 import 'package:wepick/user/model/user_model.dart';
 import 'package:wepick/user/provider/user_provider.dart';
 import 'package:wepick/user/view/join_screen_1.dart';
@@ -75,6 +76,11 @@ class AuthProvider extends ChangeNotifier {
           path: '/me',
           name: UserInfoScreen.routeName,
           builder: (_, __) => UserInfoScreen(),
+        ),
+        GoRoute(
+          path: '/partnerReqInfo',
+          name: PartnerRequestInfoScreen.routeName,
+          builder: (_, __) => PartnerRequestInfoScreen(),
         ),
         GoRoute(
           // 테스트용 Router

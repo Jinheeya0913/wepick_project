@@ -1,4 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:wepick/partner/model/partner_req_que_model.dart';
+import 'package:wepick/partner/model/partner_search_result_model.dart';
 
 part 'partner_model.g.dart';
 
@@ -13,10 +15,11 @@ class PartnerInfoModelError extends PartnerInfoModelBase {
 }
 
 class PartnerInfoEmptyModel extends PartnerInfoModelBase {
-  final int partnerReqCnt;
+  // 만약 파트너 정보가 없다면, 파트너 요청 목록 정보를 갖고 있음
+  final List<PartnerSearchInfoModel>? requestInfoList;
 
   PartnerInfoEmptyModel({
-    this.partnerReqCnt = 0,
+    this.requestInfoList,
   });
 }
 

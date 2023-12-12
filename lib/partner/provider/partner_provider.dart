@@ -41,7 +41,10 @@ class PartnerStateNotifier extends StateNotifier<PartnerInfoModelBase?> {
       if (respData == null) {
         final listInfo = await selectMyPartnerRequestQue();
         if (listInfo != null && listInfo.isNotEmpty) {
-          state = PartnerInfoEmptyModel(partnerReqCnt: listInfo.length);
+          print('[partnerProvider] >> getPartner :: 파트너 요청 목록을 state 저장');
+          state = PartnerInfoEmptyModel(
+            requestInfoList: listInfo,
+          );
         } else {
           state = PartnerInfoEmptyModel();
         }
