@@ -86,9 +86,16 @@ class UserStateNotifier extends StateNotifier<UserModelBase?> {
           }
 
           final apiResult = validResp.apiResult;
-          final apiDataMap =
-              Map<String, dynamic>.from(apiResult.resultData as Map);
-          final userData = UserModel.fromJson(apiDataMap);
+
+          UserModelBase userData;
+
+          if (apiResult.resultData != null) {
+            final apiDataMap =
+                Map<String, dynamic>.from(apiResult.resultData as Map);
+            userData = UserModel.fromJson(apiDataMap);
+          } else {
+            userData = UserModelError(message: '토큰 재발급 오류');
+          }
           state = userData;
         } else {
           state = UserModelError(message: '토큰 재발급 오류 ');
