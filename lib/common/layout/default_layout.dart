@@ -27,7 +27,7 @@ class DefaultLayout extends ConsumerWidget {
       appBar: renderAppBar(),
       body: child,
       bottomNavigationBar: bottomNavigationBar,
-      drawer: state is! UserModel ? null : CustomDrawer(),
+      endDrawer: state is! UserModel ? null : CustomDrawer(),
     );
   }
 
@@ -35,17 +35,18 @@ class DefaultLayout extends ConsumerWidget {
   AppBar? renderAppBar() {
     if (title != null) {
       return AppBar(
+        automaticallyImplyLeading: true,
         backgroundColor: Colors.white,
         centerTitle: true,
         elevation: 0,
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.message_outlined,
-            ),
-          ),
-        ],
+        // actions: [
+        //   IconButton(
+        //     onPressed: () {},
+        //     icon: const Icon(
+        //       Icons.message_outlined,
+        //     ),
+        //   ),
+        // ],
         title: Text(
           title!,
           style: const TextStyle(

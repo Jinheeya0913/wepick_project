@@ -66,7 +66,7 @@ class _CustomDrawerState extends ConsumerState<CustomDrawer> {
             title: Text('홈으로'),
             onTap: () {
               print('홈으로');
-              context.goNamed(RootTab.routeName);
+              context.pushNamed(RootTab.routeName);
             },
           ),
           ListTile(
