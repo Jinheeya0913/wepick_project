@@ -6,7 +6,7 @@ import 'package:wepick/common/layout/component/custom_circleAvatar.dart';
 import 'package:wepick/common/layout/component/text/custom_text_con_bottom_ln.dart';
 import 'package:wepick/partner/provider/partner_provider.dart';
 
-import '../../../partner/model/partner_search_result_model.dart';
+import '../../model/partner_search_result_model.dart';
 
 class PartnerSearchResult2 extends ConsumerStatefulWidget {
   static String get routeName => 'partnerSearchResultPop';
