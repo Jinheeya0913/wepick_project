@@ -41,6 +41,7 @@ class _RootTabState extends ConsumerState<RootTab>
   @override
   Widget build(BuildContext context) {
     return DefaultLayout(
+      automaticallyImplyLeading: false,
       title: '위픽',
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: PRIMARY_COLOR,

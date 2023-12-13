@@ -22,7 +22,7 @@ class _PartnerRequestInfoScreenState
     final dataModel = ref.read(partnerProvider);
 
     if (dataModel is PartnerInfoEmptyModel) {
-      return DefaultLayout(
+      return const DefaultLayout(
         title: '요청목록',
         child: Column(
           children: [

@@ -9,12 +9,14 @@ class DefaultLayout extends ConsumerWidget {
   final String? title;
   final Color? backgroundColor;
   final Widget? bottomNavigationBar;
+  final bool automaticallyImplyLeading;
 
   const DefaultLayout({
     this.backgroundColor,
     required this.child,
     this.title,
     this.bottomNavigationBar,
+    this.automaticallyImplyLeading = true,
     Key? key,
   }) : super(key: key);
 
@@ -35,7 +37,7 @@ class DefaultLayout extends ConsumerWidget {
   AppBar? renderAppBar() {
     if (title != null) {
       return AppBar(
-        automaticallyImplyLeading: true,
+        automaticallyImplyLeading: automaticallyImplyLeading,
         backgroundColor: Colors.white,
         centerTitle: true,
         elevation: 0,

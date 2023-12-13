@@ -49,6 +49,13 @@ class AuthProvider extends ChangeNotifier {
           path: '/',
           name: RootTab.routeName,
           builder: (_, __) => RootTab(),
+          routes: [
+            GoRoute(
+              path: 'partnerReqInfo',
+              name: PartnerRequestInfoScreen.routeName,
+              builder: (_, state) => PartnerRequestInfoScreen(),
+            ),
+          ],
         ),
         GoRoute(
           path: '/splash',
@@ -76,11 +83,6 @@ class AuthProvider extends ChangeNotifier {
           path: '/me',
           name: UserInfoScreen.routeName,
           builder: (_, __) => UserInfoScreen(),
-        ),
-        GoRoute(
-          path: '/partnerReqInfo',
-          name: PartnerRequestInfoScreen.routeName,
-          builder: (_, __) => PartnerRequestInfoScreen(),
         ),
         GoRoute(
           // 테스트용 Router

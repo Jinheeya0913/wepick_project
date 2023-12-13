@@ -66,6 +66,7 @@ class _CustomDrawerState extends ConsumerState<CustomDrawer> {
             title: Text('홈으로'),
             onTap: () {
               print('홈으로');
+              Navigator.of(context).pop();
               context.pushNamed(RootTab.routeName);
             },
           ),
