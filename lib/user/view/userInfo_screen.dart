@@ -48,10 +48,7 @@ class _UserInfoScreenState extends ConsumerState<UserInfoScreen> {
                 // if (partner is PartnerInfoModel)
                 Flexible(
                   flex: 2,
-                  child: ColoredBox(
-                    color: Colors.green,
-                    child: Icon(Icons.favorite, color: Colors.grey),
-                  ),
+                  child: Icon(Icons.favorite, color: Colors.grey),
                 ),
                 Flexible(
                     flex: 4,

@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:wepick/common/model/api_result_model.dart';
 import 'package:wepick/common/provider/secure_storage.dart';
+import 'package:wepick/partner/model/partner_req_que_model.dart';
 import 'package:wepick/partner/model/partner_search_model.dart';
 import 'package:wepick/partner/model/partner_search_result_model.dart';
 import 'package:wepick/partner/repository/partner_repository.dart';
@@ -122,8 +123,6 @@ class PartnerStateNotifier extends StateNotifier<PartnerInfoModelBase?> {
     return resp;
   }
 
-  // Todo 파트너 요청 조회하기
-
   Future<List<PartnerSearchInfoModel>?> selectMyPartnerRequestQue() async {
     print('[partnerProvider] >> selectMyPartnerRequestQue :: 파트너 요청 목록 조회 시작');
     final apiResult = await partnerRepository.selectPartnerRequestList();
@@ -141,5 +140,19 @@ class PartnerStateNotifier extends StateNotifier<PartnerInfoModelBase?> {
     print('[partnerProvider] >> selectMyPartnerRequestQue :: 파트너 요청 목록 조회 종료');
 
     return infoList;
+  }
+
+  Future<bool> refusePartnerRequest(PartnerReqQueModel ptRequestQue) async {
+    print('[partnerProvider] >> refusePartnerRequest :: 시작');
+    final apiResult = await partnerRepository.refusePartnerRequest(
+        ptRequestQue: ptRequestQue.toJson());
+
+    if (!apiResult.isSuccess()) {
+      print('[partnerProvider] >> refusePartnerRequest :: 실패');
+      return false;
+    } else {
+      print('[partnerProvider] >> refusePartnerRequest :: 성공');
+      return true;
+    }
   }
 }

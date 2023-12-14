@@ -42,4 +42,10 @@ abstract class PartnerRepository {
   @POST("/selectMyPartnerRequestQue")
   @Headers({'authorization': 'true'})
   Future<ApiResult> selectPartnerRequestList();
+
+  // 파트너 요청 목록 조회
+  @POST("/refusePartnerRequest")
+  @Headers({'authorization': 'true'})
+  Future<ApiResult> refusePartnerRequest(
+      {@Body() required Map<String, dynamic> ptRequestQue});
 }

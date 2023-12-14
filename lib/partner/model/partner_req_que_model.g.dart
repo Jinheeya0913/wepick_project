@@ -12,12 +12,8 @@ PartnerReqQueModel _$PartnerReqQueModelFromJson(Map<String, dynamic> json) =>
       ptAcceptorId: json['ptAcceptorId'] as String,
       ptTempCd: json['ptTempCd'] as String,
       ptReqStatus: json['ptReqStatus'] as String,
-      regDt: json['regDt'] == null
-          ? null
-          : DateTime.parse(json['regDt'] as String),
-      updateDt: json['updateDt'] == null
-          ? null
-          : DateTime.parse(json['updateDt'] as String),
+      regDt: DateTimeUtil.dateTimeFromJson(json['regDt'] as String?),
+      updateDt: DateTimeUtil.dateTimeFromJson(json['updateDt'] as String?),
     );
 
 Map<String, dynamic> _$PartnerReqQueModelToJson(PartnerReqQueModel instance) =>
@@ -25,7 +21,7 @@ Map<String, dynamic> _$PartnerReqQueModelToJson(PartnerReqQueModel instance) =>
       'ptRequesterId': instance.ptRequesterId,
       'ptAcceptorId': instance.ptAcceptorId,
       'ptTempCd': instance.ptTempCd,
-      'regDt': instance.regDt?.toIso8601String(),
-      'updateDt': instance.updateDt?.toIso8601String(),
+      'regDt': DateTimeUtil.dateTimeToJson(instance.regDt),
+      'updateDt': DateTimeUtil.dateTimeToJson(instance.updateDt),
       'ptReqStatus': instance.ptReqStatus,
     };

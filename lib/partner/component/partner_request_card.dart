@@ -1,15 +1,18 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:wepick/common/const/status.dart';
+import 'package:wepick/common/layout/component/custom_alert_pop.dart';
 import 'package:wepick/common/layout/component/custom_circleAvatar.dart';
 import 'package:wepick/common/utils/statusConvertUtil.dart';
+import 'package:wepick/partner/provider/partner_provider.dart';
 
 import '../../user/model/user_model.dart';
 import '../model/partner_req_que_model.dart';
 
-class PartnerRequestCard extends StatelessWidget {
+class PartnerRequestCard extends ConsumerStatefulWidget {
   PartnerReqQueModel queModel;
   UserModel userModel;
 
@@ -20,8 +23,13 @@ class PartnerRequestCard extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  ConsumerState<PartnerRequestCard> createState() => _PartnerRequestCardState();
+}
+
+class _PartnerRequestCardState extends ConsumerState<PartnerRequestCard> {
+  @override
   Widget build(BuildContext context) {
-    final ptReqStatus = queModel.ptReqStatus;
+    final ptReqStatus = widget.queModel.ptReqStatus;
 
     return Column(
       children: [
@@ -31,7 +39,7 @@ class PartnerRequestCard extends StatelessWidget {
             CustomCircleAvatar(
               radius: 80.0,
               // defaultAssetUrl: 'assets/img/user/my_profile.jpeg',
-              networkImgUrl: userModel.userImgUrl,
+              networkImgUrl: widget.userModel.userImgUrl,
             ),
             SizedBox(width: 16.0),
             Column(
@@ -49,7 +57,7 @@ class PartnerRequestCard extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      userModel.userNm,
+                      widget.userModel.userNm,
                       style: TextStyle(
                         fontSize: 16.0,
                         fontWeight: FontWeight.w500,
@@ -70,7 +78,7 @@ class PartnerRequestCard extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      DateFormat('yyyy-MM-dd').format(queModel!.regDt!),
+                      DateFormat('yyyy-MM-dd').format(widget.queModel!.regDt!),
                       style: TextStyle(
                         fontSize: 16.0,
                         fontWeight: FontWeight.w500,
@@ -112,8 +120,8 @@ class PartnerRequestCard extends StatelessWidget {
   }
 
   Widget renderButtonsRow() {
-    final ptReqStatus = queModel.ptReqStatus;
-    print(queModel.ptTempCd);
+    final ptReqStatus = widget.queModel.ptReqStatus;
+    print(widget.queModel.ptTempCd);
     if (ptReqStatus == STAT_PROGRESSED) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -129,7 +137,24 @@ class PartnerRequestCard extends StatelessWidget {
           ),
           Expanded(
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () async {
+                print(widget.queModel.regDt);
+                print(widget.queModel.updateDt);
+
+                final resp = await ref
+                    .read(partnerProvider.notifier)
+                    .refusePartnerRequest(widget.queModel);
+
+                if (resp) {
+                  showDialog(
+                      context: context,
+                      builder: (_) => CustomSimpleAlertPop(title: '성공'));
+                } else {
+                  showDialog(
+                      context: context,
+                      builder: (_) => CustomSimpleAlertPop(title: '거절실패'));
+                }
+              },
               child: Text('거절'),
             ),
           ),
