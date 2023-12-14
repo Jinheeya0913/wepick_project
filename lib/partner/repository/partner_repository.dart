@@ -2,7 +2,6 @@ import 'package:dio/dio.dart' hide Headers;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:wepick/common/dio/dio.dart';
-import 'package:wepick/partner/model/partner_search_model.dart';
 
 import '../../common/const/data.dart';
 import '../../common/model/api_result_model.dart';
@@ -43,9 +42,15 @@ abstract class PartnerRepository {
   @Headers({'authorization': 'true'})
   Future<ApiResult> selectPartnerRequestList();
 
-  // 파트너 요청 목록 조회
+  // 파트너 요청 거절
   @POST("/refusePartnerRequest")
   @Headers({'authorization': 'true'})
   Future<ApiResult> refusePartnerRequest(
+      {@Body() required Map<String, dynamic> ptRequestQue});
+
+  // 파트너 요청 수락
+  @POST("/acceptPartnerRequest")
+  @Headers({'authorization': 'true'})
+  Future<ApiResult> acceptPartnerRequest(
       {@Body() required Map<String, dynamic> ptRequestQue});
 }

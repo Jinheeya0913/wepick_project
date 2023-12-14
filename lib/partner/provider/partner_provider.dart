@@ -155,4 +155,25 @@ class PartnerStateNotifier extends StateNotifier<PartnerInfoModelBase?> {
       return true;
     }
   }
+
+  Future<PartnerInfoModelBase> acceptPartnerRequest(
+      PartnerReqQueModel ptRequestQue) async {
+    print('[partnerProvider] >> acceptPartnerRequest :: 시작');
+
+    final apiResult = await partnerRepository.acceptPartnerRequest(
+      ptRequestQue: ptRequestQue.toJson(),
+    );
+
+    if (!apiResult.isSuccess()) {
+      print('[partnerProvider] >> refusePartnerRequest :: 실패');
+      return PartnerInfoModelError(message: '파트너 수락 실패');
+    } else {
+      final resultData = apiResult.resultData as Map<String, dynamic>;
+      final partnerInfo = PartnerInfoModel.fromJson(resultData);
+
+      state = partnerInfo;
+
+      return partnerInfo;
+    }
+  }
 }

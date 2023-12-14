@@ -1,13 +1,16 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:wepick/common/const/status.dart';
 import 'package:wepick/common/layout/component/custom_alert_pop.dart';
 import 'package:wepick/common/layout/component/custom_circleAvatar.dart';
 import 'package:wepick/common/utils/statusConvertUtil.dart';
+import 'package:wepick/partner/model/partner_model.dart';
 import 'package:wepick/partner/provider/partner_provider.dart';
+import 'package:wepick/user/view/userInfo_screen.dart';
 
 import '../../user/model/user_model.dart';
 import '../model/partner_req_que_model.dart';
@@ -78,7 +81,7 @@ class _PartnerRequestCardState extends ConsumerState<PartnerRequestCard> {
                       ),
                     ),
                     Text(
-                      DateFormat('yyyy-MM-dd').format(widget.queModel!.regDt!),
+                      DateFormat('yyyy-MM-dd').format(widget.queModel.regDt!),
                       style: TextStyle(
                         fontSize: 16.0,
                         fontWeight: FontWeight.w500,
@@ -128,7 +131,27 @@ class _PartnerRequestCardState extends ConsumerState<PartnerRequestCard> {
         children: [
           Expanded(
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () async {
+                final resp = await ref
+                    .read(partnerProvider.notifier)
+                    .acceptPartnerRequest(widget.queModel);
+
+                showDialog(
+                  context: context,
+                  builder: (_) => AlertDialog(
+                    title: Text(resp is PartnerInfoModel ? '수락 완료' : '처리 실패'),
+                    content: resp is PartnerInfoModel
+                        ? ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                              context.pushNamed(UserInfoScreen.routeName);
+                            },
+                            child: Text('돌아가기'),
+                          )
+                        : Text('data'),
+                  ),
+                );
+              },
               child: Text('수락'),
             ),
           ),
@@ -138,22 +161,62 @@ class _PartnerRequestCardState extends ConsumerState<PartnerRequestCard> {
           Expanded(
             child: ElevatedButton(
               onPressed: () async {
-                print(widget.queModel.regDt);
-                print(widget.queModel.updateDt);
+                showDialog(
+                  context: context,
+                  builder: (_) => AlertDialog(
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Center(child: Text('정말로 거절하시겠습니까?')),
+                        ),
+                      ],
+                    ),
+                    actions: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Flexible(
+                            flex: 1,
+                            child: IconButton(
+                              icon: Icon(Icons.check),
+                              onPressed: () async {
+                                final resp = await ref
+                                    .read(partnerProvider.notifier)
+                                    .refusePartnerRequest(widget.queModel);
 
-                final resp = await ref
-                    .read(partnerProvider.notifier)
-                    .refusePartnerRequest(widget.queModel);
+                                if (resp) {
+                                  showDialog(
+                                      context: context,
+                                      builder: (_) =>
+                                          CustomSimpleAlertPop(title: '성공'));
 
-                if (resp) {
-                  showDialog(
-                      context: context,
-                      builder: (_) => CustomSimpleAlertPop(title: '성공'));
-                } else {
-                  showDialog(
-                      context: context,
-                      builder: (_) => CustomSimpleAlertPop(title: '거절실패'));
-                }
+                                  Navigator.of(context).pop();
+                                } else {
+                                  showDialog(
+                                      context: context,
+                                      builder: (_) =>
+                                          CustomSimpleAlertPop(title: '거절실패'));
+                                  Navigator.of(context).pop();
+                                }
+                              },
+                            ),
+                          ),
+                          Flexible(
+                            flex: 1,
+                            child: IconButton(
+                              icon: Icon(Icons.cancel_outlined),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                );
               },
               child: Text('거절'),
             ),
