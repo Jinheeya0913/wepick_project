@@ -7,6 +7,7 @@ part 'partner_req_que_model.g.dart';
 class PartnerReqQueModel {
   final String ptRequesterId;
   final String ptAcceptorId;
+  final String ptTempCd;
   final DateTime? regDt;
   final DateTime? updateDt;
   final String ptReqStatus;
@@ -14,6 +15,7 @@ class PartnerReqQueModel {
   PartnerReqQueModel({
     required this.ptRequesterId,
     required this.ptAcceptorId,
+    required this.ptTempCd,
     required this.ptReqStatus,
     this.regDt,
     this.updateDt,
