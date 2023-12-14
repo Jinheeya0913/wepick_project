@@ -29,10 +29,6 @@ class _UserInfoScreenState extends ConsumerState<UserInfoScreen> {
     final state = ref.watch(userProvider);
     final partner = ref.watch(partnerProvider);
 
-    if (partner is PartnerInfoEmptyModel) {
-      print('[userInfoSc] >> 파트너 없음');
-    }
-
     state as UserModel;
 
     return Padding(

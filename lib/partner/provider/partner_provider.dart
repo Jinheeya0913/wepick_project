@@ -125,18 +125,20 @@ class PartnerStateNotifier extends StateNotifier<PartnerInfoModelBase?> {
   // Todo 파트너 요청 조회하기
 
   Future<List<PartnerSearchInfoModel>?> selectMyPartnerRequestQue() async {
-    final ptReqQueResult = await partnerRepository.selectPartnerRequestList();
+    print('[partnerProvider] >> selectMyPartnerRequestQue :: 파트너 요청 목록 조회 시작');
+    final apiResult = await partnerRepository.selectPartnerRequestList();
 
     List<PartnerSearchInfoModel>? infoList;
 
-    if (ptReqQueResult.isSuccess()) {
+    if (apiResult.isSuccess()) {
       print('[selectMyPartnerRequestQue] 파트너 요청 정보 조회 성공');
-      final resultData = ptReqQueResult.resultData as List;
+      final resultData = apiResult.resultData as List;
       infoList =
           PartnerSearchInfoModel.convertObjectListToModelList(resultData);
     } else {
       print('[selectMyPartnerRequestQue] 파트너 요청 정보 조회 실패');
     }
+    print('[partnerProvider] >> selectMyPartnerRequestQue :: 파트너 요청 목록 조회 종료');
 
     return infoList;
   }
