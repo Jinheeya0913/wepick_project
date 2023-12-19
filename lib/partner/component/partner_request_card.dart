@@ -3,10 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
 import 'package:wepick/common/const/status.dart';
 import 'package:wepick/common/layout/component/custom_alert_pop.dart';
 import 'package:wepick/common/layout/component/custom_circleAvatar.dart';
+import 'package:wepick/common/utils/datetimeUtil.dart';
 import 'package:wepick/common/utils/statusConvertUtil.dart';
 import 'package:wepick/partner/model/partner_model.dart';
 import 'package:wepick/partner/provider/partner_provider.dart';
@@ -81,7 +81,7 @@ class _PartnerRequestCardState extends ConsumerState<PartnerRequestCard> {
                       ),
                     ),
                     Text(
-                      DateFormat('yyyy-MM-dd').format(widget.queModel.regDt!),
+                      DateTimeUtil.simpleFormatDateTime(widget.queModel.regDt!),
                       style: TextStyle(
                         fontSize: 16.0,
                         fontWeight: FontWeight.w500,
@@ -136,21 +136,10 @@ class _PartnerRequestCardState extends ConsumerState<PartnerRequestCard> {
                     .read(partnerProvider.notifier)
                     .acceptPartnerRequest(widget.queModel);
 
-                showDialog(
-                  context: context,
-                  builder: (_) => AlertDialog(
-                    title: Text(resp is PartnerInfoModel ? '수락 완료' : '처리 실패'),
-                    content: resp is PartnerInfoModel
-                        ? ElevatedButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                              context.pushNamed(UserInfoScreen.routeName);
-                            },
-                            child: Text('돌아가기'),
-                          )
-                        : Text('data'),
-                  ),
-                );
+                // '처리 완료'로 상태 변경
+                setState(() {
+                  widget.queModel.ptReqStatus = STAT_COMPLETED;
+                });
               },
               child: Text('수락'),
             ),
@@ -224,7 +213,7 @@ class _PartnerRequestCardState extends ConsumerState<PartnerRequestCard> {
         ],
       );
     } else if (ptReqStatus == STAT_COMPLETED) {
-      return Text('완료');
+      return Text('처리 완료');
     } else {
       return Text('오류');
     }

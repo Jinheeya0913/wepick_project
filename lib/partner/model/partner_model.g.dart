@@ -10,16 +10,18 @@ PartnerInfoModel _$PartnerInfoModelFromJson(Map<String, dynamic> json) =>
     PartnerInfoModel(
       partnerId: json['partnerId'] as String,
       partnerNm: json['partnerNm'] as String,
-      partnerCd: json['partnerCd'] as String,
-      useAt: json['useAt'] as String,
-      regDt: DateTime.parse(json['regDt'] as String),
+      partnerConnCd: json['partnerConnCd'] as String,
+      partnerConnYn: json['partnerConnYn'] as bool,
+      regDt: DateTimeUtil.dateTimeFromJson(json['regDt'] as String?),
+      meetDt: DateTimeUtil.dateTimeFromJson(json['meetDt'] as String?),
     );
 
 Map<String, dynamic> _$PartnerInfoModelToJson(PartnerInfoModel instance) =>
     <String, dynamic>{
-      'partnerCd': instance.partnerCd,
+      'partnerConnCd': instance.partnerConnCd,
       'partnerId': instance.partnerId,
       'partnerNm': instance.partnerNm,
-      'useAt': instance.useAt,
-      'regDt': instance.regDt.toIso8601String(),
+      'partnerConnYn': instance.partnerConnYn,
+      'regDt': DateTimeUtil.dateTimeToJson(instance.regDt),
+      'meetDt': DateTimeUtil.dateTimeToJson(instance.meetDt),
     };

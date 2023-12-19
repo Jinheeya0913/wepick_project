@@ -19,7 +19,7 @@ class PartnerReqQueModel {
     fromJson: DateTimeUtil.dateTimeFromJson,
   )
   final DateTime? updateDt;
-  final String ptReqStatus;
+  String ptReqStatus;
 
   PartnerReqQueModel({
     required this.ptRequesterId,

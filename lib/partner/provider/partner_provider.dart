@@ -52,6 +52,9 @@ class PartnerStateNotifier extends StateNotifier<PartnerInfoModelBase?> {
       } else {
         final partnerInfoMap =
             Map<String, dynamic>.from(resp.resultData as Map);
+
+        print(
+            '[partnerProvider] >> getPartner >> partnerInfoMap :: ${partnerInfoMap.toString()}');
         final partnerModel = PartnerInfoModel.fromJson(partnerInfoMap);
 
         state = partnerModel;
@@ -169,6 +172,8 @@ class PartnerStateNotifier extends StateNotifier<PartnerInfoModelBase?> {
       return PartnerInfoModelError(message: '파트너 수락 실패');
     } else {
       final resultData = apiResult.resultData as Map<String, dynamic>;
+      print('[partnerProvider] >> resultData :: ${resultData.toString()}');
+
       final partnerInfo = PartnerInfoModel.fromJson(resultData);
 
       state = partnerInfo;

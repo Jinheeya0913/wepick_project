@@ -29,7 +29,7 @@ class _PartnerRequestInfoScreenState
   @override
   Widget build(BuildContext context) {
     late List<PartnerSearchInfoModel?> reqList;
-    final dataModel = ref.watch(partnerProvider);
+    final dataModel = ref.read(partnerProvider);
 
     if (dataModel is PartnerInfoEmptyModel) {
       reqList = dataModel.requestInfoList!;

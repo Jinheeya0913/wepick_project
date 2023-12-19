@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:wepick/partner/model/partner_req_que_model.dart';
+import 'package:wepick/common/utils/boolUtil.dart';
+import 'package:wepick/common/utils/datetimeUtil.dart';
 import 'package:wepick/partner/model/partner_search_result_model.dart';
 
 part 'partner_model.g.dart';
@@ -25,18 +26,34 @@ class PartnerInfoEmptyModel extends PartnerInfoModelBase {
 
 @JsonSerializable()
 class PartnerInfoModel extends PartnerInfoModelBase {
-  final String partnerCd;
+  final String partnerConnCd;
   final String partnerId;
   final String partnerNm;
-  final String useAt;
-  final DateTime regDt;
+  // @JsonKey(
+  //   fromJson: BoolUtil.boolFromJson,
+  //   toJson: BoolUtil.boolToJson,
+  // )
+  final bool partnerConnYn;
+
+  @JsonKey(
+    toJson: DateTimeUtil.dateTimeToJson,
+    fromJson: DateTimeUtil.dateTimeFromJson,
+  )
+  final DateTime? regDt;
+
+  @JsonKey(
+    toJson: DateTimeUtil.dateTimeToJson,
+    fromJson: DateTimeUtil.dateTimeFromJson,
+  )
+  final DateTime? meetDt;
 
   PartnerInfoModel({
     required this.partnerId,
     required this.partnerNm,
-    required this.partnerCd,
-    required this.useAt,
+    required this.partnerConnCd,
+    required this.partnerConnYn,
     required this.regDt,
+    this.meetDt,
   });
 
   factory PartnerInfoModel.fromJson(Map<String, dynamic> json) =>
