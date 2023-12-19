@@ -42,16 +42,16 @@ class _UserInfoScreenState extends ConsumerState<UserInfoScreen> {
               // Todo : User & Partner Info
               children: [
                 Flexible(
-                  flex: 4,
+                  flex: 3,
                   child: UserInfoCard(userModel: state),
                 ),
                 // if (partner is PartnerInfoModel)
                 Flexible(
-                  flex: 2,
-                  child: Icon(Icons.favorite, color: Colors.grey),
+                  flex: 3,
+                  child: partnerLinkInfo(partner),
                 ),
                 Flexible(
-                    flex: 4,
+                    flex: 3,
                     child: PartnerInfoCard(
                       // 파트너 카드
                       partnerModel: partner,
@@ -68,4 +68,23 @@ class _UserInfoScreenState extends ConsumerState<UserInfoScreen> {
       ),
     );
   } // _UserInfoScreenState
+
+  Widget partnerLinkInfo(PartnerInfoModelBase? partnerInfo) {
+    return Column(
+      children: [
+        Container(
+          width: 160,
+          height: 160,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            // color: Colors.pink,
+          ),
+          child: Icon(
+            Icons.favorite,
+            color: partnerInfo is PartnerInfoModel ? Colors.pink : Colors.grey,
+          ),
+        ),
+      ],
+    );
+  }
 }

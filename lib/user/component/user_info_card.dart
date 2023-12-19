@@ -30,39 +30,36 @@ class _UserInfoCardState extends ConsumerState<UserInfoCard> {
     // if (!widget.userDivision && user == null) {
     //   return renderNoPartner();
     // }
-    return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.4,
-      child: Column(
-        children: [
-          GestureDetector(
-            onTap: () {
-              // Todo 유저면 사진 변경 가능, 파트너면 파트너 정보 상세보기
-              if (userDivision) {
-                showDialog(
-                  context: context,
-                  builder: (_) {
-                    return ImagePopup(
-                      onImageUploadComplete: handleImageUploadComplete,
-                    );
-                  },
-                );
-              }
-            },
-            child: renderAvatar(user),
+    return Column(
+      children: [
+        GestureDetector(
+          onTap: () {
+            // Todo 유저면 사진 변경 가능, 파트너면 파트너 정보 상세보기
+            if (userDivision) {
+              showDialog(
+                context: context,
+                builder: (_) {
+                  return ImagePopup(
+                    onImageUploadComplete: handleImageUploadComplete,
+                  );
+                },
+              );
+            }
+          },
+          child: renderAvatar(user),
+        ),
+        Padding(padding: EdgeInsets.symmetric(vertical: 8.0)),
+        if (user != null)
+          TextButton(
+            child: Text(user.userNm),
+            onPressed: () {},
           ),
-          Padding(padding: EdgeInsets.symmetric(vertical: 8.0)),
-          if (user != null)
-            TextButton(
-              child: Text(user.userNm),
-              onPressed: () {},
-            ),
-          if (user == null)
-            TextButton(
-              child: Text('파트너 찾기'),
-              onPressed: () {},
-            ),
-        ],
-      ),
+        if (user == null)
+          TextButton(
+            child: Text('파트너 찾기'),
+            onPressed: () {},
+          ),
+      ],
     );
   }
 
