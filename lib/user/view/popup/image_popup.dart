@@ -8,15 +8,19 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:wepick/common/dio/file_dio.dart';
 import 'package:wepick/common/layout/component/custom_alert_pop.dart';
+import 'package:wepick/common/layout/component/custom_circleAvatar.dart';
 import 'package:wepick/user/provider/user_provider.dart';
 
+import '../../../common/const/data.dart';
 import '../../../common/file/provider/file_provider.dart';
 
 class ImagePopup extends ConsumerStatefulWidget {
   final Function? onImageUploadComplete;
+  String? networkImgUrl;
 
-  const ImagePopup({
+  ImagePopup({
     this.onImageUploadComplete,
+    this.networkImgUrl,
     Key? key,
   }) : super(key: key);
 
@@ -44,71 +48,87 @@ class _ImagePopupState extends ConsumerState<ImagePopup> {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text('이미지 업로드'),
+      actions: [
+        ElevatedButton(
+          child: Text('변경완료'),
+          onPressed: () async {
+            if (_image != null) {
+              final result = await ref
+                  .read(fileProvider.notifier)
+                  .setProfileImage(_image!);
+              // ignore: curly_braces_in_flow_control_structures
+              if (result != null) if (result.resultData != null) {
+                Navigator.of(context).pop();
+
+                if (widget.onImageUploadComplete != null) {
+                  widget.onImageUploadComplete!.call();
+                }
+
+                // ignore: use_build_context_synchronously
+                showDialog(
+                  context: context,
+                  builder: (_) => CustomSimpleAlertPop(
+                    title: 'title',
+                    content: '변경이 완료되었습니다',
+                  ),
+                );
+              }
+            } else {
+              showDialog(
+                context: context,
+                builder: (_) => CustomSimpleAlertPop(
+                  title: '이미지 전송 실패',
+                  content: '사진을 선택해주세요',
+                ),
+              );
+            }
+          },
+        ),
+        ElevatedButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: Text('닫기'),
+        ),
+      ],
       contentPadding: EdgeInsets.only(
         top: 8.0,
         bottom: 8.0,
       ),
-      content: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.5,
-        child: Column(
-          children: [
-            _image != null
-                ? Image.file(
-                    File(_image!.path),
-                    width: 100.0,
-                    height: 100.0,
-                    fit: BoxFit.cover,
-                  )
-                : Text('사진 없음'),
-            ElevatedButton(
-              onPressed: () async {
-                _pickImage(ImageSource.camera);
-              },
-              child: Text('카메라에서 사진 선택'),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (_image != null)
+            Image.file(
+              File(_image!.path),
+              width: 200.0,
+              height: 200.0,
+              fit: BoxFit.cover,
             ),
-            ElevatedButton(
-              onPressed: () async {
-                _pickImage(ImageSource.gallery);
-              },
-              child: Text('갤러리에서 사진 선택'),
+          if (_image == null && widget.networkImgUrl != null)
+            Image.network(
+              'http://$ip/file/me/getProfileImg?pid=${widget.networkImgUrl}',
+              width: 200.0,
+              height: 200.0,
             ),
-            ElevatedButton(
-              onPressed: () async {
-                if (_image != null) {
-                  final result = await ref
-                      .read(fileProvider.notifier)
-                      .setProfileImage(_image!);
-                  // ignore: curly_braces_in_flow_control_structures
-                  if (result != null) if (result.resultData != null) {
-                    Navigator.of(context).pop();
-
-                    if (widget.onImageUploadComplete != null) {
-                      widget.onImageUploadComplete!.call();
-                    }
-
-                    // ignore: use_build_context_synchronously
-                    showDialog(
-                      context: context,
-                      builder: (_) => CustomSimpleAlertPop(
-                        title: 'title',
-                        content: '변경이 완료되었습니다',
-                      ),
-                    );
-                  }
-                } else {
-                  showDialog(
-                    context: context,
-                    builder: (_) => CustomSimpleAlertPop(
-                      title: '이미지 전송 실패',
-                      content: '사진을 선택해주세요',
-                    ),
-                  );
-                }
-              },
-              child: Text('사진 업로드'),
-            ),
-          ],
-        ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              IconButton(
+                onPressed: () async {
+                  _pickImage(ImageSource.camera);
+                },
+                icon: Icon(Icons.camera_alt_outlined),
+              ),
+              IconButton(
+                icon: Icon(Icons.photo_camera_back),
+                onPressed: () async {
+                  _pickImage(ImageSource.gallery);
+                },
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

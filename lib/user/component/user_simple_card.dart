@@ -6,21 +6,21 @@ import '../view/popup/image_popup.dart';
 import '../model/user_model.dart';
 import '../provider/user_provider.dart';
 
-class UserInfoCard extends ConsumerStatefulWidget {
+class UserSimpleCard extends ConsumerStatefulWidget {
   final UserModel? userModel;
   final bool userDivision;
 
-  const UserInfoCard({
+  const UserSimpleCard({
     this.userModel,
     this.userDivision = true, // false : 파트너 정보
     Key? key,
   }) : super(key: key);
 
   @override
-  ConsumerState<UserInfoCard> createState() => _UserInfoCardState();
+  ConsumerState<UserSimpleCard> createState() => _UserSimpleCardState();
 }
 
-class _UserInfoCardState extends ConsumerState<UserInfoCard> {
+class _UserSimpleCardState extends ConsumerState<UserSimpleCard> {
   //MediaQuery.of(context).size.height * 0.5,
 
   @override
@@ -34,14 +34,20 @@ class _UserInfoCardState extends ConsumerState<UserInfoCard> {
       children: [
         GestureDetector(
           onTap: () {
-            // Todo 유저면 사진 변경 가능, 파트너면 파트너 정보 상세보기
             if (userDivision) {
-              showDialog(
+              showGeneralDialog(
                 context: context,
-                builder: (_) {
-                  return ImagePopup(
-                    onImageUploadComplete: handleImageUploadComplete,
+                transitionBuilder: (_, a1, a2, widget) {
+                  return ScaleTransition(
+                    scale: Tween<double>(begin: 0.5, end: 1.0).animate(a1),
+                    child: ImagePopup(
+                      onImageUploadComplete: handleImageUploadComplete,
+                      networkImgUrl: user!.userImgUrl,
+                    ),
                   );
+                },
+                pageBuilder: (context, animation1, animation2) {
+                  return Container();
                 },
               );
             }

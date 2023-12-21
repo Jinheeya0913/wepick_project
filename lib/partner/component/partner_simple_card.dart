@@ -2,26 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wepick/partner/model/partner_model.dart';
+import 'package:wepick/partner/view/partnerInfo_screen.dart';
 import 'package:wepick/partner/view/popup/partner_code_popup.dart';
 import 'package:wepick/partner/view/partner_request_info_screen.dart';
 import 'package:wepick/partner/view/popup/partner_search_pop_1.dart';
 
 import '../../common/layout/component/custom_circleAvatar.dart';
-import '../../user/model/user_model.dart';
 
-class PartnerInfoCard extends ConsumerStatefulWidget {
+class PartnerSimpleCard extends ConsumerStatefulWidget {
   final PartnerInfoModelBase? partnerModel;
 
-  const PartnerInfoCard({
+  const PartnerSimpleCard({
     required this.partnerModel,
     Key? key,
   }) : super(key: key);
 
   @override
-  ConsumerState<PartnerInfoCard> createState() => _PartnerInfoCardState();
+  ConsumerState<PartnerSimpleCard> createState() => _PartnerSimpleCardState();
 }
 
-class _PartnerInfoCardState extends ConsumerState<PartnerInfoCard> {
+class _PartnerSimpleCardState extends ConsumerState<PartnerSimpleCard> {
   @override
   Widget build(BuildContext context) {
     final partnerInfo = widget.partnerModel;
@@ -37,6 +37,7 @@ class _PartnerInfoCardState extends ConsumerState<PartnerInfoCard> {
               ColoredBox(
                 color: Colors.blueAccent,
                 child: Container(
+                  // 요청온 파트너 건 수
                   child: ElevatedButton(
                     onPressed: () async {
                       final requestInfo = partnerInfo.requestInfoList;
@@ -53,6 +54,7 @@ class _PartnerInfoCardState extends ConsumerState<PartnerInfoCard> {
               ColoredBox(
                 color: Colors.blueAccent,
                 child: Container(
+                    // 바트너 요청하기 버튼
                     child: ElevatedButton(
                         onPressed: () {
                           showDialog(
@@ -86,16 +88,15 @@ class _PartnerInfoCardState extends ConsumerState<PartnerInfoCard> {
     } else if (partnerInfo is PartnerInfoModel) {
       return Column(
         children: [
-          GestureDetector(
-            child: renderAvatar(partnerInfo),
-            onTap: () {},
+          Hero(
+            tag: partnerInfo.partnerId,
+            child: GestureDetector(
+              child: renderAvatar(partnerInfo),
+              onTap: () {
+                context.pushNamed(PartnerInfoScreen.routeName);
+              },
+            ),
           ),
-          // GestureDetector(
-          //   onTap: () {
-          //     Todo 유저면 사진 변경 가능, 파트너면 파트너 정보 상세보기
-          // },
-          // child:
-          // ),
           Padding(padding: EdgeInsets.symmetric(vertical: 8.0)),
           TextButton(
             child: Text(partnerInfo.partnerNm),
