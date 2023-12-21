@@ -89,6 +89,7 @@ class _PartnerRequestCardState extends ConsumerState<PartnerRequestCard> {
                     ),
                   ],
                 ),
+                SizedBox(height: 8.0),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
