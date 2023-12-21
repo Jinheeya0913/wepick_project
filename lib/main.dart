@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:wepick/common/provider/go_router_provider.dart';
@@ -28,6 +29,17 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
     return MaterialApp.router(
+      localizationsDelegates: const [
+        // 앱 자체 언어 설정 로컬라이제이션 구성
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        // 앱에서 지원하는 언어 목록 설정
+        Locale('ko', 'KR'), // 한국어
+        Locale('en', 'US'), // 한국어
+      ],
       // 라우터 사용
       // 디버그 배너 비활성화
       debugShowCheckedModeBanner: false,
