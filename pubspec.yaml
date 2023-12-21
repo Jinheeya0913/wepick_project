@@ -49,6 +49,8 @@ dependencies:
   kakao_flutter_sdk: ^1.7.0
   # convert
   intl: ^0.17.0
+  # 물결 페이지 전환
+  liquid_swipe: ^3.1.0
 
 
   # The following adds the Cupertino Icons font to your application.
