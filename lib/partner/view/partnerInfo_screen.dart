@@ -90,6 +90,8 @@ class _PartnerInfoScreenState extends ConsumerState<PartnerInfoScreen> {
                             ),
                             meetDt != null
                                 ? Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
                                         DateTimeUtil.simpleFormatDateTime(
@@ -156,6 +158,10 @@ class _PartnerInfoScreenState extends ConsumerState<PartnerInfoScreen> {
     );
 
     if (selectedDate != null) {
+      final resp = await ref
+          .read(partnerProvider.notifier)
+          .setPartnerMeetDt(selectedDate.toLocal());
+
       setState(() {
         meetDt = selectedDate;
       });

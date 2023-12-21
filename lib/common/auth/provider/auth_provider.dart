@@ -11,6 +11,8 @@ import 'package:wepick/common/view/test/test_kakao.dart';
 import 'package:wepick/common/view/test/test_liquid.dart';
 import 'package:wepick/common/view/test/test_pop_route.dart';
 import 'package:wepick/common/view/test/test_tab.dart';
+import 'package:wepick/partner/model/partner_model.dart';
+import 'package:wepick/partner/provider/partner_provider.dart';
 import 'package:wepick/partner/view/partnerInfo_screen.dart';
 import 'package:wepick/partner/view/partner_request_info_screen.dart';
 import 'package:wepick/user/model/user_model.dart';

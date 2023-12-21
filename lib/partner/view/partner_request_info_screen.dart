@@ -41,7 +41,7 @@ class _PartnerRequestInfoScreenState
             onRefresh: () async {
               final respReq = await ref
                   .read(partnerProvider.notifier)
-                  .selectMyPartnerRequestQue();
+                  .getMyPartnerRequestQue();
               if (respReq != null) reqList = respReq;
             },
             child: ListView.separated(

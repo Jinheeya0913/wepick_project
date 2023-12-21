@@ -1,9 +1,13 @@
+// ignore_for_file: slash_for_doc_comments
+
 import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:wepick/common/model/api_result_model.dart';
 import 'package:wepick/common/provider/secure_storage.dart';
+import 'package:wepick/common/utils/datetimeUtil.dart';
+import 'package:wepick/common/utils/result_util.dart';
 import 'package:wepick/partner/model/partner_req_que_model.dart';
 import 'package:wepick/partner/model/partner_search_model.dart';
 import 'package:wepick/partner/model/partner_search_result_model.dart';
@@ -22,6 +26,19 @@ final partnerProvider =
 });
 
 class PartnerStateNotifier extends StateNotifier<PartnerInfoModelBase?> {
+  /**
+   * 기능 목록
+   *
+   * 1. getPartner              파트너 정보 조회
+   * 2. getMyPartnerCode        파트너 코드 생성
+   * 3. searchPartnerWithCode   파트너 코드로 검색
+   * 4. sendPartnerRequest      파트너 요청 보내기
+   * 5. getMyPartnerRequestQue  파트너 요청 목록 조회
+   * 6. refusePartnerRequest    파트너 요청 거절
+   * 8. acceptPartnerRequest    파트너 요청 수락
+   * 9. setMeetDt               파트너 만난일 설정
+   */
+
   final PartnerRepository partnerRepository;
   final FlutterSecureStorage storage;
   late ApiResult? partnerRequestListResult;
@@ -40,9 +57,9 @@ class PartnerStateNotifier extends StateNotifier<PartnerInfoModelBase?> {
 
     if (resp.resultCode != "401") {
       if (respData == null) {
-        final listInfo = await selectMyPartnerRequestQue();
+        final listInfo = await getMyPartnerRequestQue();
         if (listInfo != null && listInfo.isNotEmpty) {
-          print('[partnerProvider] >> getPartner :: 파트너 요청 목록을 state 저장');
+          // 파트너 요청 목록을 state에 저장
           state = PartnerInfoEmptyModel(
             requestInfoList: listInfo,
           );
@@ -126,7 +143,7 @@ class PartnerStateNotifier extends StateNotifier<PartnerInfoModelBase?> {
     return resp;
   }
 
-  Future<List<PartnerSearchInfoModel>?> selectMyPartnerRequestQue() async {
+  Future<List<PartnerSearchInfoModel>?> getMyPartnerRequestQue() async {
     print('[partnerProvider] >> selectMyPartnerRequestQue :: 파트너 요청 목록 조회 시작');
     final apiResult = await partnerRepository.selectPartnerRequestList();
 
@@ -179,6 +196,28 @@ class PartnerStateNotifier extends StateNotifier<PartnerInfoModelBase?> {
       state = partnerInfo;
 
       return partnerInfo;
+    }
+  }
+
+  Future<void> setPartnerMeetDt(DateTime meetDt) async {
+    print('[partnerProvider] >> setPartnerMeetDt :: 시작');
+    final stringDt = DateTimeUtil.dateTimeToJson(meetDt);
+    final result = await partnerRepository.setMeetDt(
+      meetDt: stringDt,
+    );
+    if (result.isSuccess()) {
+      print('[partnerProvider] >> setPartnerMeetDt :: 성공');
+      Map<String, dynamic> mapData =
+          ResultUtil.resultDataToMap(result.resultData);
+
+      // 서버에서 전달 받은 시간을 local 시간대로 변경하여 state에 저장.
+      // 전달받은 info를 그대로 state에 저장할 경우, 전달받은 날짜 -1의 값으로 들어옴
+      final DateTime localMeeDt = DateTime.parse(mapData['meetDt']).toLocal();
+      mapData['meetDt'] = localMeeDt.toString();
+
+      state = PartnerInfoModel.fromJson(mapData);
+    } else {
+      print('[partnerProvider] >> setPartnerMeetDt :: 실패');
     }
   }
 }

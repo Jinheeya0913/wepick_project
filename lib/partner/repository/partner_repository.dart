@@ -53,4 +53,14 @@ abstract class PartnerRepository {
   @Headers({'authorization': 'true'})
   Future<ApiResult> acceptPartnerRequest(
       {@Body() required Map<String, dynamic> ptRequestQue});
+
+  // 파트너 만난일 수정
+  @POST("/setPartnerMeetDate")
+  @Headers({
+    'authorization': 'true',
+    'content-type': 'application/json',
+  })
+  Future<ApiResult> setMeetDt({
+    @Body() required String? meetDt,
+  });
 }
