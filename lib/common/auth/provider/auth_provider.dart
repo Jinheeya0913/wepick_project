@@ -8,8 +8,10 @@ import 'package:wepick/common/view/splash_screen.dart';
 import 'package:wepick/common/view/test/test_custom_drawer.dart';
 import 'package:wepick/common/view/test/test_default_input_filed.dart';
 import 'package:wepick/common/view/test/test_kakao.dart';
+import 'package:wepick/common/view/test/test_liquid.dart';
 import 'package:wepick/common/view/test/test_pop_route.dart';
 import 'package:wepick/common/view/test/test_tab.dart';
+import 'package:wepick/partner/view/partnerInfo_screen.dart';
 import 'package:wepick/partner/view/partner_request_info_screen.dart';
 import 'package:wepick/user/model/user_model.dart';
 import 'package:wepick/user/provider/user_provider.dart';
@@ -85,6 +87,11 @@ class AuthProvider extends ChangeNotifier {
           builder: (_, __) => UserInfoScreen(),
         ),
         GoRoute(
+          path: '/partnerInfo',
+          name: PartnerInfoScreen.routeName,
+          builder: (_, state) => PartnerInfoScreen(),
+        ),
+        GoRoute(
           // 테스트용 Router
           path: '/test',
           name: TestTab.routeName,
@@ -119,6 +126,11 @@ class AuthProvider extends ChangeNotifier {
               path: 'popRoute2',
               name: TestPopRoute2.routeName,
               builder: (_, __) => TestPopRoute2(),
+            ),
+            GoRoute(
+              path: 'liquid',
+              name: TestLiquid.routeName,
+              builder: (_, __) => TestLiquid(),
             ),
           ],
         ),
