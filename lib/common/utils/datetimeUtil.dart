@@ -16,4 +16,13 @@ class DateTimeUtil {
 
   static String simpleFormatDateTime(DateTime time) =>
       DateFormat('yyyy-MM-dd').format(time);
+
+  static int? calDDayPlus(DateTime time) {
+    Duration difference = DateTime.now().difference(time);
+    if (difference.isNegative) {
+      return null;
+    }
+
+    return difference.inDays;
+  }
 }

@@ -20,12 +20,16 @@ class PartnerInfoScreen extends ConsumerStatefulWidget {
 class _PartnerInfoScreenState extends ConsumerState<PartnerInfoScreen> {
   DateTime? meetDt;
   String partnerNm = '';
+  int? dDayPlus;
   @override
   Widget build(BuildContext context) {
     final partnerInfo = ref.watch(partnerProvider) as PartnerInfoModel;
 
     meetDt ??= partnerInfo.meetDt;
     partnerNm = partnerInfo.partnerNm;
+    if (meetDt != null) {
+      dDayPlus = DateTimeUtil.calDDayPlus(meetDt!);
+    }
 
     return DefaultLayout(
         title: '파트너 정보',
@@ -37,14 +41,11 @@ class _PartnerInfoScreenState extends ConsumerState<PartnerInfoScreen> {
                 children: [
                   Flexible(
                     flex: 2,
-                    child: ColoredBox(
-                      color: Colors.blue,
-                      child: Hero(
-                        tag: partnerInfo.partnerId,
-                        child: CustomCircleAvatar(
-                          radius: 80,
-                          networkImgUrl: partnerInfo.partnerImgUrl,
-                        ),
+                    child: Hero(
+                      tag: partnerInfo.partnerId,
+                      child: CustomCircleAvatar(
+                        radius: 80,
+                        networkImgUrl: partnerInfo.partnerImgUrl,
                       ),
                     ),
                   ),
@@ -56,21 +57,14 @@ class _PartnerInfoScreenState extends ConsumerState<PartnerInfoScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text(
-                              '이름',
-                              style: TextStyle(
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.grey,
-                              ),
-                            ),
                             Text(
                               partnerNm,
                               style: const TextStyle(
-                                fontSize: 16.0,
+                                color: Colors.black,
+                                fontSize: 18.0,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -85,7 +79,6 @@ class _PartnerInfoScreenState extends ConsumerState<PartnerInfoScreen> {
                               style: TextStyle(
                                 fontSize: 18.0,
                                 fontWeight: FontWeight.w500,
-                                color: Colors.grey,
                               ),
                             ),
                             meetDt != null
@@ -99,6 +92,7 @@ class _PartnerInfoScreenState extends ConsumerState<PartnerInfoScreen> {
                                         style: const TextStyle(
                                           fontSize: 16.0,
                                           fontWeight: FontWeight.w500,
+                                          color: Colors.grey,
                                         ),
                                       ),
                                       CustomTextButton(
@@ -120,19 +114,17 @@ class _PartnerInfoScreenState extends ConsumerState<PartnerInfoScreen> {
                           ],
                         ),
                         SizedBox(height: 8.0),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        Row(
                           children: [
                             Text(
-                              '만난지',
+                              'D+',
                               style: TextStyle(
                                 fontSize: 18.0,
                                 fontWeight: FontWeight.w500,
-                                color: Colors.grey,
                               ),
                             ),
                             Text(
-                              '    ',
+                              '${dDayPlus ?? ''}',
                               style: TextStyle(
                                 fontSize: 18.0,
                                 fontWeight: FontWeight.w500,
