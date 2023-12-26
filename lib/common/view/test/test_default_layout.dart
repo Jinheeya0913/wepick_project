@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:wepick/common/layout/component/custom_drawer.dart';
-import 'package:wepick/user/view/userInfo_modify_screen.dart';
 
 import '../../../user/model/user_model.dart';
+import '../../layout/custom/custom_drawer.dart';
 
 class TestDefaultLayout extends ConsumerWidget {
   final Widget child;
