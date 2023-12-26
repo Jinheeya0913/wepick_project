@@ -56,5 +56,7 @@
 		<string>kakaokompassauth</string>
 		<string>kakaolink</string>
 	</array>
+	<key>NSLLocationWhenInUseUsageDescription</key>
+	<string>유저 위치를 가져와도 될까요?</string>
 </dict>
 </plist>

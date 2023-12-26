@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wepick/common/const/api_message.dart';
+import 'package:wepick/common/view/test/template/test_googleMap.dart';
 import 'package:wepick/common/view/test/test_kakao.dart';
 import 'package:wepick/common/view/test/test_liquid.dart';
 import 'package:wepick/common/view/test/test_pop_route.dart';
@@ -90,6 +91,12 @@ class TestTab extends ConsumerWidget {
               context.goNamed(TestLiquid.routeName);
             },
             child: Text('liquid swipe test'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              context.goNamed(TestGoogleMap.routeName);
+            },
+            child: Text('GoogleMap Test'),
           ),
         ],
       ),

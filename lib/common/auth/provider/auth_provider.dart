@@ -3,8 +3,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:wepick/article/view/article_write_screen.dart';
 import 'package:wepick/common/view/root_tab.dart';
 import 'package:wepick/common/view/splash_screen.dart';
+import 'package:wepick/common/view/test/template/test_googleMap.dart';
 import 'package:wepick/common/view/test/test_custom_drawer.dart';
 import 'package:wepick/common/view/test/test_default_input_filed.dart';
 import 'package:wepick/common/view/test/test_kakao.dart';
@@ -94,6 +96,11 @@ class AuthProvider extends ChangeNotifier {
           builder: (_, state) => PartnerInfoScreen(),
         ),
         GoRoute(
+          path: '/articleWrite',
+          name: ArticleWriteScreen.routeName,
+          builder: (_, state) => ArticleWriteScreen(),
+        ),
+        GoRoute(
           // 테스트용 Router
           path: '/test',
           name: TestTab.routeName,
@@ -133,6 +140,11 @@ class AuthProvider extends ChangeNotifier {
               path: 'liquid',
               name: TestLiquid.routeName,
               builder: (_, __) => TestLiquid(),
+            ),
+            GoRoute(
+              path: 'googleMap',
+              name: TestGoogleMap.routeName,
+              builder: (_, __) => TestGoogleMap(),
             ),
           ],
         ),

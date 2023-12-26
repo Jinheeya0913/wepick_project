@@ -18,6 +18,7 @@ class CustomTextFormField extends StatelessWidget {
   final double? contentPadding;
   final bool filled;
   final Color borderColor;
+  final int? maxLines;
 
   const CustomTextFormField({
     @required this.onChanged,
@@ -33,6 +34,7 @@ class CustomTextFormField extends StatelessWidget {
     this.circleBorder = false,
     this.filled = true,
     this.borderColor = INPUT_BORDER_COLOR,
+    this.maxLines = 1,
     super.key,
   });
 
@@ -56,6 +58,7 @@ class CustomTextFormField extends StatelessWidget {
       obscureText: obscureText,
       autofocus: autoFocus,
       onChanged: onChanged,
+      maxLines: maxLines,
       decoration: InputDecoration(
         counter: Offstage(),
         contentPadding: contentPadding != null

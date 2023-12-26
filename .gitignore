@@ -6,7 +6,10 @@ memo.txt
 assets/
 lib/common/view/test/
 ios
+# swift Storage
+storage.swift
 
+*.properties
 # Miscellaneous
 *.class
 *.log
