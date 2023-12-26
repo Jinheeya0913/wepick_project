@@ -11,6 +11,7 @@ class DefaultLayout extends ConsumerWidget {
   final Color? backgroundColor;
   final Widget? bottomNavigationBar;
   final bool automaticallyImplyLeading;
+  final Widget? leadingButton;
 
   const DefaultLayout({
     this.backgroundColor,
@@ -18,6 +19,7 @@ class DefaultLayout extends ConsumerWidget {
     this.title,
     this.bottomNavigationBar,
     this.automaticallyImplyLeading = true,
+    this.leadingButton,
     Key? key,
   }) : super(key: key);
 
@@ -42,6 +44,7 @@ class DefaultLayout extends ConsumerWidget {
         backgroundColor: Colors.white,
         centerTitle: true,
         elevation: 0,
+        leading: leadingButton,
         // actions: [
         //   IconButton(
         //     onPressed: () {},
