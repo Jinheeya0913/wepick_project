@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:wepick/common/layout/component/custom_alert_pop.dart';
 import 'package:wepick/common/layout/default_layout.dart';
 import 'package:wepick/partner/component/partner_request_card.dart';
 import 'package:wepick/partner/model/partner_req_que_model.dart';
@@ -8,6 +7,7 @@ import 'package:wepick/partner/model/partner_search_result_model.dart';
 import 'package:wepick/partner/provider/partner_provider.dart';
 import 'package:wepick/user/model/user_model.dart';
 
+import '../../common/layout/custom/custom_alert_pop.dart';
 import '../model/partner_model.dart';
 
 class PartnerRequestInfoScreen extends ConsumerStatefulWidget {

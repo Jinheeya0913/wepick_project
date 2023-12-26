@@ -7,7 +7,7 @@ import 'package:wepick/common/utils/datetimeUtil.dart';
 import 'package:wepick/partner/component/partner_simple_card.dart';
 import 'package:wepick/user/component/user_info_tab.dart';
 import 'package:wepick/user/view/popup/image_popup.dart';
-import 'package:wepick/common/layout/component/custom_circleAvatar.dart';
+import 'package:wepick/common/layout/custom/custom_circleAvatar.dart';
 import 'package:wepick/common/layout/default_layout.dart';
 import 'package:wepick/user/component/user_simple_card.dart';
 import 'package:wepick/partner/model/partner_model.dart';

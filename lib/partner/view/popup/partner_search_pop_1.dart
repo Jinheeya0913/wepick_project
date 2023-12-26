@@ -3,12 +3,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:wepick/common/layout/component/custom_alert_pop.dart';
-import 'package:wepick/common/layout/component/text/custom_text_con_bottom_ln.dart';
-import 'package:wepick/common/layout/component/text/custom_text_form_field.dart';
 import 'package:wepick/partner/provider/partner_provider.dart';
 import 'package:wepick/partner/view/popup/partner_search_pop_2.dart';
 
+import '../../../common/layout/custom/custom_alert_pop.dart';
+import '../../../common/layout/custom/text/custom_text_con_bottom_ln.dart';
+import '../../../common/layout/custom/text/custom_text_form_field.dart';
 import '../../model/partner_search_result_model.dart';
 
 class PartnerSearchPop2 extends ConsumerStatefulWidget {

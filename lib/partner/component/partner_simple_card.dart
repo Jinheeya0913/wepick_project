@@ -7,7 +7,7 @@ import 'package:wepick/partner/view/popup/partner_code_popup.dart';
 import 'package:wepick/partner/view/partner_request_info_screen.dart';
 import 'package:wepick/partner/view/popup/partner_search_pop_1.dart';
 
-import '../../common/layout/component/custom_circleAvatar.dart';
+import '../../common/layout/custom/custom_circleAvatar.dart';
 
 class PartnerSimpleCard extends ConsumerStatefulWidget {
   final PartnerInfoModelBase? partnerModel;

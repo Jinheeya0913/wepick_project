@@ -2,16 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:wepick/common/const/status.dart';
-import 'package:wepick/common/layout/component/custom_alert_pop.dart';
-import 'package:wepick/common/layout/component/custom_circleAvatar.dart';
 import 'package:wepick/common/utils/datetimeUtil.dart';
 import 'package:wepick/common/utils/statusConvertUtil.dart';
-import 'package:wepick/partner/model/partner_model.dart';
 import 'package:wepick/partner/provider/partner_provider.dart';
-import 'package:wepick/user/view/userInfo_screen.dart';
 
+import '../../common/layout/custom/custom_alert_pop.dart';
+import '../../common/layout/custom/custom_circleAvatar.dart';
 import '../../user/model/user_model.dart';
 import '../model/partner_req_que_model.dart';
 

@@ -2,10 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:wepick/common/layout/component/custom_circleAvatar.dart';
-import 'package:wepick/common/layout/component/text/custom_text_con_bottom_ln.dart';
 import 'package:wepick/partner/provider/partner_provider.dart';
 
+import '../../../common/layout/custom/custom_circleAvatar.dart';
+import '../../../common/layout/custom/text/custom_text_con_bottom_ln.dart';
 import '../../model/partner_search_result_model.dart';
 
 class PartnerSearchResult2 extends ConsumerStatefulWidget {

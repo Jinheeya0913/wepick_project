@@ -20,14 +20,6 @@ class _CustomDrawerState extends ConsumerState<CustomDrawer> {
   Widget build(BuildContext context) {
     final UserModel state = ref.read(userProvider) as UserModel;
 
-    // final UserModel state = UserModel.createEncPwModel(
-    //   userId: 'taran0913',
-    //   userNm: '하이',
-    //   userPw: 'wlsgmlhan0913',
-    //   userPhoneNum: '01098672202',
-    //   userEmail: 'taran0913@naver.com',
-    // );
-
     String accountName = state.userNm;
     String accountEmail = state.userEmail;
     String? accountImgUrl = state.userImgUrl;
@@ -81,6 +73,11 @@ class _CustomDrawerState extends ConsumerState<CustomDrawer> {
             onTap: () {
               ref.read(userProvider.notifier).logout();
             },
+          ),
+          ListTile(
+            leading: Icon(Icons.article),
+            title: Text('글 작성(임시)'),
+            onTap: () {},
           ),
         ],
       ),
