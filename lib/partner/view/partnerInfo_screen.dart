@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wepick/common/layout/component/button/custom_text_button.dart';
+import 'package:wepick/common/layout/component/custom_alert_pop.dart';
 import 'package:wepick/common/layout/component/custom_circleAvatar.dart';
+import 'package:wepick/common/layout/component/text/custom_text_form_field.dart';
 import 'package:wepick/common/layout/default_layout.dart';
 import 'package:wepick/common/layout/default_padding.dart';
 import 'package:wepick/common/utils/datetimeUtil.dart';
@@ -20,13 +22,20 @@ class PartnerInfoScreen extends ConsumerStatefulWidget {
 class _PartnerInfoScreenState extends ConsumerState<PartnerInfoScreen> {
   DateTime? meetDt;
   String partnerNm = '';
+  String? partnerAlias;
   int? dDayPlus;
+
+  // 입력용
+  String newPartnerAlias = '';
+
   @override
   Widget build(BuildContext context) {
     final partnerInfo = ref.watch(partnerProvider) as PartnerInfoModel;
 
     meetDt ??= partnerInfo.meetDt;
     partnerNm = partnerInfo.partnerNm;
+    partnerAlias = partnerInfo.partnerAlias;
+
     if (meetDt != null) {
       dDayPlus = DateTimeUtil.calDDayPlus(meetDt!);
     }
@@ -49,7 +58,7 @@ class _PartnerInfoScreenState extends ConsumerState<PartnerInfoScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 16.0,
                   ),
                   Flexible(
@@ -57,34 +66,140 @@ class _PartnerInfoScreenState extends ConsumerState<PartnerInfoScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            Text(
-                              partnerNm,
-                              style: const TextStyle(
-                                color: Colors.black,
+                            const Text(
+                              '이름',
+                              style: TextStyle(
                                 fontSize: 18.0,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
+                            Text(
+                              partnerNm,
+                              style: const TextStyle(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Row(
+                              children: [
+                                const Text(
+                                  '별명',
+                                  style: TextStyle(
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (_) {
+                                        return AlertDialog(
+                                          title: const Text('별명등록'),
+                                          actions: [
+                                            ElevatedButton(
+                                              onPressed: () async {
+                                                final result =
+                                                    await _setPartnerAlias(
+                                                        newPartnerAlias);
+
+                                                if (result) {
+                                                  Navigator.of(context).pop();
+                                                  showDialog(
+                                                      context: context,
+                                                      builder: (_) {
+                                                        return const CustomSimpleAlertPop(
+                                                            title: '변경 완료');
+                                                      });
+                                                } else {
+                                                  showDialog(
+                                                      context: context,
+                                                      builder: (_) {
+                                                        return const CustomSimpleAlertPop(
+                                                          title: '변경 실패',
+                                                          content: '다시 시도 바랍니다',
+                                                        );
+                                                      });
+                                                }
+                                              },
+                                              style: ButtonStyle(
+                                                backgroundColor:
+                                                    MaterialStateProperty.all(
+                                                        Colors.green),
+                                              ),
+                                              child: const Text(
+                                                '변경',
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                          ],
+                                          content: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.stretch,
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              const SizedBox(
+                                                height: 8.0,
+                                              ),
+                                              CustomTextFormField(
+                                                hintText:
+                                                    '등록할 별명을 입력해주세요 (최대 10글자)',
+                                                maxLength: 10,
+                                                circleBorder: true,
+                                                contentPadding: 8.0,
+                                                onChanged: (value) {
+                                                  newPartnerAlias = value;
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                  icon: const Icon(
+                                    Icons.edit_outlined,
+                                    size: 18.0,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Text(partnerAlias ?? '별명을 생성해주세요'),
                           ],
                         ),
                         const SizedBox(height: 8.0),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              '만난일',
-                              style: TextStyle(
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.w500,
-                              ),
+                            Row(
+                              children: [
+                                const Text(
+                                  '만난일',
+                                  style: TextStyle(
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    _selectMeetDate();
+                                  },
+                                  icon: Icon(Icons.edit_calendar_outlined),
+                                ),
+                              ],
                             ),
                             meetDt != null
                                 ? Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
                                         DateTimeUtil.simpleFormatDateTime(
@@ -95,28 +210,21 @@ class _PartnerInfoScreenState extends ConsumerState<PartnerInfoScreen> {
                                           color: Colors.grey,
                                         ),
                                       ),
-                                      CustomTextButton(
-                                        onPressed: () {
-                                          _selectMeetDate();
-                                        },
-                                        inputText: '변경 하기',
-                                      ),
                                     ],
                                   )
-                                : CustomTextButton(
-                                    onPressed: () async {
-                                      // 날짜 선택
-                                      _selectMeetDate();
-                                    },
-                                    inputText: '날짜 선택',
-                                    fontSize: 16.0,
-                                  )
+                                : const Text(
+                                    '날짜를 선택해주세요',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.grey),
+                                  ),
                           ],
                         ),
                         SizedBox(height: 8.0),
                         Row(
                           children: [
-                            Text(
+                            const Text(
                               'D+',
                               style: TextStyle(
                                 fontSize: 18.0,
@@ -124,8 +232,8 @@ class _PartnerInfoScreenState extends ConsumerState<PartnerInfoScreen> {
                               ),
                             ),
                             Text(
-                              '${dDayPlus ?? ''}',
-                              style: TextStyle(
+                              '${dDayPlus ?? '0'}',
+                              style: const TextStyle(
                                 fontSize: 18.0,
                                 fontWeight: FontWeight.w500,
                               ),
@@ -158,5 +266,16 @@ class _PartnerInfoScreenState extends ConsumerState<PartnerInfoScreen> {
         meetDt = selectedDate;
       });
     }
+  }
+
+  Future<bool> _setPartnerAlias(String alias) async {
+    final resp =
+        await ref.read(partnerProvider.notifier).setPartnerAlias(alias);
+
+    if (resp) {
+      setState(() {});
+    }
+
+    return resp;
   }
 }

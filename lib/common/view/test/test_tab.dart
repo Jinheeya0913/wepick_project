@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wepick/common/const/api_message.dart';
 import 'package:wepick/common/view/test/test_kakao.dart';
+import 'package:wepick/common/view/test/test_liquid.dart';
 import 'package:wepick/common/view/test/test_pop_route.dart';
 import 'package:wepick/user/view/popup/image_popup.dart';
 import 'package:wepick/common/layout/default_layout.dart';
@@ -83,6 +84,12 @@ class TestTab extends ConsumerWidget {
               context.goNamed(TestPopRoute.routeName);
             },
             child: Text('pop route test'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              context.goNamed(TestLiquid.routeName);
+            },
+            child: Text('liquid swipe test'),
           ),
         ],
       ),

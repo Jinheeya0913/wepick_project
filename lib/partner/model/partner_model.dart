@@ -30,6 +30,7 @@ class PartnerInfoModel extends PartnerInfoModelBase {
   final String partnerId;
   final String partnerNm;
   final String? partnerImgUrl;
+  final String? partnerAlias;
   // @JsonKey(
   //   fromJson: BoolUtil.boolFromJson,
   //   toJson: BoolUtil.boolToJson,
@@ -52,6 +53,7 @@ class PartnerInfoModel extends PartnerInfoModelBase {
     required this.partnerId,
     required this.partnerNm,
     this.partnerImgUrl,
+    this.partnerAlias,
     required this.partnerConnCd,
     required this.partnerConnYn,
     required this.regDt,

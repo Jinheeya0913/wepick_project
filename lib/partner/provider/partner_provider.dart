@@ -220,4 +220,19 @@ class PartnerStateNotifier extends StateNotifier<PartnerInfoModelBase?> {
       print('[partnerProvider] >> setPartnerMeetDt :: 실패');
     }
   }
+
+  Future<bool> setPartnerAlias(String partnerAlias) async {
+    print('[PartnerStateNotifier] >> setPartnerAlias START');
+    final apiResult = await partnerRepository.setPartnerAlias(partnerAlias);
+    if (apiResult.isSuccess()) {
+      print('[PartnerStateNotifier] >> setPartnerAlias SUCCESS');
+      Map<String, dynamic> mapData =
+          ResultUtil.resultDataToMap(apiResult.resultData);
+      state = PartnerInfoModel.fromJson(mapData);
+      return true;
+    } else {
+      print('[PartnerStateNotifier] >> setPartnerAlias FAILED');
+      return false;
+    }
+  }
 }

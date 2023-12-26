@@ -63,4 +63,12 @@ abstract class PartnerRepository {
   Future<ApiResult> setMeetDt({
     @Body() required String? meetDt,
   });
+
+  // 파트너 만난일 수정
+  @POST("/setPartnerAlias")
+  @Headers({
+    'authorization': 'true',
+    'content-type': 'application/json',
+  })
+  Future<ApiResult> setPartnerAlias(@Body() String partnerAlias);
 }

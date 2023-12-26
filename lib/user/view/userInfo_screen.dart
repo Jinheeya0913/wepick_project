@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wepick/common/const/colors.dart';
+import 'package:wepick/common/utils/datetimeUtil.dart';
 import 'package:wepick/partner/component/partner_simple_card.dart';
 import 'package:wepick/user/component/user_info_tab.dart';
 import 'package:wepick/user/view/popup/image_popup.dart';
@@ -79,9 +80,17 @@ class _UserInfoScreenState extends ConsumerState<UserInfoScreen> {
             shape: BoxShape.circle,
             // color: Colors.pink,
           ),
-          child: Icon(
-            Icons.favorite,
-            color: partnerInfo is PartnerInfoModel ? Colors.pink : Colors.grey,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.favorite,
+                color:
+                    partnerInfo is PartnerInfoModel ? Colors.pink : Colors.grey,
+              ),
+              if (partnerInfo is PartnerInfoModel && partnerInfo.meetDt != null)
+                Text('+${DateTimeUtil.calDDayPlus(partnerInfo.meetDt!)}')
+            ],
           ),
         ),
       ],

@@ -99,7 +99,9 @@ class _PartnerSimpleCardState extends ConsumerState<PartnerSimpleCard> {
           ),
           Padding(padding: EdgeInsets.symmetric(vertical: 8.0)),
           TextButton(
-            child: Text(partnerInfo.partnerNm),
+            child: partnerInfo.partnerAlias != null
+                ? Text(partnerInfo.partnerAlias!)
+                : Text(partnerInfo.partnerNm),
             onPressed: () {},
           ),
         ],
