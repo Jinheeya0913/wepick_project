@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:wepick/common/layout/component/custom_circleAvatar.dart';
 import 'package:wepick/common/view/root_tab.dart';
 import 'package:wepick/user/provider/user_provider.dart';
 
 import '../../../user/model/user_model.dart';
+import 'custom_circleAvatar.dart';
 
 class CustomDrawer extends ConsumerStatefulWidget {
   const CustomDrawer({Key? key}) : super(key: key);

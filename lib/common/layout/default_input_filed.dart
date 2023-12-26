@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'component/text/custom_text_form_field.dart';
+import 'custom/text/custom_text_form_field.dart';
 
 class DefaultInputField extends StatelessWidget {
   final String subtitle;
