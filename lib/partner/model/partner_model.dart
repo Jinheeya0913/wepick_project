@@ -24,6 +24,8 @@ class PartnerInfoEmptyModel extends PartnerInfoModelBase {
   });
 }
 
+class PartnerInfoLoading extends PartnerInfoModelBase {}
+
 @JsonSerializable()
 class PartnerInfoModel extends PartnerInfoModelBase {
   final String partnerConnCd;

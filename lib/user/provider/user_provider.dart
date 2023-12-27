@@ -69,7 +69,7 @@ class UserStateNotifier extends StateNotifier<UserModelBase?> {
       print('[userMeProvider] >> resp >> divisionCode : $divisionCode');
 
       if (divisionCode == 'T001') {
-        // 토큰 재발급
+        // 토큰 재발급[
         print('[userMeProvider] >> 토큰 재발급 ');
         final validResp = await authRepository.validToken(
             accessToken: accessToken, refreshToken: refreshToken);

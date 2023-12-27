@@ -41,7 +41,7 @@ class _RootTabState extends ConsumerState<RootTab>
   Widget build(BuildContext context) {
     return DefaultLayout(
       automaticallyImplyLeading: false,
-      title: '위픽',
+      title: '위딩',
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: PRIMARY_COLOR,
         unselectedItemColor: BODY_TEXT_COLOR,
