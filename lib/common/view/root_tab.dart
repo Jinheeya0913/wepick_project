@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:wepick/user/provider/user_provider.dart';
 import 'package:wepick/user/view/userInfo_screen.dart';
 import '../const/colors.dart';
 import '../layout/default_layout.dart';

@@ -79,7 +79,7 @@ class _CustomDrawerState extends ConsumerState<CustomDrawer> {
             leading: Icon(Icons.article),
             title: Text('글 작성(임시)'),
             onTap: () {
-              context.pushNamed(ArticleWriteScreen.routeName);
+              context.goNamed(ArticleWriteScreen.routeName);
             },
           ),
         ],

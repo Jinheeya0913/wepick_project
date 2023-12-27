@@ -161,8 +161,6 @@ class AuthProvider extends ChangeNotifier {
     final logginIn = state.location == '/login';
     final location = state.location;
 
-    print('[authProvider] >> state.location : ${location}');
-
     if (location.startsWith('/login/join') // 회원가입
         ||
         location.startsWith('/test')) // 테스트
