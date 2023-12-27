@@ -7,7 +7,7 @@ import 'custom/custom_drawer.dart';
 
 class DefaultLayout extends ConsumerWidget {
   final Widget child;
-  final String? title;
+  final String title;
   final Color? backgroundColor;
   final Widget? bottomNavigationBar;
   final bool automaticallyImplyLeading;
@@ -16,7 +16,7 @@ class DefaultLayout extends ConsumerWidget {
   const DefaultLayout({
     this.backgroundColor,
     required this.child,
-    this.title,
+    this.title = '',
     this.bottomNavigationBar,
     this.automaticallyImplyLeading = true,
     this.leadingButton,

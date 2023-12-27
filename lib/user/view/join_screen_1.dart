@@ -55,7 +55,6 @@ class _JoinScreenState extends ConsumerState<JoinScreen> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       CustomTextFormField(
-                        circleBorder: true,
                         contentPadding: 10,
                         hintText: '이름을 입력해주세요',
                         onChanged: (String value) {
@@ -66,7 +65,6 @@ class _JoinScreenState extends ConsumerState<JoinScreen> {
                         height: 16.0,
                       ),
                       CustomTextFormField(
-                        circleBorder: true,
                         contentPadding: 10,
                         hintText: 'ID를 입력해주세요',
                         onChanged: (String value) {
@@ -77,7 +75,6 @@ class _JoinScreenState extends ConsumerState<JoinScreen> {
                         height: 16.0,
                       ),
                       CustomTextFormField(
-                        circleBorder: true,
                         contentPadding: 10,
                         hintText: '비밀번호을 입력해주세요',
                         obscureText: true,
@@ -89,7 +86,6 @@ class _JoinScreenState extends ConsumerState<JoinScreen> {
                         height: 16.0,
                       ),
                       CustomTextFormField(
-                        circleBorder: true,
                         contentPadding: 10,
                         hintText: '비밀번호을 재입력해주세요',
                         obscureText: true,
@@ -101,7 +97,6 @@ class _JoinScreenState extends ConsumerState<JoinScreen> {
                         height: 16.0,
                       ),
                       CustomTextFormField(
-                        circleBorder: true,
                         contentPadding: 10,
                         hintText: '이메일을 입력해주세요',
                         onChanged: (String value) {
@@ -117,7 +112,6 @@ class _JoinScreenState extends ConsumerState<JoinScreen> {
                           Expanded(
                             child: CustomTextFormField(
                               digitOnly: true,
-                              circleBorder: true,
                               contentPadding: 10,
                               maxLength: 11,
                               hintText: '전화번호 (\'-\' 없이 입력)',
@@ -141,7 +135,6 @@ class _JoinScreenState extends ConsumerState<JoinScreen> {
                           Expanded(
                             child: CustomTextFormField(
                               digitOnly: true,
-                              circleBorder: true,
                               contentPadding: 10,
                               maxLength: 4,
                               hintText: '인증번호',

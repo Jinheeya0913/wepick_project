@@ -10,7 +10,7 @@ class CustomTextFormField extends StatelessWidget {
   final FormFieldValidator? validator;
   final bool obscureText;
   final bool autoFocus;
-  final bool circleBorder;
+  final double circleBorder;
   final bool digitOnly;
   final ValueChanged<String>? onChanged;
   final int? maxLength;
@@ -18,7 +18,10 @@ class CustomTextFormField extends StatelessWidget {
   final double? contentPadding;
   final bool filled;
   final Color borderColor;
+  final bool useBorder;
   final int? maxLines;
+  final double borderWidth;
+  final Color? cursorColor;
 
   const CustomTextFormField({
     @required this.onChanged,
@@ -31,10 +34,13 @@ class CustomTextFormField extends StatelessWidget {
     this.maxLength,
     this.hintSize,
     this.contentPadding,
-    this.circleBorder = false,
+    this.circleBorder = 16.0,
+    this.borderWidth = 1,
     this.filled = true,
     this.borderColor = INPUT_BORDER_COLOR,
+    this.useBorder = true,
     this.maxLines = 1,
+    this.cursorColor = PRIMARY_COLOR,
     super.key,
   });
 
@@ -44,17 +50,22 @@ class CustomTextFormField extends StatelessWidget {
     final baseBorder = OutlineInputBorder(
       borderSide: BorderSide(
         color: borderColor,
-        width: 1.0,
+        width: borderWidth,
       ),
-      borderRadius: circleBorder
-          ? BorderRadius.all(Radius.circular(16.0))
-          : const BorderRadius.all(Radius.circular(4.0)),
+      borderRadius: BorderRadius.all(Radius.circular(circleBorder)),
+    );
+
+    final unvisibleBorder = OutlineInputBorder(
+      borderSide: BorderSide(
+        color: borderColor,
+        width: borderWidth,
+      ),
     );
 
     return TextFormField(
       inputFormatters: [if (digitOnly) FilteringTextInputFormatter.digitsOnly],
       maxLength: maxLength == null ? null : maxLength,
-      cursorColor: PRIMARY_COLOR,
+      cursorColor: cursorColor,
       obscureText: obscureText,
       autofocus: autoFocus,
       onChanged: onChanged,
@@ -74,14 +85,14 @@ class CustomTextFormField extends StatelessWidget {
 
         // 배경색 있음
         filled: filled,
-        border: baseBorder,
+        border: useBorder ? baseBorder : null,
         // 선택되지 않은 상태에서의 볼더 설정
-        enabledBorder: baseBorder,
+        enabledBorder: useBorder ? baseBorder : unvisibleBorder,
 
         // copywith : 선택된 값에 대한 모든 속성을 복사
         focusedBorder: baseBorder.copyWith(
           borderSide: baseBorder.borderSide.copyWith(
-            color: PRIMARY_COLOR,
+            color: cursorColor,
           ),
         ),
       ),

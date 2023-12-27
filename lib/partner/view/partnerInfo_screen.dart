@@ -155,7 +155,6 @@ class _PartnerInfoScreenState extends ConsumerState<PartnerInfoScreen> {
                                                 hintText:
                                                     '등록할 별명을 입력해주세요 (최대 10글자)',
                                                 maxLength: 10,
-                                                circleBorder: true,
                                                 contentPadding: 8.0,
                                                 onChanged: (value) {
                                                   newPartnerAlias = value;

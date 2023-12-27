@@ -71,6 +71,7 @@ class _ArticleWriteScreenState extends State<ArticleWriteScreen>
     );
   }
 
+  //https://stackoverflow.com/questions/67285333/radio-button-style-using-icon-buttons-in-flutter
   Widget _icon(int index, String text, IconData icon) {
     return InkResponse(
       child: Column(
