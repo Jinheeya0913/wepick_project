@@ -46,21 +46,19 @@ class _ArticleWriteScreenState extends State<ArticleWriteScreen>
                 ],
               ),
             ),
-            Expanded(
-              child: Builder(
-                builder: (BuildContext context) {
-                  switch (selectedRadio) {
-                    case 0:
-                      return HallWriteLayout();
-                    case 1:
-                      return PackageWriteLayout();
-                    case 2:
-                      return GiftWriteLayout();
-                    default:
-                      return Container();
-                  }
-                },
-              ),
+            Builder(
+              builder: (BuildContext context) {
+                switch (selectedRadio) {
+                  case 0:
+                    return Expanded(child: HallWriteLayout());
+                  case 1:
+                    return Expanded(child: PackageWriteLayout());
+                  case 2:
+                    return Expanded(child: GiftWriteLayout());
+                  default:
+                    return Expanded(child: Container());
+                }
+              },
             ),
             Row(
               children: [Text('버튼')],

@@ -18,6 +18,7 @@ class AuthLoginRequestModel {
     required String userPw,
   }) {
     String encodedPw = Base64Util.base64Encoder(userPw);
+    print(encodedPw);
 
     return AuthLoginRequestModel(
       userId: userId,

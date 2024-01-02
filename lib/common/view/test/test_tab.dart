@@ -98,6 +98,12 @@ class TestTab extends ConsumerWidget {
             },
             child: Text('GoogleMap Test'),
           ),
+          ElevatedButton(
+            onPressed: () {
+              context.goNamed(TestGoogleMap.routeName);
+            },
+            child: Text('Init Test Account'),
+          ),
         ],
       ),
     );

@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wepick/article/view/article_write_screen.dart';
-import 'package:wepick/article/view/hall_search_screen.dart';
+import 'package:wepick/article/view/place_search_screen.dart';
 import 'package:wepick/common/view/root_tab.dart';
 import 'package:wepick/common/view/splash_screen.dart';
 import 'package:wepick/common/view/test/template/test_googleMap.dart';
@@ -97,16 +97,17 @@ class AuthProvider extends ChangeNotifier {
           builder: (_, state) => PartnerInfoScreen(),
         ),
         GoRoute(
-            path: '/articleWrite',
-            name: ArticleWriteScreen.routeName,
-            builder: (_, state) => ArticleWriteScreen(),
-            routes: [
-              GoRoute(
-                path: 'hallSearch',
-                name: HallSearchScreen.routeName,
-                builder: (_, state) => HallSearchScreen(),
-              ),
-            ]),
+          path: '/articleWrite',
+          name: ArticleWriteScreen.routeName,
+          builder: (_, state) => ArticleWriteScreen(),
+          routes: [
+            GoRoute(
+              path: 'placeSearch',
+              name: PlaceSearchScreen.routeName,
+              builder: (_, state) => PlaceSearchScreen(),
+            ),
+          ],
+        ),
         GoRoute(
           // 테스트용 Router
           path: '/test',
