@@ -1,10 +1,11 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:wepick/article/model/estimate_model_base.dart';
 import 'package:wepick/article/model/hall_model.dart';
 
 part 'hall_estimate_model.g.dart';
 
 @JsonSerializable()
-class HallEstimateModel extends HallModel {
+class HallEstimateModel extends HallModel implements EstimateModelBase {
   // 예약시간
   final String bookingTime;
   // 예약날짜

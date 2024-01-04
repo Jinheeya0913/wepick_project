@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:wepick/article/model/hall_estimate_model.dart';
 import 'package:wepick/article/view/hall_search_screen.dart';
 import 'package:wepick/article/view/place_search_screen.dart';
 import 'package:wepick/common/const/colors.dart';
@@ -18,8 +19,9 @@ class HallWriteLayout extends StatefulWidget {
 enum Beverage { INCLUDE, EXCLUDE }
 
 class _HallWriteLayoutState extends State<HallWriteLayout> {
-  String placeName = '';
-  String hallName = '';
+  int? placeCd;
+  String placeNm = '';
+  String hallNm = '';
   TimeOfDay? bookingTime;
   String? bookingDate;
 
@@ -76,19 +78,21 @@ class _HallWriteLayoutState extends State<HallWriteLayout> {
                           setState(() {
                             // 변경 필요
                             if (result != null) {
-                              placeName = result.toString();
+                              placeNm = result.toString();
+                              // 임시 하드코딩
+                              placeCd = 1;
                               stepOne = true;
                             } else {
-                              placeName = '';
-                              hallName = '';
+                              placeNm = '';
+                              hallNm = '';
 
                               // 임시
                               stepOne = false;
                             }
                           });
                         },
-                        child: placeName.isNotEmpty
-                            ? Text(placeName)
+                        child: placeNm.isNotEmpty
+                            ? Text(placeNm)
                             : const Text('웨딩홀을 검색해주세요'),
                       ),
                     ],
@@ -106,27 +110,27 @@ class _HallWriteLayoutState extends State<HallWriteLayout> {
                         ),
                         TextButton(
                           onPressed: () async {
-                            if (placeName.isEmpty) {
+                            if (placeNm.isEmpty) {
                               return;
                             }
                             final resp = await context.pushNamed(
                               HallSearchScreen.routeName,
-                              pathParameters: {"placeName": placeName},
+                              pathParameters: {"placeName": placeNm},
                             );
 
                             if (resp != null) {
                               setState(() {
-                                hallName = resp.toString();
+                                hallNm = resp.toString();
                                 stepTwo = true;
                               });
                             } else {
-                              hallName = '';
+                              hallNm = '';
                               // 임시
                               stepTwo = false;
                             }
                           },
-                          child: hallName.isNotEmpty
-                              ? Text(hallName)
+                          child: hallNm.isNotEmpty
+                              ? Text(hallNm)
                               : const Text('홀 이름을 검색해주세요'),
                         ),
                       ],
@@ -170,8 +174,8 @@ class _HallWriteLayoutState extends State<HallWriteLayout> {
                                               DateTime.now().year + 2));
                                       if (selectedDate != null) {
                                         setState(() {
-                                          bookingDate =
-                                              DateTimeUtil.dateTimeToOnlyDate(
+                                          bookingDate = DateTimeUtil
+                                              .dateTimeToOnlyDateString(
                                                   selectedDate);
                                           stepThree = true;
                                         });
@@ -375,7 +379,11 @@ class _HallWriteLayoutState extends State<HallWriteLayout> {
                       return CustomSimpleAlertPop(title: 'title');
                     });
               }
-              print('result >> $placeName');
+
+              String convertedTime =
+                  DateTimeUtil.timeOfDayTo24HourString(bookingTime!);
+
+              print('result >> $placeNm');
               print('result >> $bookingTime');
               print('result >> $bookingDate');
               print('result >> $rentalFee');
@@ -384,8 +392,16 @@ class _HallWriteLayoutState extends State<HallWriteLayout> {
               print('result >> $guaranteedPrsnl');
               print('result >> $memo');
 
-              print(bookingTime!.hour);
-              print(bookingTime!.minute);
+              HallEstimateModel model = HallEstimateModel(
+                rentalFee: rentalFee!,
+                bookingTime: convertedTime,
+                bookingDate: bookingDate!,
+                foodFee: foodFee!,
+                guaranteedPrsnl: guaranteedPrsnl!,
+                memo: memo,
+                placeCd: placeCd!,
+                hallNm: hallNm,
+              );
             },
             child: const Text(
               '작성 완료',

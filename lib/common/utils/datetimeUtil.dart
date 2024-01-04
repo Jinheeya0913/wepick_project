@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class DateTimeUtil {
@@ -26,7 +27,7 @@ class DateTimeUtil {
     return difference.inDays;
   }
 
-  static String dateTimeToOnlyDate(DateTime date) {
+  static String dateTimeToOnlyDateString(DateTime date) {
     String month = '';
     String day = '';
 
@@ -44,5 +45,12 @@ class DateTimeUtil {
 
     String format = "${date.year}-$month-$day";
     return format;
+  }
+
+  static String timeOfDayTo24HourString(TimeOfDay timeOfDay) {
+    String result =
+        '${timeOfDay.hour.toString()}:${timeOfDay.minute.toString()}';
+    print(result);
+    return result;
   }
 }
