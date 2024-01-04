@@ -22,6 +22,7 @@ class CustomTextFormField extends StatelessWidget {
   final int? maxLines;
   final double borderWidth;
   final Color? cursorColor;
+  final String? lavelText;
 
   const CustomTextFormField({
     @required this.onChanged,
@@ -41,6 +42,7 @@ class CustomTextFormField extends StatelessWidget {
     this.useBorder = true,
     this.maxLines = 1,
     this.cursorColor = PRIMARY_COLOR,
+    this.lavelText,
     super.key,
   });
 
@@ -55,7 +57,7 @@ class CustomTextFormField extends StatelessWidget {
       borderRadius: BorderRadius.all(Radius.circular(circleBorder)),
     );
 
-    final unvisibleBorder = OutlineInputBorder(
+    final unVisibleBorder = OutlineInputBorder(
       borderSide: BorderSide(
         color: borderColor,
         width: borderWidth,
@@ -87,7 +89,7 @@ class CustomTextFormField extends StatelessWidget {
         filled: filled,
         border: useBorder ? baseBorder : null,
         // 선택되지 않은 상태에서의 볼더 설정
-        enabledBorder: useBorder ? baseBorder : unvisibleBorder,
+        enabledBorder: useBorder ? baseBorder : unVisibleBorder,
 
         // copywith : 선택된 값에 대한 모든 속성을 복사
         focusedBorder: baseBorder.copyWith(
@@ -95,6 +97,9 @@ class CustomTextFormField extends StatelessWidget {
             color: cursorColor,
           ),
         ),
+
+        // 텍스트필드 over 제목
+        labelText: lavelText,
       ),
     );
   }

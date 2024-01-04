@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wepick/article/view/article_write_screen.dart';
+import 'package:wepick/common/const/colors.dart';
 import 'package:wepick/common/view/root_tab.dart';
 import 'package:wepick/user/provider/user_provider.dart';
 
@@ -47,7 +48,7 @@ class _CustomDrawerState extends ConsumerState<CustomDrawer> {
             //   print('아래로 펼치기 ');
             // },
             decoration: BoxDecoration(
-              color: Colors.purple[200],
+              color: PRIMARY_COLOR,
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(40.0),
                 bottomRight: Radius.circular(40.0),

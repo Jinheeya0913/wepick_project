@@ -92,18 +92,18 @@ class TestTab extends ConsumerWidget {
             },
             child: Text('liquid swipe test'),
           ),
-          ElevatedButton(
-            onPressed: () {
-              context.goNamed(TestGoogleMap.routeName);
-            },
-            child: Text('GoogleMap Test'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              context.goNamed(TestGoogleMap.routeName);
-            },
-            child: Text('Init Test Account'),
-          ),
+          // ElevatedButton(
+          //   onPressed: () {
+          //     context.goNamed(TestGoogleMap.routeName);
+          //   },
+          //   child: Text('GoogleMap Test'),
+          // ),
+          // ElevatedButton(
+          //   onPressed: () {
+          //     context.goNamed(TestGoogleMap.routeName);
+          //   },
+          //   child: Text('Init Test Account'),
+          // ),
         ],
       ),
     );

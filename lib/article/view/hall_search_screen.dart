@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:wepick/common/layout/default_layout.dart';
 
-class PlaceSearchScreen extends StatefulWidget {
-  static get routeName => 'PlaceSearchScreen';
-
-  const PlaceSearchScreen({
+class HallSearchScreen extends StatefulWidget {
+  static get routeName => 'hallSearch';
+  final String? placeName;
+  const HallSearchScreen({
     Key? key,
+    required this.placeName,
   }) : super(key: key);
 
   @override
-  State<PlaceSearchScreen> createState() => _PlaceSearchScreenState();
+  State<HallSearchScreen> createState() => _HallSearchScreenState();
 }
 
-class _PlaceSearchScreenState extends State<PlaceSearchScreen> {
+class _HallSearchScreenState extends State<HallSearchScreen> {
   List<String> items = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
   List<String> itemContents = [
     'Item 1 Contents',
@@ -53,21 +54,33 @@ class _PlaceSearchScreenState extends State<PlaceSearchScreen> {
               ],
             ),
             Expanded(
-              child: ListView.builder(
-                itemCount: searchResults.length,
-                itemBuilder: (context, index) {
-                  final selectedItem = searchResults[index];
-                  return InkWell(
-                    onTap: () {
-                      Navigator.of(context).pop(selectedItem);
-                    },
-                    child: ListTile(
-                      leading: Icon(Icons.arrow_right),
-                      title: Text(selectedItem),
-                    ),
-                  );
-                },
-              ),
+              child: searchResults.length != 0
+                  ? ListView.builder(
+                      itemCount: searchResults.length,
+                      itemBuilder: (context, index) {
+                        final selectedItem = searchResults[index];
+                        return InkWell(
+                          onTap: () {
+                            Navigator.of(context).pop(selectedItem);
+                          },
+                          child: ListTile(
+                            leading: Icon(Icons.arrow_right),
+                            title: Text(selectedItem),
+                          ),
+                        );
+                      },
+                    )
+                  : searchString.isNotEmpty
+                      ? InkWell(
+                          onTap: () {
+                            Navigator.of(context).pop(searchString);
+                          },
+                          child: ListTile(
+                            leading: Icon(Icons.arrow_right),
+                            title: Text(searchString),
+                          ),
+                        )
+                      : Container(),
             ),
           ],
         ),
@@ -90,4 +103,7 @@ class _PlaceSearchScreenState extends State<PlaceSearchScreen> {
           .toList();
     });
   }
+
+
+
 }

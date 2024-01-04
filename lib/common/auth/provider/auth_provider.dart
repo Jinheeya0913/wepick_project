@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wepick/article/view/article_write_screen.dart';
+import 'package:wepick/article/view/hall_search_screen.dart';
 import 'package:wepick/article/view/place_search_screen.dart';
 import 'package:wepick/common/view/root_tab.dart';
 import 'package:wepick/common/view/splash_screen.dart';
@@ -106,6 +107,13 @@ class AuthProvider extends ChangeNotifier {
               name: PlaceSearchScreen.routeName,
               builder: (_, state) => PlaceSearchScreen(),
             ),
+            GoRoute(
+              path: 'hallSearch:placeName',
+              name: HallSearchScreen.routeName,
+              builder: (_, state) => HallSearchScreen(
+                placeName: state.pathParameters["placeName"].toString(),
+              ),
+            ),
           ],
         ),
         GoRoute(
@@ -149,11 +157,11 @@ class AuthProvider extends ChangeNotifier {
               name: TestLiquid.routeName,
               builder: (_, __) => TestLiquid(),
             ),
-            GoRoute(
-              path: 'googleMap',
-              name: TestGoogleMap.routeName,
-              builder: (_, __) => TestGoogleMap(),
-            ),
+            // GoRoute(
+            //   path: 'googleMap',
+            //   name: TestGoogleMap.routeName,
+            //   builder: (_, __) => TestGoogleMap(),
+            // ),
           ],
         ),
       ];

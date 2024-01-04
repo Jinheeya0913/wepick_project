@@ -60,9 +60,6 @@ class _ArticleWriteScreenState extends State<ArticleWriteScreen>
                 }
               },
             ),
-            Row(
-              children: [Text('버튼')],
-            ),
           ],
         ),
       ),

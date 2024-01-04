@@ -25,4 +25,24 @@ class DateTimeUtil {
 
     return difference.inDays;
   }
+
+  static String dateTimeToOnlyDate(DateTime date) {
+    String month = '';
+    String day = '';
+
+    if (date.month < 10) {
+      month = "0${date.month}";
+    } else {
+      month = date.month.toString();
+    }
+
+    if (date.day < 10) {
+      day = "0${date.day}";
+    } else {
+      day = date.day.toString();
+    }
+
+    String format = "${date.year}-$month-$day";
+    return format;
+  }
 }
