@@ -1,24 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wepick/article/model/hall_estimate_model.dart';
-import 'package:wepick/article/view/hall_search_screen.dart';
-import 'package:wepick/article/view/place_search_screen.dart';
+import 'package:wepick/article/model/place_model.dart';
+import 'package:wepick/article/provider/estimate_provider.dart';
+import 'package:wepick/article/view/search_hall_screen.dart';
+import 'package:wepick/article/view/search_place_screen.dart';
 import 'package:wepick/common/const/colors.dart';
 import 'package:wepick/common/layout/custom/custom_alert_pop.dart';
 import 'package:wepick/common/layout/custom/text/custom_text_form_field.dart';
 import 'package:wepick/common/layout/custom/text/rowInputTextWithTitle.dart';
 import 'package:wepick/common/utils/datetimeUtil.dart';
 
-class HallWriteLayout extends StatefulWidget {
-  const HallWriteLayout({Key? key}) : super(key: key);
+import '../../common/view/root_tab.dart';
+
+class EstimateHallWriteScreen extends ConsumerStatefulWidget {
+  const EstimateHallWriteScreen({Key? key}) : super(key: key);
 
   @override
-  State<HallWriteLayout> createState() => _HallWriteLayoutState();
+  ConsumerState<EstimateHallWriteScreen> createState() =>
+      _EstimateHallWriteScreenState();
 }
 
 enum Beverage { INCLUDE, EXCLUDE }
 
-class _HallWriteLayoutState extends State<HallWriteLayout> {
+class _EstimateHallWriteScreenState
+    extends ConsumerState<EstimateHallWriteScreen> {
   int? placeCd;
   String placeNm = '';
   String hallNm = '';
@@ -46,6 +53,8 @@ class _HallWriteLayoutState extends State<HallWriteLayout> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = ref.watch(estimateProvider.notifier);
+
     return Container(
       padding: const EdgeInsets.all(16),
       // decoration: BoxDecoration(
@@ -58,7 +67,7 @@ class _HallWriteLayoutState extends State<HallWriteLayout> {
         children: [
           Expanded(
             child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -74,7 +83,7 @@ class _HallWriteLayoutState extends State<HallWriteLayout> {
                       TextButton(
                         onPressed: () async {
                           final result = await context
-                              .pushNamed(PlaceSearchScreen.routeName);
+                              .pushNamed(SearchPlaceScreen.routeName);
                           setState(() {
                             // 변경 필요
                             if (result != null) {
@@ -114,7 +123,7 @@ class _HallWriteLayoutState extends State<HallWriteLayout> {
                               return;
                             }
                             final resp = await context.pushNamed(
-                              HallSearchScreen.routeName,
+                              SearchHallScreen.routeName,
                               pathParameters: {"placeName": placeNm},
                             );
 
@@ -327,7 +336,7 @@ class _HallWriteLayoutState extends State<HallWriteLayout> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
-                              Divider(),
+                              const Divider(),
                               Row(
                                 children: [
                                   const Text(
@@ -336,7 +345,7 @@ class _HallWriteLayoutState extends State<HallWriteLayout> {
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  SizedBox(width: 16.0),
+                                  const SizedBox(width: 16.0),
                                   Text(
                                     '${memo.length}/200',
                                     style: const TextStyle(
@@ -376,21 +385,13 @@ class _HallWriteLayoutState extends State<HallWriteLayout> {
                 showDialog(
                     context: context,
                     builder: (context) {
-                      return CustomSimpleAlertPop(title: 'title');
+                      return CustomSimpleAlertPop(title: '견적을 먼저 완성해주세요');
                     });
+                return;
               }
 
               String convertedTime =
                   DateTimeUtil.timeOfDayTo24HourString(bookingTime!);
-
-              print('result >> $placeNm');
-              print('result >> $bookingTime');
-              print('result >> $bookingDate');
-              print('result >> $rentalFee');
-              print('result >> $foodFee');
-              print('result >> $selectedBeverage');
-              print('result >> $guaranteedPrsnl');
-              print('result >> $memo');
 
               HallEstimateModel model = HallEstimateModel(
                 rentalFee: rentalFee!,
@@ -399,9 +400,44 @@ class _HallWriteLayoutState extends State<HallWriteLayout> {
                 foodFee: foodFee!,
                 guaranteedPrsnl: guaranteedPrsnl!,
                 memo: memo,
-                placeCd: placeCd!,
+                placeInfo: PlaceModel(placeCd: 1),
                 hallNm: hallNm,
               );
+              final resp =
+                  await provider.writeHallEstimate(hallEstimateModel: model);
+
+              if (resp != null) {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return const CustomSimpleAlertPop(
+                      title: '업로드 실패',
+                      content: '잠시 후 다시 시도 바랍니다.',
+                    );
+                  },
+                );
+              } else {
+                final result = await showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text('업로드 성공'),
+                      content: Text('게시물 작성 성공하였습니다.'),
+                      actions: [
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                            context.pushNamed(RootTab.routeName);
+                            _resetForm();
+                          },
+                          child: Text('돌아가기'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+                context.pushNamed(RootTab.routeName);
+              }
             },
             child: const Text(
               '작성 완료',
@@ -431,5 +467,25 @@ class _HallWriteLayoutState extends State<HallWriteLayout> {
         });
       }
     }
+  }
+
+  void _resetForm() {
+    setState(() {
+      placeCd = null;
+      placeNm = '';
+      hallNm = '';
+      bookingTime = null;
+      bookingDate = null;
+      rentalFee = null;
+      foodFee = null;
+      guaranteedPrsnl = null;
+      memo = '';
+      stepOne = false;
+      stepTwo = false;
+      stepThree = false;
+      stepFour = false;
+      stepFive = false;
+      selectedBeverage = null;
+    });
   }
 }

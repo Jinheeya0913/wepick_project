@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:wepick/article/model/estimate_model_base.dart';
 import 'package:wepick/article/model/hall_model.dart';
+import 'package:wepick/article/model/place_model.dart';
 
 part 'hall_estimate_model.g.dart';
 
@@ -27,10 +28,12 @@ class HallEstimateModel extends HallModel implements EstimateModelBase {
     required this.guaranteedPrsnl,
     required this.memo,
     super.hallCd,
-    required super.placeCd,
+    super.placeInfo,
     required super.hallNm,
   });
 
   factory HallEstimateModel.fromJson(Map<String, dynamic> json) =>
       _$HallEstimateModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$HallEstimateModelToJson(this);
 }

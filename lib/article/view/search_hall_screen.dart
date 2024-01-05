@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:wepick/common/layout/default_layout.dart';
 
-class HallSearchScreen extends StatefulWidget {
+class SearchHallScreen extends StatefulWidget {
   static get routeName => 'hallSearch';
   final String? placeName;
-  const HallSearchScreen({
+  const SearchHallScreen({
     Key? key,
     required this.placeName,
   }) : super(key: key);
 
   @override
-  State<HallSearchScreen> createState() => _HallSearchScreenState();
+  State<SearchHallScreen> createState() => _SearchHallScreenState();
 }
 
-class _HallSearchScreenState extends State<HallSearchScreen> {
+class _SearchHallScreenState extends State<SearchHallScreen> {
   List<String> items = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
   List<String> itemContents = [
     'Item 1 Contents',
@@ -103,7 +103,4 @@ class _HallSearchScreenState extends State<HallSearchScreen> {
           .toList();
     });
   }
-
-
-
 }

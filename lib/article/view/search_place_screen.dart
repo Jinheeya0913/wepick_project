@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:wepick/common/layout/default_layout.dart';
 
-class PlaceSearchScreen extends StatefulWidget {
+class SearchPlaceScreen extends StatefulWidget {
   static get routeName => 'PlaceSearchScreen';
 
-  const PlaceSearchScreen({
+  const SearchPlaceScreen({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<PlaceSearchScreen> createState() => _PlaceSearchScreenState();
+  State<SearchPlaceScreen> createState() => _SearchPlaceScreenState();
 }
 
-class _PlaceSearchScreenState extends State<PlaceSearchScreen> {
+class _SearchPlaceScreenState extends State<SearchPlaceScreen> {
   List<String> items = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
   List<String> itemContents = [
     'Item 1 Contents',
