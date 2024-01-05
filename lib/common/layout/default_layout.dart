@@ -30,7 +30,7 @@ class DefaultLayout extends ConsumerWidget {
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: renderAppBar(),
-      body: child,
+      body: SafeArea(child: child),
       bottomNavigationBar: bottomNavigationBar,
       endDrawer: state is! UserModel ? null : CustomDrawer(),
     );
