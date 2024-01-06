@@ -3,9 +3,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:wepick/article/view/article_write_screen.dart';
-import 'package:wepick/article/view/search_hall_screen.dart';
-import 'package:wepick/article/view/search_place_screen.dart';
+import 'package:wepick/estimate/view/article_write_screen.dart';
+import 'package:wepick/estimate/view/search_hall_screen.dart';
+import 'package:wepick/estimate/view/search_place_screen.dart';
 import 'package:wepick/common/view/root_tab.dart';
 import 'package:wepick/common/view/splash_screen.dart';
 import 'package:wepick/common/view/test/template/test_googleMap.dart';

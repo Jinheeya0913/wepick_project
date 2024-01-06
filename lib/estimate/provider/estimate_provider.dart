@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:wepick/article/model/estimate_model_base.dart';
-import 'package:wepick/article/model/hall_estimate_model.dart';
+import 'package:wepick/estimate/model/estimate_model_base.dart';
+import 'package:wepick/estimate/model/hall_estimate_model.dart';
 import 'package:wepick/common/provider/secure_storage.dart';
 
 import '../repository/estimate_repository.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:wepick/article/view/article_write_screen.dart';
+import 'package:wepick/estimate/view/article_write_screen.dart';
 import 'package:wepick/common/const/colors.dart';
 import 'package:wepick/common/view/root_tab.dart';
 import 'package:wepick/user/provider/user_provider.dart';

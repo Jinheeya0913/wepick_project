@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:wepick/estimate/view/estimate_list_screen.dart';
 import 'package:wepick/user/view/myweding_screen.dart';
 import '../const/colors.dart';
 import '../layout/default_layout.dart';
@@ -20,6 +21,7 @@ class RootTab extends ConsumerStatefulWidget {
 class _RootTabState extends ConsumerState<RootTab>
     with SingleTickerProviderStateMixin {
   int index = 0;
+  String title = '위딩';
   // int index = 1;
   // late --> initState 과정에서 값이 주입
   late TabController tabController;
@@ -41,7 +43,7 @@ class _RootTabState extends ConsumerState<RootTab>
   Widget build(BuildContext context) {
     return DefaultLayout(
       automaticallyImplyLeading: false,
-      title: '위딩',
+      title: title,
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: PRIMARY_COLOR,
         unselectedItemColor: BODY_TEXT_COLOR,
@@ -69,13 +71,13 @@ class _RootTabState extends ConsumerState<RootTab>
             icon: Icon(
               Icons.receipt_long_outlined,
             ),
-            label: '주문',
+            label: '견적',
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.people,
             ),
-            label: '파트너',
+            label: '마이위딩',
           ),
         ],
       ),
@@ -94,10 +96,7 @@ class _RootTabState extends ConsumerState<RootTab>
             ),
           ),
           Center(
-            child: Container(
-              // 임시적으로
-              child: const Text('data3'),
-            ),
+            child: EstimateListScreen(),
           ),
           Container(
             child: MyWedingScreen(),
@@ -116,6 +115,17 @@ class _RootTabState extends ConsumerState<RootTab>
   void tabListener() {
     setState(() {
       index = tabController.index;
+      if (index == 0) {
+        title = '홈';
+      } else if (index == 1) {
+        title = '달력';
+      } else if (index == 2) {
+        title = '견적';
+      } else if (index == 3) {
+        title = '마이위딩';
+      } else {
+        title = '위딩';
+      }
     });
   }
 }

@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:wepick/article/model/place_model.dart';
+import 'package:wepick/estimate/model/place_model.dart';
 
 part 'hall_model.g.dart';
 

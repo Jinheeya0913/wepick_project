@@ -67,7 +67,7 @@ class _TestDrawerTab extends ConsumerState<TestDrawerTab>
             icon: Icon(
               Icons.receipt_long_outlined,
             ),
-            label: '주문',
+            label: '견적',
           ),
           BottomNavigationBarItem(
             icon: Icon(

@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:wepick/article/model/estimate_model_base.dart';
-import 'package:wepick/article/model/hall_model.dart';
-import 'package:wepick/article/model/place_model.dart';
+import 'package:wepick/estimate/model/estimate_model_base.dart';
+import 'package:wepick/estimate/model/hall_model.dart';
+import 'package:wepick/estimate/model/place_model.dart';
 
 part 'hall_estimate_model.g.dart';
 
