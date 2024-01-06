@@ -54,7 +54,6 @@ class _UserSimpleCardState extends ConsumerState<UserSimpleCard> {
           },
           child: renderAvatar(user),
         ),
-        Padding(padding: EdgeInsets.symmetric(vertical: 8.0)),
         if (user != null)
           TextButton(
             child: Text(user.userNm),

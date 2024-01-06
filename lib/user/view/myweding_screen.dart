@@ -6,9 +6,8 @@ import 'package:wepick/common/const/colors.dart';
 import 'package:wepick/common/utils/datetimeUtil.dart';
 import 'package:wepick/partner/component/partner_simple_card.dart';
 import 'package:wepick/user/component/user_info_tab.dart';
-import 'package:wepick/user/view/popup/image_popup.dart';
-import 'package:wepick/common/layout/custom/custom_circleAvatar.dart';
-import 'package:wepick/common/layout/default_layout.dart';
+import 'package:wepick/user/component/weding_menu.dart';
+import 'package:wepick/user/component/weding_toggle_menu.inactive';
 import 'package:wepick/user/component/user_simple_card.dart';
 import 'package:wepick/partner/model/partner_model.dart';
 import 'package:wepick/partner/provider/partner_provider.dart';
@@ -16,15 +15,15 @@ import 'package:wepick/partner/provider/partner_provider.dart';
 import '../model/user_model.dart';
 import '../provider/user_provider.dart';
 
-class UserInfoScreen extends ConsumerStatefulWidget {
+class MyWedingScreen extends ConsumerStatefulWidget {
   static String get routeName => 'me';
-  const UserInfoScreen({Key? key}) : super(key: key);
+  const MyWedingScreen({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<UserInfoScreen> createState() => _UserInfoScreenState();
+  ConsumerState<MyWedingScreen> createState() => _MyWedingScreenState();
 }
 
-class _UserInfoScreenState extends ConsumerState<UserInfoScreen> {
+class _MyWedingScreenState extends ConsumerState<MyWedingScreen> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(userProvider);
@@ -33,37 +32,49 @@ class _UserInfoScreenState extends ConsumerState<UserInfoScreen> {
     state as UserModel;
 
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.3,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              // Todo : User & Partner Info
-              children: [
-                Flexible(
-                  flex: 3,
-                  child: UserSimpleCard(userModel: state),
-                ),
-                // if (partner is PartnerInfoModel)
-                Flexible(
-                  flex: 2,
-                  child: partnerLinkInfo(partner),
-                ),
-                Flexible(
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.grey.shade50,
+              borderRadius: BorderRadius.circular(16.0),
+            ),
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height * 0.25,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                // Todo : User & Partner Info
+                children: [
+                  Flexible(
                     flex: 3,
-                    child: PartnerSimpleCard(
-                      // 파트너 카드
-                      partnerModel: partner,
-                    )),
-              ],
+                    child: UserSimpleCard(userModel: state),
+                  ),
+                  // if (partner is PartnerInfoModel)
+                  Flexible(
+                    flex: 2,
+                    child: partnerLinkInfo(partner),
+                  ),
+                  Flexible(
+                      flex: 3,
+                      child: PartnerSimpleCard(
+                        // 파트너 카드
+                        partnerModel: partner,
+                      )),
+                ],
+              ),
             ),
           ),
-          ColoredBox(
-            // Todo : Other Option
-            color: Colors.pinkAccent,
-            child: UserInfoTab(),
+          Padding(
+            padding: EdgeInsets.only(bottom: 16.0),
+          ),
+          Expanded(
+            child: Scrollbar(
+              child: SingleChildScrollView(
+                child: WedingMenu(),
+              ),
+            ),
           ),
         ],
       ),

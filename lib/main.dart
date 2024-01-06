@@ -46,7 +46,7 @@ class MyApp extends ConsumerWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: [
+      supportedLocales: const [
         // 앱에서 지원하는 언어 목록 설정
         Locale('ko', 'KR'), // 한국어
         Locale('en', 'US'), // 한국어

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:wepick/user/view/userInfo_screen.dart';
+import 'package:wepick/user/view/myweding_screen.dart';
 import '../const/colors.dart';
 import '../layout/default_layout.dart';
 
@@ -99,8 +99,8 @@ class _RootTabState extends ConsumerState<RootTab>
               child: const Text('data3'),
             ),
           ),
-          Center(
-            child: UserInfoScreen(),
+          Container(
+            child: MyWedingScreen(),
           ),
         ],
       ),

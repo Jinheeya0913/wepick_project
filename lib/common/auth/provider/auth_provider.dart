@@ -25,7 +25,7 @@ import 'package:wepick/user/view/join_screen_1.dart';
 import 'package:wepick/user/view/join_screen_2.dart';
 import 'package:wepick/user/view/login_screen.dart';
 import 'package:wepick/user/view/userInfo_modify_screen.dart';
-import 'package:wepick/user/view/userInfo_screen.dart';
+import 'package:wepick/user/view/myweding_screen.dart';
 
 import '../../view/test/test_pop_route2.dart';
 
@@ -89,8 +89,8 @@ class AuthProvider extends ChangeNotifier {
         ),
         GoRoute(
           path: '/me',
-          name: UserInfoScreen.routeName,
-          builder: (_, __) => UserInfoScreen(),
+          name: MyWedingScreen.routeName,
+          builder: (_, __) => MyWedingScreen(),
         ),
         GoRoute(
           path: '/partnerInfo',

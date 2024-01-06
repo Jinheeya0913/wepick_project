@@ -2,6 +2,7 @@
 data.dart
 main.dart
 memo.txt
+*.inactvie
 
 assets/
 lib/common/view/test/

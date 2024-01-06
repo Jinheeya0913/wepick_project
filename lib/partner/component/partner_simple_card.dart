@@ -29,60 +29,52 @@ class _PartnerSimpleCardState extends ConsumerState<PartnerSimpleCard> {
     if (partnerInfo != null && partnerInfo is PartnerInfoEmptyModel) {
       return ColoredBox(
         color: Colors.grey,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              ColoredBox(
-                color: Colors.blueAccent,
-                child: Container(
-                  // 요청온 파트너 건 수
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      final requestInfo = partnerInfo.requestInfoList;
-                      if (requestInfo != null && requestInfo.isNotEmpty) {
-                        context.goNamed(PartnerRequestInfoScreen.routeName);
-                      }
-                    },
-                    child: Text(partnerInfo.requestInfoList != null
-                        ? '${partnerInfo.requestInfoList!.length} 건'
-                        : '0 건'),
-                  ),
-                ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            ColoredBox(
+              color: Colors.blueAccent,
+              child: ElevatedButton(
+                onPressed: () async {
+                  final requestInfo = partnerInfo.requestInfoList;
+                  if (requestInfo != null && requestInfo.isNotEmpty) {
+                    context.goNamed(PartnerRequestInfoScreen.routeName);
+                  }
+                },
+                child: Text(partnerInfo.requestInfoList != null
+                    ? '${partnerInfo.requestInfoList!.length} 건'
+                    : '0 건'),
               ),
-              ColoredBox(
-                color: Colors.blueAccent,
-                child: Container(
-                    // 바트너 요청하기 버튼
-                    child: ElevatedButton(
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (_) {
-                              return PartnerSearchPop2();
-                            },
-                          );
-                        },
-                        child: Text('요청하기'))),
-              ),
-              ColoredBox(
-                color: Colors.blueAccent,
-                child: Container(
-                  child: ElevatedButton(
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (_) {
-                            return PartnerCodePopup();
-                          },
-                        );
+            ),
+            ColoredBox(
+              color: Colors.blueAccent,
+              child: ElevatedButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (_) {
+                        return const PartnerSearchPop2();
                       },
-                      child: Text('코드 생성')),
-                ),
-              )
-            ],
-          ),
+                    );
+                  },
+                  child: const Text('요청하기')),
+            ),
+            ColoredBox(
+              color: Colors.blueAccent,
+              child: Container(
+                child: ElevatedButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (_) {
+                          return const PartnerCodePopup();
+                        },
+                      );
+                    },
+                    child: const Text('코드 생성')),
+              ),
+            )
+          ],
         ),
       );
     } else if (partnerInfo is PartnerInfoModel) {
@@ -97,7 +89,6 @@ class _PartnerSimpleCardState extends ConsumerState<PartnerSimpleCard> {
               },
             ),
           ),
-          Padding(padding: EdgeInsets.symmetric(vertical: 8.0)),
           TextButton(
             child: partnerInfo.partnerAlias != null
                 ? Text(partnerInfo.partnerAlias!)
@@ -107,7 +98,7 @@ class _PartnerSimpleCardState extends ConsumerState<PartnerSimpleCard> {
         ],
       );
     } else {
-      return Text('data');
+      return const Text('data');
     }
   }
 
@@ -120,7 +111,7 @@ class _PartnerSimpleCardState extends ConsumerState<PartnerSimpleCard> {
   }
 
   Widget renderNoPartner() {
-    return Column(
+    return const Column(
       children: [Text('data')],
     );
   }
