@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:wepick/common/const/colors.dart';
 import 'package:wepick/review/component/review_card.dart';
 
-class EstimateListScreen extends StatefulWidget {
-  const EstimateListScreen({Key? key}) : super(key: key);
+class ReviewScreen extends StatefulWidget {
+  const ReviewScreen({Key? key}) : super(key: key);
 
   @override
-  State<EstimateListScreen> createState() => _EstimateListScreenState();
+  State<ReviewScreen> createState() => _ReviewScreenState();
 }
 
-class _EstimateListScreenState extends State<EstimateListScreen> {
+class _ReviewScreenState extends State<ReviewScreen> {
   String selectedClasses = '';
   @override
   Widget build(BuildContext context) {
@@ -76,6 +76,7 @@ class _EstimateListScreenState extends State<EstimateListScreen> {
 
     return SearchBar(
       leading: DropdownButton(
+        underline: SizedBox.shrink(),
         padding: EdgeInsets.symmetric(horizontal: 8.0),
         borderRadius: BorderRadius.circular(16.0),
         style: TextStyle(color: PRIMARY_COLOR),

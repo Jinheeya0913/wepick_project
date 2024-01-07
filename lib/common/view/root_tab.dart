@@ -71,7 +71,7 @@ class _RootTabState extends ConsumerState<RootTab>
             icon: Icon(
               Icons.receipt_long_outlined,
             ),
-            label: '견적',
+            label: '리뷰',
           ),
           BottomNavigationBarItem(
             icon: Icon(
@@ -95,12 +95,8 @@ class _RootTabState extends ConsumerState<RootTab>
               child: const Text('data2'),
             ),
           ),
-          Center(
-            child: EstimateListScreen(),
-          ),
-          Container(
-            child: MyWedingScreen(),
-          ),
+          const ReviewScreen(),
+          const MyWedingScreen(),
         ],
       ),
 
@@ -120,7 +116,7 @@ class _RootTabState extends ConsumerState<RootTab>
       } else if (index == 1) {
         title = '달력';
       } else if (index == 2) {
-        title = '견적';
+        title = '리뷰';
       } else if (index == 3) {
         title = '마이위딩';
       } else {

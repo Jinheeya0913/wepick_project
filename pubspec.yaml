@@ -114,6 +114,8 @@ flutter:
   assets:
     - assets/img/logo/logo.png
     - assets/img/logo/codefactory_logo.png
+    - assets/img/hall/
+    - assets/img/hall/hestia.png
     - assets/img/user/
     - assets/img/user/my_profile.jpeg
   #   - images/a_dot_ham.jpeg
