@@ -4,8 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wepick/estimate/view/article_write_screen.dart';
-import 'package:wepick/estimate/view/search_hall_screen.dart';
-import 'package:wepick/estimate/view/search_place_screen.dart';
+import 'package:wepick/product/view/search_hall_screen.dart';
+import 'package:wepick/product/view/search_place_screen.dart';
 import 'package:wepick/common/view/root_tab.dart';
 import 'package:wepick/common/view/splash_screen.dart';
 import 'package:wepick/common/view/test/template/test_googleMap.dart';
@@ -19,6 +19,7 @@ import 'package:wepick/partner/model/partner_model.dart';
 import 'package:wepick/partner/provider/partner_provider.dart';
 import 'package:wepick/partner/view/partnerInfo_screen.dart';
 import 'package:wepick/partner/view/partner_request_info_screen.dart';
+import 'package:wepick/review/view/review_create_screen.dart';
 import 'package:wepick/user/model/user_model.dart';
 import 'package:wepick/user/provider/user_provider.dart';
 import 'package:wepick/user/view/join_screen_1.dart';
@@ -115,6 +116,11 @@ class AuthProvider extends ChangeNotifier {
               ),
             ),
           ],
+        ),
+        GoRoute(
+          path: '/reviewWrite',
+          name: ReviewCreateScreen.routeName,
+          builder: (_, state) => ReviewCreateScreen(),
         ),
         GoRoute(
           // 테스트용 Router

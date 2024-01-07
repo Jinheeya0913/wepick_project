@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:wepick/review/view/review_create_screen.dart';
 import 'package:wepick/review/view/review_screen.dart';
 import 'package:wepick/user/view/myweding_screen.dart';
 import '../const/colors.dart';
@@ -132,6 +134,10 @@ class _RootTabState extends ConsumerState<RootTab>
   }
 
   Widget writeReviewButton() {
-    return IconButton(onPressed: () {}, icon: const Icon(Icons.edit_outlined));
+    return IconButton(
+        onPressed: () {
+          context.pushNamed(ReviewCreateScreen.routeName);
+        },
+        icon: const Icon(Icons.edit_outlined));
   }
 }
