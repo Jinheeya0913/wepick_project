@@ -38,11 +38,11 @@ class ReviewCard extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      'PJ호텔',
+                      'PJ호텔(서울)',
                       style: TextStyle(fontSize: 16.0),
                     ),
                     SizedBox(width: 8.0),
-                    Text('서울', style: TextStyle(color: Colors.grey))
+                    Text('헤스티아홀', style: TextStyle(color: Colors.grey))
                   ],
                 ),
                 Text(

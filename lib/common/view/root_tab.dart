@@ -22,6 +22,7 @@ class _RootTabState extends ConsumerState<RootTab>
     with SingleTickerProviderStateMixin {
   int index = 0;
   String title = '위딩';
+  Widget? leadingButton;
   // int index = 1;
   // late --> initState 과정에서 값이 주입
   late TabController tabController;
@@ -44,6 +45,7 @@ class _RootTabState extends ConsumerState<RootTab>
     return DefaultLayout(
       automaticallyImplyLeading: false,
       title: title,
+      leadingButton: leadingButton,
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: PRIMARY_COLOR,
         unselectedItemColor: BODY_TEXT_COLOR,
@@ -113,15 +115,23 @@ class _RootTabState extends ConsumerState<RootTab>
       index = tabController.index;
       if (index == 0) {
         title = '홈';
+        leadingButton = null;
       } else if (index == 1) {
         title = '달력';
+        leadingButton = null;
       } else if (index == 2) {
         title = '리뷰';
+        leadingButton = writeReviewButton();
       } else if (index == 3) {
         title = '마이위딩';
+        leadingButton = null;
       } else {
         title = '위딩';
       }
     });
+  }
+
+  Widget writeReviewButton() {
+    return IconButton(onPressed: () {}, icon: const Icon(Icons.edit_outlined));
   }
 }

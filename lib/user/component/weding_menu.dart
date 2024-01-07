@@ -24,9 +24,10 @@ class _WedingMenuState extends State<WedingMenu> {
             onTap: () {}, child: renderMenuItem(Icons.favorite, '위시리스트')),
         GestureDetector(
             onTap: () {},
-            child: renderMenuItem(Icons.receipt_long_rounded, '내 견적 ')),
+            child: renderMenuItem(Icons.article_outlined, '리뷰 작성')),
         GestureDetector(
-            onTap: () {}, child: renderMenuItem(Icons.article_outlined, '견적 ')),
+            onTap: () {},
+            child: renderMenuItem(Icons.receipt_long_rounded, '내 견적 ')),
         GestureDetector(
             onTap: () {}, child: renderMenuItem(Icons.article_outlined, '견적 ')),
         GestureDetector(
