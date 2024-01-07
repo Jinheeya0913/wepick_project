@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:wepick/estimate/view/estimate_list_screen.dart';
+import 'package:wepick/review/view/review_screen.dart';
 import 'package:wepick/user/view/myweding_screen.dart';
 import '../const/colors.dart';
 import '../layout/default_layout.dart';

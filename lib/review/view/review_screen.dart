@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:wepick/common/const/colors.dart';
+import 'package:wepick/review/component/review_card.dart';
 
 class EstimateListScreen extends StatefulWidget {
   const EstimateListScreen({Key? key}) : super(key: key);
@@ -14,44 +15,51 @@ class _EstimateListScreenState extends State<EstimateListScreen> {
   String selectedClasses = '';
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Row(
-          children: [
-            Expanded(
-              // 검색창
-              child: renderSearchBar(),
-            ),
-          ],
-        ),
-        Expanded(
-          child: CustomScrollView(
-            slivers: <Widget>[
-              SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (BuildContext context, int index) {
-                    return ListTile(
-                      title: Text('Item ${index + 1}'),
-                    );
-                  },
-                  childCount: 30,
-                ),
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            children: [
+              Expanded(
+                // 검색창
+                child: renderSearchBar(),
               ),
             ],
           ),
-        ),
-        /**
-         * 검색목록
-         * Refresh
-         *  SingleScrollView
-         *  - SliverList
-         *    - ResultCard
-         *
-         *
-         *
-         */
-      ],
+          SizedBox(
+            height: 28,
+          ),
+          ReviewCard(),
+          // Expanded(
+          //   child: CustomScrollView(
+          //     slivers: <Widget>[
+          //       SliverList(
+          //         delegate: SliverChildBuilderDelegate(
+          //           (BuildContext context, int index) {
+          //             return ListTile(
+          //               title: Text('Item ${index + 1}'),
+          //             );
+          //           },
+          //           childCount: 30,
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
+          /**
+           * 검색목록
+           * Refresh
+           *  SingleScrollView
+           *  - SliverList
+           *    - ResultCard
+           *
+           *
+           *
+           */
+        ],
+      ),
     );
   }
 
