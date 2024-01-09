@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:wepick/estimate/view/gift_write_layout.dart';
-import 'package:wepick/estimate/view/estimate_hall_write_screen.dart';
-import 'package:wepick/estimate/view/package_write_layout.dart';
+import 'package:wepick/estimate/view/esti_gift_write_layout.dart';
+import 'package:wepick/estimate/view/esti_hall_write_screen.dart';
+import 'package:wepick/estimate/view/esti_package_write_layout.dart';
 import 'package:wepick/common/const/colors.dart';
 import 'package:wepick/common/layout/default_layout.dart';
 
