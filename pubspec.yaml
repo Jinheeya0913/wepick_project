@@ -63,6 +63,8 @@ dependencies:
   firebase_in_app_messaging: ^0.7.4+8
   # icon
   font_awesome_flutter: ^10.6.0
+  # dropdown_button2:
+  dropdown_button2: ^2.3.9
 
   # Not Use
   # ====================================

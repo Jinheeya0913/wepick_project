@@ -1,6 +1,8 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:wepick/product/component/products_dropdown_button.dart';
 import 'package:wepick/review/view/review_create_screen.dart';
 import 'package:wepick/review/view/review_screen.dart';
 import 'package:wepick/user/view/myweding_screen.dart';
@@ -25,6 +27,7 @@ class _RootTabState extends ConsumerState<RootTab>
   int index = 0;
   String title = '위딩';
   Widget? leadingButton;
+  String selectedClass = '';
   // int index = 1;
   // late --> initState 과정에서 값이 주입
   late TabController tabController;
@@ -34,6 +37,7 @@ class _RootTabState extends ConsumerState<RootTab>
     super.initState();
     tabController = TabController(length: 4, vsync: this);
     tabController.addListener(tabListener);
+    selectedClass = '';
   }
 
   @override
@@ -134,10 +138,38 @@ class _RootTabState extends ConsumerState<RootTab>
   }
 
   Widget writeReviewButton() {
-    return IconButton(
-        onPressed: () {
-          context.pushNamed(ReviewCreateScreen.routeName);
-        },
-        icon: const Icon(Icons.edit_outlined));
+    return const ProductsDropdownButton();
+    // return DropdownButton(
+    //   // isExpanded: true,
+    //   icon: const Icon(Icons.edit),
+    //   underline: const SizedBox.shrink(),
+    //   padding: const EdgeInsets.symmetric(horizontal: 8.0),
+    //   borderRadius: BorderRadius.circular(16.0),
+    //   style: const TextStyle(color: PRIMARY_COLOR),
+    //   value: selectedClass,
+    //   onChanged: (String? value) {
+    //     if (value != null) {
+    //       setState(() {
+    //         selectedClass = value;
+    //       });
+    //     }
+    //   },
+    //   items: classes.map(
+    //     (String e) {
+    //       return DropdownMenuItem<String>(
+    //         value: e,
+    //         child: Text(
+    //           e,
+    //           // style: TextStyle(fontSize: 8.0),
+    //         ),
+    //       );
+    //     },
+    //   ).toList(),
+    // );
+    // return IconButton(
+    //     onPressed: () {
+    //       context.pushNamed(ReviewCreateScreen.routeName);
+    //     },
+    //     icon: const Icon(Icons.edit_outlined));
   }
 }
