@@ -20,6 +20,7 @@ import 'package:wepick/partner/provider/partner_provider.dart';
 import 'package:wepick/partner/view/partnerInfo_screen.dart';
 import 'package:wepick/partner/view/partner_request_info_screen.dart';
 import 'package:wepick/review/view/review_create_screen.dart';
+import 'package:wepick/review/view/review_hall_write_screen.dart';
 import 'package:wepick/user/model/user_model.dart';
 import 'package:wepick/user/provider/user_provider.dart';
 import 'package:wepick/user/view/join_screen_1.dart';
@@ -102,25 +103,24 @@ class AuthProvider extends ChangeNotifier {
           path: '/articleWrite',
           name: ArticleWriteScreen.routeName,
           builder: (_, state) => ArticleWriteScreen(),
-          routes: [
-            GoRoute(
-              path: 'placeSearch',
-              name: SearchPlaceScreen.routeName,
-              builder: (_, state) => SearchPlaceScreen(),
-            ),
-            GoRoute(
-              path: 'hallSearch:placeName',
-              name: SearchHallScreen.routeName,
-              builder: (_, state) => SearchHallScreen(
-                placeName: state.pathParameters["placeName"].toString(),
-              ),
-            ),
-          ],
+          routes: [],
         ),
         GoRoute(
-          path: '/reviewWrite',
-          name: ReviewCreateScreen.routeName,
-          builder: (_, state) => ReviewCreateScreen(),
+          path: '/placeSearch',
+          name: SearchPlaceScreen.routeName,
+          builder: (_, state) => const SearchPlaceScreen(),
+        ),
+        GoRoute(
+          path: '/reviewWriteHall',
+          name: ReviewWriteHallScreen.routeName,
+          builder: (_, state) => const ReviewWriteHallScreen(),
+        ),
+        GoRoute(
+          path: '/hallSearch:placeName',
+          name: SearchHallScreen.routeName,
+          builder: (_, state) => SearchHallScreen(
+            placeName: state.pathParameters["placeName"].toString(),
+          ),
         ),
         GoRoute(
           // 테스트용 Router

@@ -54,7 +54,7 @@ class _SearchHallScreenState extends State<SearchHallScreen> {
               ],
             ),
             Expanded(
-              child: searchResults.length != 0
+              child: searchResults.isNotEmpty
                   ? ListView.builder(
                       itemCount: searchResults.length,
                       itemBuilder: (context, index) {
@@ -77,7 +77,7 @@ class _SearchHallScreenState extends State<SearchHallScreen> {
                           },
                           child: ListTile(
                             leading: Icon(Icons.arrow_right),
-                            title: Text(searchString),
+                            title: Text('$searchString 직접입력'),
                           ),
                         )
                       : Container(),

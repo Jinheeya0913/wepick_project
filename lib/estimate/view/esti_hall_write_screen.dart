@@ -82,10 +82,10 @@ class _EstimateHallWriteScreenState
                       ),
                       TextButton(
                         onPressed: () async {
+                          // Todo  변경 필요
                           final result = await context
                               .pushNamed(SearchPlaceScreen.routeName);
                           setState(() {
-                            // 변경 필요
                             if (result != null) {
                               placeNm = result.toString();
                               // 임시 하드코딩

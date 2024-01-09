@@ -1,11 +1,13 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
+import 'package:wepick/review/view/review_hall_write_screen.dart';
 
 import '../../common/const/colors.dart';
 
-class ProductsDropdownButton extends StatelessWidget {
-  const ProductsDropdownButton({Key? key}) : super(key: key);
+class ProductsDropdownButtons extends StatelessWidget {
+  const ProductsDropdownButtons({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -85,6 +87,7 @@ abstract class _MenuItems {
   static void onChanged(BuildContext context, _MenuItem item) {
     switch (item) {
       case _MenuItems.wedingHall:
+        context.pushNamed(ReviewWriteHallScreen.routeName);
         break;
       case _MenuItems.package:
         break;

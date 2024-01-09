@@ -77,7 +77,7 @@ class _RootTabState extends ConsumerState<RootTab>
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.receipt_long_outlined,
+              Icons.article,
             ),
             label: '리뷰',
           ),
@@ -117,6 +117,7 @@ class _RootTabState extends ConsumerState<RootTab>
   }
 
   void tabListener() {
+    // 탭에 따른 인덱스, 상단 레이아웃 제목, 상단 레이아웃 버튼 변경
     setState(() {
       index = tabController.index;
       if (index == 0) {
@@ -138,38 +139,6 @@ class _RootTabState extends ConsumerState<RootTab>
   }
 
   Widget writeReviewButton() {
-    return const ProductsDropdownButton();
-    // return DropdownButton(
-    //   // isExpanded: true,
-    //   icon: const Icon(Icons.edit),
-    //   underline: const SizedBox.shrink(),
-    //   padding: const EdgeInsets.symmetric(horizontal: 8.0),
-    //   borderRadius: BorderRadius.circular(16.0),
-    //   style: const TextStyle(color: PRIMARY_COLOR),
-    //   value: selectedClass,
-    //   onChanged: (String? value) {
-    //     if (value != null) {
-    //       setState(() {
-    //         selectedClass = value;
-    //       });
-    //     }
-    //   },
-    //   items: classes.map(
-    //     (String e) {
-    //       return DropdownMenuItem<String>(
-    //         value: e,
-    //         child: Text(
-    //           e,
-    //           // style: TextStyle(fontSize: 8.0),
-    //         ),
-    //       );
-    //     },
-    //   ).toList(),
-    // );
-    // return IconButton(
-    //     onPressed: () {
-    //       context.pushNamed(ReviewCreateScreen.routeName);
-    //     },
-    //     icon: const Icon(Icons.edit_outlined));
+    return const ProductsDropdownButtons();
   }
 }
