@@ -7,7 +7,7 @@ import 'package:wepick/common/const/colors.dart';
 import 'package:wepick/common/view/root_tab.dart';
 import 'package:wepick/user/provider/user_provider.dart';
 
-import '../../../user/model/user_model.dart';
+import '../../user/model/user_model.dart';
 import 'custom_circleAvatar.dart';
 
 class CustomDrawer extends ConsumerStatefulWidget {

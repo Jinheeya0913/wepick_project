@@ -7,8 +7,8 @@ import 'package:wepick/common/utils/datetimeUtil.dart';
 import 'package:wepick/common/utils/statusConvertUtil.dart';
 import 'package:wepick/partner/provider/partner_provider.dart';
 
-import '../../common/layout/custom/custom_alert_pop.dart';
-import '../../common/layout/custom/custom_circleAvatar.dart';
+import '../../common/component/custom_alert_pop.dart';
+import '../../common/component/custom_circleAvatar.dart';
 import '../../user/model/user_model.dart';
 import '../model/partner_req_que_model.dart';
 

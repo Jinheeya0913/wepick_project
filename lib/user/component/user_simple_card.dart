@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:wepick/common/layout/custom/custom_circleAvatar.dart';
+import 'package:wepick/common/component/custom_circleAvatar.dart';
 
 import '../view/popup/image_popup.dart';
 import '../model/user_model.dart';

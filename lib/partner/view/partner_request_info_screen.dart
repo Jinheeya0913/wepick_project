@@ -7,7 +7,7 @@ import 'package:wepick/partner/model/partner_search_result_model.dart';
 import 'package:wepick/partner/provider/partner_provider.dart';
 import 'package:wepick/user/model/user_model.dart';
 
-import '../../common/layout/custom/custom_alert_pop.dart';
+import '../../common/component/custom_alert_pop.dart';
 import '../model/partner_model.dart';
 
 class PartnerRequestInfoScreen extends ConsumerStatefulWidget {

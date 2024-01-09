@@ -6,9 +6,9 @@ import 'package:wepick/common/utils/datetimeUtil.dart';
 import 'package:wepick/partner/model/partner_model.dart';
 import 'package:wepick/partner/provider/partner_provider.dart';
 
-import '../../common/layout/custom/custom_alert_pop.dart';
-import '../../common/layout/custom/custom_circleAvatar.dart';
-import '../../common/layout/custom/text/custom_text_form_field.dart';
+import '../../common/component/custom_alert_pop.dart';
+import '../../common/component/custom_circleAvatar.dart';
+import '../../common/component/text/custom_text_form_field.dart';
 
 class PartnerInfoScreen extends ConsumerStatefulWidget {
   static get routeName => 'partnerInfo';

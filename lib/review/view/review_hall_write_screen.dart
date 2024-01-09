@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:go_router/go_router.dart';
-import 'package:wepick/common/layout/custom/text/custom_text_form_field.dart';
+import 'package:wepick/common/component/text/custom_text_form_field.dart';
 import 'package:wepick/common/layout/default_layout.dart';
 import 'package:wepick/product/view/search_hall_screen.dart';
 import 'package:wepick/product/view/search_place_screen.dart';

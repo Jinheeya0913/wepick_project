@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../user/model/user_model.dart';
-import '../../layout/custom/custom_drawer.dart';
+
+import '../../component/custom_drawer.dart';
 
 class TestDefaultLayout extends ConsumerWidget {
   final Widget child;

@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:wepick/common/dio/file_dio.dart';
-import 'package:wepick/common/layout/custom/custom_alert_pop.dart';
-import 'package:wepick/common/layout/custom/custom_circleAvatar.dart';
+import 'package:wepick/common/component/custom_alert_pop.dart';
+import 'package:wepick/common/component/custom_circleAvatar.dart';
 import 'package:wepick/user/provider/user_provider.dart';
 
 import '../../../common/const/data.dart';

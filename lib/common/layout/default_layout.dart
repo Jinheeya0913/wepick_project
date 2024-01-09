@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wepick/user/model/user_model.dart';
 import 'package:wepick/user/provider/user_provider.dart';
 
-import 'custom/custom_drawer.dart';
+import '../component/custom_drawer.dart';
 
 class DefaultLayout extends ConsumerWidget {
   final Widget child;
