@@ -6,6 +6,7 @@ memo.txt
 
 assets/
 lib/common/view/test/
+lib/file
 ios
 # swift Storage
 storage.swift

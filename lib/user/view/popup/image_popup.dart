@@ -12,7 +12,7 @@ import 'package:wepick/common/component/custom_circleAvatar.dart';
 import 'package:wepick/user/provider/user_provider.dart';
 
 import '../../../common/const/data.dart';
-import '../../../common/file/provider/file_provider.dart';
+import '../../../file/provider/file_provider.dart';
 
 class ImagePopup extends ConsumerStatefulWidget {
   final Function? onImageUploadComplete;
