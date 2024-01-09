@@ -1,34 +1,29 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:wepick/common/dio/file_dio.dart';
 import 'package:wepick/common/component/custom_alert_pop.dart';
-import 'package:wepick/common/component/custom_circleAvatar.dart';
-import 'package:wepick/user/provider/user_provider.dart';
 
-import '../../../common/const/data.dart';
+import '../../const/data.dart';
 import '../../../file/provider/file_provider.dart';
 
-class ImagePopup extends ConsumerStatefulWidget {
+class ImageSelectPopup extends ConsumerStatefulWidget {
   final Function? onImageUploadComplete;
   String? networkImgUrl;
 
-  ImagePopup({
+  ImageSelectPopup({
     this.onImageUploadComplete,
     this.networkImgUrl,
     Key? key,
   }) : super(key: key);
 
   @override
-  ConsumerState<ImagePopup> createState() => _ImagePopupState();
+  ConsumerState<ImageSelectPopup> createState() => _ImagePopupState();
 }
 
-class _ImagePopupState extends ConsumerState<ImagePopup> {
+class _ImagePopupState extends ConsumerState<ImageSelectPopup> {
   XFile? _image;
   final ImagePicker _picker = ImagePicker();
 
@@ -47,10 +42,10 @@ class _ImagePopupState extends ConsumerState<ImagePopup> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('이미지 업로드'),
+      title: const Text('이미지 업로드'),
       actions: [
         ElevatedButton(
-          child: Text('변경완료'),
+          child: const Text('변경완료'),
           onPressed: () async {
             if (_image != null) {
               final result = await ref
@@ -67,8 +62,8 @@ class _ImagePopupState extends ConsumerState<ImagePopup> {
                 // ignore: use_build_context_synchronously
                 showDialog(
                   context: context,
-                  builder: (_) => CustomSimpleAlertPop(
-                    title: 'title',
+                  builder: (_) => const CustomSimpleAlertPop(
+                    title: '변경완료',
                     content: '변경이 완료되었습니다',
                   ),
                 );
@@ -76,7 +71,7 @@ class _ImagePopupState extends ConsumerState<ImagePopup> {
             } else {
               showDialog(
                 context: context,
-                builder: (_) => CustomSimpleAlertPop(
+                builder: (_) => const CustomSimpleAlertPop(
                   title: '이미지 전송 실패',
                   content: '사진을 선택해주세요',
                 ),
@@ -88,10 +83,10 @@ class _ImagePopupState extends ConsumerState<ImagePopup> {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: Text('닫기'),
+          child: const Text('닫기'),
         ),
       ],
-      contentPadding: EdgeInsets.only(
+      contentPadding: const EdgeInsets.only(
         top: 8.0,
         bottom: 8.0,
       ),
@@ -118,10 +113,10 @@ class _ImagePopupState extends ConsumerState<ImagePopup> {
                 onPressed: () async {
                   _pickImage(ImageSource.camera);
                 },
-                icon: Icon(Icons.camera_alt_outlined),
+                icon: const Icon(Icons.camera_alt_outlined),
               ),
               IconButton(
-                icon: Icon(Icons.photo_camera_back),
+                icon: const Icon(Icons.photo_camera_back),
                 onPressed: () async {
                   _pickImage(ImageSource.gallery);
                 },

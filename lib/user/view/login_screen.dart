@@ -9,7 +9,7 @@ import 'package:wepick/user/view/join_screen_1.dart';
 
 import '../../common/auth/model/auth_login_request_model.dart';
 import '../../common/const/colors.dart';
-import '../../common/component/text/custom_text_form_field.dart';
+import '../../common/component/text/custom_textinput_form.dart';
 import '../../common/layout/default_layout.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {

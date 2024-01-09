@@ -7,7 +7,7 @@ import 'package:wepick/common/utils/validationUtil.dart';
 import 'package:wepick/user/model/user_model.dart';
 import 'package:wepick/user/provider/user_provider.dart';
 
-import '../../common/component/text/custom_text_form_field.dart';
+import '../../common/component/text/custom_textinput_form.dart';
 import '../../common/layout/default_layout.dart';
 
 class JoinScreen extends ConsumerStatefulWidget {

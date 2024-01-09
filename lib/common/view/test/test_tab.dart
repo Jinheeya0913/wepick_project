@@ -6,7 +6,7 @@ import 'package:wepick/common/view/test/template/test_googleMap.dart';
 import 'package:wepick/common/view/test/test_kakao.dart';
 import 'package:wepick/common/view/test/test_liquid.dart';
 import 'package:wepick/common/view/test/test_pop_route.dart';
-import 'package:wepick/user/view/popup/image_popup.dart';
+import 'package:wepick/common/component/popup/custom_image_select_popup.dart';
 import 'package:wepick/common/layout/default_layout.dart';
 import 'package:wepick/common/view/test/test_custom_drawer.dart';
 import 'package:wepick/common/view/test/test_default_input_filed.dart';
@@ -68,7 +68,7 @@ class TestTab extends ConsumerWidget {
               showDialog(
                 context: context,
                 builder: (_) {
-                  return ImagePopup();
+                  return ImageSelectPopup();
                 },
               );
             },

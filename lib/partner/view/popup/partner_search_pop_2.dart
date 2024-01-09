@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wepick/partner/provider/partner_provider.dart';
 
 import '../../../common/component/custom_circleAvatar.dart';
-import '../../../common/component/text/custom_text_con_bottom_ln.dart';
+import '../../../common/component/text/custom_textinput_con_bottom_ln.dart';
 import '../../model/partner_search_result_model.dart';
 
 class PartnerSearchResult2 extends ConsumerStatefulWidget {

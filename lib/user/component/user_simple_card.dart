@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wepick/common/component/custom_circleAvatar.dart';
 
-import '../view/popup/image_popup.dart';
+import '../../common/component/popup/custom_image_select_popup.dart';
 import '../model/user_model.dart';
 import '../provider/user_provider.dart';
 
@@ -40,7 +40,7 @@ class _UserSimpleCardState extends ConsumerState<UserSimpleCard> {
                 transitionBuilder: (_, a1, a2, widget) {
                   return ScaleTransition(
                     scale: Tween<double>(begin: 0.5, end: 1.0).animate(a1),
-                    child: ImagePopup(
+                    child: ImageSelectPopup(
                       onImageUploadComplete: handleImageUploadComplete,
                       networkImgUrl: user!.userImgUrl,
                     ),

@@ -8,7 +8,7 @@ import 'package:wepick/partner/provider/partner_provider.dart';
 
 import '../../common/component/custom_alert_pop.dart';
 import '../../common/component/custom_circleAvatar.dart';
-import '../../common/component/text/custom_text_form_field.dart';
+import '../../common/component/text/custom_textinput_form.dart';
 
 class PartnerInfoScreen extends ConsumerStatefulWidget {
   static get routeName => 'partnerInfo';

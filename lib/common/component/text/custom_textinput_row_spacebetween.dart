@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'custom_text_form_field.dart';
+import 'custom_textinput_form.dart';
 
 class RowInputTextWithTitle extends StatelessWidget {
   final String title;
