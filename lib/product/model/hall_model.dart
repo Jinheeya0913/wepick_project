@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:wepick/estimate/model/place_model.dart';
+import 'package:wepick/product/model/place_model.dart';
 
-part 'hall_model.g.dart';
+part '../../product/model/hall_model.g.dart';
 
 @JsonSerializable()
 class HallModel {

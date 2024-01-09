@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wepick/estimate/model/hall_estimate_model.dart';
-import 'package:wepick/estimate/model/place_model.dart';
+import 'package:wepick/product/model/place_model.dart';
 import 'package:wepick/estimate/provider/estimate_provider.dart';
 import 'package:wepick/product/view/search_hall_screen.dart';
 import 'package:wepick/product/view/search_place_screen.dart';
